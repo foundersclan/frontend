@@ -1,0 +1,73 @@
+[
+  {
+    "id": 1,
+    "name": "Deepak",
+    "department": "Mechanical Engineering",
+    "year": "First Year",
+    "designation" : "Student",
+    "joined_on": "2024-02-20",
+    "sessions_attended": [
+      {
+        "title": "The Emotional Cycle of Change",
+        "summary": "Discussed stages of change, overthinking, and its impact on mental health."
+      }
+    ],
+    "experience": "The session changed my perspective on overthinking. The community is helpful for college life and future. Grateful to the members and to Nishant sir."
+  },
+  {
+    "id": 2,
+    "name": "Tarun",
+    "experience": "The experience was amazing. I’ve learned a lot. This community helps with personal and career growth, freelancing, and mindset. Grateful to Mr. Nishant and everyone in the community."
+  },
+  {
+    "id": 3,
+    "name": "Sagar",
+    "department": "Mechanical",
+    "designation" : "Student",
+    "sessions_attended": [
+      {
+        "title": "Rich Mindset and Psychology of Money",
+        "summary": "Explored wealth mindset, risk tolerance, and financial discipline."
+      },
+      {
+        "title": "The Art of Introduction: Formal vs Informal",
+        "summary": "Discussed communication styles with real-life examples."
+      },
+      {
+        "title": "Describing Elements of Story",
+        "summary": "Group activity on storytelling and creative thinking."
+      }
+    ],
+    "experience": "Appreciated the quotes and group activities. Gained confidence and highly recommends the community."
+  },
+  {
+    "id": 4,
+    "name": "Jivika",
+    "designation" : "Student",
+    "experience": "My experience was awesome. I learned a lot and appreciate the efforts of Mr. Nishant and the community for creating a growth-focused space."
+  },
+  {
+    "id": 5,
+    "name": "Nikita",
+    "designation" : "Social Media Director",
+    "experience": "Founders Community boosted my confidence and gave me clarity. Mentors care and sessions are practical. I feel lucky to have joined during college."
+  },
+  {
+    "id": 6,
+    "name": "Prashant",
+    "designation" : "Student",
+    "experience": "Grateful to have found this in college. Helped gain clarity and confidence in life and career. Practical sessions with real value."
+  },
+  {
+    "id": 7,
+    "name": "Sujal Pruthi",
+    "designation" : "Mechnical Engineer",
+    "sessions_attended": [
+      {
+        "topics": ["Finances", "Communication"],
+        "summary": "Sessions were practical, open, and helpful with direct insights."
+      }
+    ],
+    "experience": "Sessions were impactful and practical. Wished it was available from the first year. Appreciated @~Nishant Saini for starting the community."
+  }
+]

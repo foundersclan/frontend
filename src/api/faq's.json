@@ -1,0 +1,38 @@
+ [
+    {
+      "id": 1,
+      "category": "Community Benefits",
+      "question": "What makes your community unique?",
+      "answer": "Our community offers real-life examples of successful individuals, providing inspiration, guidance, and a supportive environment to help you achieve your goals."
+    },
+    {
+      "id": 2,
+      "category": "Community Benefits",
+      "question": "How do you support members in achieving their goals?",
+      "answer": "We provide expert guidance, accountability, and a collaborative environment to help members stay focused and motivated."
+    },
+    {
+      "id": 3,
+      "category": "Personal Growth and Development",
+      "question": "What areas of personal growth do you focus on?",
+      "answer": "We focus on interpersonal growth, communication skills improvement, professional development, and entrepreneurial thinking to help members achieve holistic growth."
+    },
+    {
+      "id": 4,
+      "category": "Personal Growth and Development",
+      "question": "How do you help members develop their skills?",
+      "answer": "Through interactive sessions, expert insights, and collaborative learning opportunities, members can develop their skills and achieve their goals."
+    },
+    {
+      "id": 5,
+      "category": "Community Environment",
+      "question": "What kind of environment can I expect in the community?",
+      "answer": "Our community is supportive, motivating, and guided by experienced individuals who are committed to helping members achieve their goals."
+    },
+    {
+      "id": 6,
+      "category": "Community Environment",
+      "question": "How do you ensure members stay accountable and motivated?",
+      "answer": "We provide regular check-ins, feedback, and support to help members stay on track and motivated."
+    }
+]

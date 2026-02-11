@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Diplomata+SC&family=Grey+Qo&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+/* *{
+  margin: 0;
+  padding: 0;
+} */
+body{
+  scroll-behavior:calc(100vh - 100px);
+  scrollbar-color: black;
+  scrollbar-width: 10px;
+  background-color: black;
+  overflow-x: hidden;
+}
+.container{
+  width: 100vw;
+  height: auto;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(100deg, rgb(0, 0, 0) 100%, rgba(245,245,245,1) 100%);
+  overflow: hidden;
+}
+html{
+  scroll-behavior: smooth;
+} 
+.font-diplomata-sc {
+   font-family: "Diplomata", serif;
+  font-style: normal;
+}
+.review-card {
+  animation: cardAnimation 4 ease-in-out 10  infinite forwards none;
+}
+@keyframes cardAnimation {
+  0%{
+    opacity: 0;
+    transform: translateX(10);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
