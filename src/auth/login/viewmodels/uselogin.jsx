@@ -1,112 +1,108 @@
-import React, { useState, useEffect, useContext } from "react";
-import { loginUser, userLoginFunction } from "../repository/login";
+import { useState, useEffect, useContext } from "react";
+import { loginUser, googleLogin, getStoredUser, isAuthenticated } from "../repository/login";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../../context/my-context";
-import { signInWithPopup } from "firebase/auth";
-import { Auth,provider } from "../../../firebase/firebaseconfig";
-import { onAuthStateChanged } from "firebase/auth";
+
 export const useLogin = () => {
     const navigate = useNavigate();
-    const { setloading, setisLoggedIn, loading, isLoggedIn , loggedUser , setUser } = useContext(MyContext);
+    const { setLoading, setisLoggedIn, loading, isLoggedIn, setUser } = useContext(MyContext);
 
-    const [role, setRole] = useState("owner");
     const [userCred, setUserCred] = useState({
         email: "",
         password: "",
-        phone: ""
     });
     const [errors, setErrors] = useState({});
 
-    useEffect(()=>{
-    const unSubscribe = onAuthStateChanged(Auth, (currentUser)=>{
-      setUser(currentUser);
-    }); 
-    return ()=>{
-      unSubscribe();
-    }
-  },[])
+    // ✅ REMOVED the auto-redirect useEffect
+
+    // Validate on input change
+    useEffect(() => {
+        validate()
+    }, [userCred])
 
     const validate = () => {
-        const newErrors = {};
-        if (role === "owner") {
-            if (!userCred.email) {
-                newErrors.email = "Email is required";
-            } else if (!/\S+@\S+\.\S+/.test(userCred.email)) {
-                newErrors.email = "Enter a valid email address";
-            }
-            if (!userCred.password) {
-                newErrors.password = "Password is required";
-            } else if (userCred.password.length < 6) {
-                newErrors.password = "Password must be at least 6 characters";
-            }
-        } else if (role === "buyer") {
-            if (!userCred.phone) {
-                newErrors.phone = "Phone number is required";
-            } else if (!/^[0-9]{10}$/.test(userCred.phone)) {
-                newErrors.phone = "Enter a valid 10-digit phone number";
-            }
+        const newErrors = {}
+
+        if (!userCred.email) {
+            newErrors.email = "Email is required"
+        } else if (!/\S+@\S+\.\S+/.test(userCred.email)) {
+            newErrors.email = "Enter a valid email address"
         }
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
 
-    useEffect(() => {
-        validate();
-    }, [userCred, role]);
+        if (!userCred.password) {
+            newErrors.password = "Password is required"
+        } else if (userCred.password.length < 6) {
+            newErrors.password = "Password must be at least 6 characters"
+        }
 
-
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+    }
 
     const handleLogin = async () => {
-        if (!validate() && !verifyToken()) {
-            setisLoggedIn(false);
-            return;
+        if (!validate()) {
+            setisLoggedIn(false)
+            return
         }
-        setloading(true);
+
+        setLoading(true)
         try {
-            const success = await userLoginFunction({ role, userCred, setUserCred });
-            setloading(false);
-            if (success) {
-                setisLoggedIn(true);
-                if (role === "buyer") {
-                    navigate("/pglist");
-                } else {
-                    navigate(`/`);
-                }
+            const data = await loginUser({
+                email:    userCred.email,
+                password: userCred.password,
+            })
+
+            setUser(data.user)
+            setisLoggedIn(true)
+            setUserCred({ email: "", password: "" })
+
+            if (data.user.role === 'admin') {
+                navigate('/admin')
             } else {
-                setisLoggedIn(false);
+                navigate('/')
             }
-        } catch (error) {
-            setloading(false);
-            setisLoggedIn(false);
-            setErrors({ general: error.message });
 
-        }
-    };
-
-    const handleGoogleSignIn = async() => {
-        setloading(true);
-        try {
-            const result = await signInWithPopup(Auth,provider);
-            const user = result.user;
-            console.log(user);
-            setloading(false);
-            setisLoggedIn(true);
-            navigate(`/`);
         } catch (error) {
-            setloading(false);
-            setisLoggedIn(false);
-            setErrors({ general: error.message });
+            setisLoggedIn(false)
+            setErrors({ general: error.message || 'Login failed' })
+        } finally {
+            setLoading(false)
         }
     }
+
+    const handleGoogleSignIn = async (googleUserData) => {
+        setLoading(true)
+        try {
+            const data = await googleLogin({
+                email:     googleUserData.email,
+                firstName: googleUserData.given_name,
+                lastName:  googleUserData.family_name,
+            })
+
+            setUser(data.user)
+            setisLoggedIn(true)
+
+            if (data.user.role === 'admin') {
+                navigate('/admin')
+            } else {
+                navigate('/')
+            }
+
+        } catch (error) {
+            setisLoggedIn(false)
+            setErrors({ general: error.message || 'Google login failed' })
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return {
-        role,
-        setRole,
         errors,
         userCred,
         setUserCred,
         handleLogin,
+        handleGoogleSignIn,
         loading,
         isLoggedIn,
-        handleGoogleSignIn,
-    };
-};
+    }
+}

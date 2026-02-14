@@ -15,9 +15,9 @@ export const Home = () => {
                     <LandingPage />
                     <AboutUs />
                     <div className="bg-yellow-500/30 h-0.5 w-full"/>
-                    <Features/>
-                    <div className="bg-yellow-500/30 h-0.5 w-full"/>
                     <TeamIntro/>
+                    <div className="bg-yellow-500/30 h-0.5 w-full"/>
+                    <Features/>
                     <div className="bg-yellow-500/30 h-0.5 w-full"/>
                     <Insights/>
                     <div className="bg-yellow-500/30 h-0.5 w-full"/>

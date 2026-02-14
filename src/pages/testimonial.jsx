@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight, QuoteIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-
+import reviews from '../api/reviews.json'
 export const Testimonial = () => {
   const Reviews = [
     {
@@ -75,7 +75,7 @@ export const Testimonial = () => {
             
        
             <div className="flex gap-2 mt-10">
-              {Reviews.map((_, i) => (
+              {reviews.map((_, i) => (
                 <div 
                   key={i} 
                   className={`h-1 transition-all duration-500 rounded-full ${i === index ? 'w-8 bg-yellow-500' : 'w-2 bg-zinc-800'}`}
@@ -98,17 +98,17 @@ export const Testimonial = () => {
                 <QuoteIcon className="w-20 h-20 text-yellow-500/10 absolute -top-12 -left-12" />
                 
                 <p className="text-2xl md:text-4xl font-medium text-zinc-100 leading-snug tracking-tight italic">
-                  &ldquo;{Reviews[index].quote}&rdquo;
+                  &ldquo;{reviews[index].experience}&rdquo;
                 </p>
 
                 <div className="mt-12 flex items-center gap-6">
                   <div className="w-16 h-[1px] bg-yellow-500/50" />
                   <div>
                     <h4 className="text-xl font-bold text-white tracking-wide">
-                      {Reviews[index].name}
+                      {reviews[index].name}
                     </h4>
                     <p className="text-yellow-500/60 font-mono text-xs uppercase tracking-widest mt-1">
-                      {Reviews[index].title}
+                      {reviews[index].designation}
                     </p>
                   </div>
                 </div>

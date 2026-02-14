@@ -1,80 +1,68 @@
 import axios from "axios";
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}`;
-import { Auth,firedb } from "../../../firebase/firebaseconfig";
-import { Timestamp, addDoc, collection } from "firebase/firestore";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-export const signupUser = async (payload) => {
-  try {
-    const backendPayload = {
-      firstName: payload.firstName,
-      lastName: payload.lastName,
-      email: payload.email,
-      password: payload.password,
-      role : payload.role
-    };
-    const response = await axios.post(`${BASE_URL}/signup`, backendPayload);
-    return response.data;
-    
-  } catch (error) {
-    throw error.response?.data || { message: "Signup failed" };
-  }
-};
 
-export const userSignupFunction = async ({ role, userdata, setUserData }) => {
-  try {
-    if (role === "owner") {
-      const users = await createUserWithEmailAndPassword(
-        Auth,
-        userdata.email,
-        userdata.password
-      );
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-      const user = {
-        name: userdata.firstName,
-        email: users.user.email,
-        uid: users.user.uid,
-        role: role,
-        password: userdata.password,
-        time: Timestamp.now(),
-        date: new Date().toLocaleString("en-US", {
-          month: "short",
-          day: "2-digit",
-          year: "numeric",
-        }),
-      };
+// POST /api/auth/register
+export const registerUser = async ({ first_name, last_name, email, password, phone }) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/api/auth/register`, {
+            first_name,
+            last_name,
+            email,
+            password,
+            phone
+        })
 
-      const UserRef = collection(firedb, "user");
-      await addDoc(UserRef, user);
-    } else {
-      const user = {
-        name: userdata.firstName,
-        email: userdata.email,
-        role: role,
-        phone: userdata.phone,
-        time: Timestamp.now(),
-        date: new Date().toLocaleString("en-US", {
-          month: "short",
-          day: "2-digit",
-          year: "numeric",
-        }),
-      };
+        // Save token and user to localStorage
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.user))
 
-      const UserRef = collection(firedb, "user");
-      await addDoc(UserRef, user);
+        return response.data
+
+    } catch (error) {
+        throw error.response?.data || { message: 'Registration failed' }
     }
+}
 
-    setUserData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      phone: "",
-    });
+// POST /api/auth/google
+export const googleLogin = async ({ email, firstName, lastName }) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/api/auth/google`, {
+            email,
+            firstName,
+            lastName
+        })
 
-    return true; // Indicate success
+        // Save token and user to localStorage
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.user))
 
-  } catch (error) {
-    console.log(error);
-    throw error; // Let the caller handle alerts/navigation
-  }
-};
+        return response.data
+
+    } catch (error) {
+        throw error.response?.data || { message: 'Google signup failed' }
+    }
+}
+
+// Helper: get token for authenticated requests
+export const getAuthHeaders = () => {
+    const token = localStorage.getItem('token')
+    return { Authorization: `Bearer ${token}` }
+}
+
+// Helper: check if user is logged in
+export const isAuthenticated = () => {
+    return !!localStorage.getItem('token')
+}
+
+// Helper: get user from localStorage
+export const getStoredUser = () => {
+    const user = localStorage.getItem('user')
+    return user ? JSON.parse(user) : null
+}
+
+// Logout
+export const logoutUser = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+}

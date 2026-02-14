@@ -20,11 +20,12 @@ export const Applayout = () => {
         '/signup',
         '/register',
         '/about',
-        '/support'
+        '/support',
     ]
     const authHideRoutes = [
         '/login',
-        '/signup'
+        '/signup',
+        '/request-invitation'
     ]
     const shouldHideUi = hideRoutes.includes(location.pathname);
     const shouldHideHeaderAndFooter = authHideRoutes.includes(location.pathname);

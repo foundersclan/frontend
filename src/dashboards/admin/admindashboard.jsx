@@ -10,11 +10,13 @@ import {
 import RegistrationPortal from './view/registrations'; 
 import EventManager from './view/event-managers';
 import MemberDirectory from './view/members';
+import { useAdminDashboard } from './viewmodels/useadmindashboard';
 
 const AdminDashboard = () => {
   const [activeView, setActiveView] = useState('analytics');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const {registrations} = useAdminDashboard();
+  
   const stats = [
     { label: "Members", value: "1,284", growth: "+12%", icon: <Users className="text-amber-500" /> },
     { label: "Events", value: "8", growth: "Global", icon: <Calendar className="text-blue-500" /> },
@@ -25,7 +27,7 @@ const AdminDashboard = () => {
   const renderView = () => {
     switch (activeView) {
       case 'analytics': return <AnalyticsView stats={stats} />;
-      case 'registrations': return <RegistrationPortal />;
+      case 'registrations': return <RegistrationPortal registrations={registrations} />;
       case 'events': return <EventManager />;
       case 'directory': return <MemberDirectory />;
       default: return <AnalyticsView stats={stats} />;

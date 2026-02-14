@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  User, 
-  Calendar, 
-  History, 
-  Settings, 
-  LogOut, 
-  CreditCard, 
-  MapPin, 
+import {
+  User,
+  Calendar,
+  History,
+  Settings,
+  LogOut,
+  CreditCard,
+  MapPin,
   ExternalLink,
   Award,
   Zap
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const UserDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
-
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user'));
   const userData = {
     name: "Jonathan Wick",
     tier: "Founder Tier",
@@ -23,7 +25,11 @@ const UserDashboard = () => {
     joined: "Jan 2024",
     bio: "Scaling fintech solutions for the next generation of global markets."
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    navigate('/login');
+  }
   const registeredEvents = [
     { id: 1, name: "SF Tech Week", date: "Oct 6 – Oct 12, 2026", type: "Conference", status: "Confirmed" },
     { id: 2, name: "Founders Summit", date: "Nov 15, 2026", type: "Elite Dinner", status: "Vetting" }
@@ -36,7 +42,7 @@ const UserDashboard = () => {
 
   return (
     <div className="flex  min-h-screen bg-[#050505] text-slate-200 font-sans ">
-      
+
       {/* 1. Sidebar Navigation */}
       {/* <aside className="w-20 lg:w-64 bg-zinc-900/50 border-r border-zinc-800 flex flex-col p-6 hidden md:flex  pt-30">
         
@@ -55,10 +61,10 @@ const UserDashboard = () => {
 
       {/* 2. Main Content Area */}
       <main className="flex-1 p-6 md:pt-30 overflow-y-auto ">
-        
+
         {/* Profile Header */}
         <section className="mb-12">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="bg-zinc-900 border border-zinc-800 rounded-[2rem] p-8 flex flex-col lg:flex-row items-center gap-8 relative overflow-hidden"
@@ -70,7 +76,7 @@ const UserDashboard = () => {
             <div className="relative">
               <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-amber-500 to-amber-200 p-1">
                 <div className="w-full h-full rounded-full bg-zinc-950 flex items-center justify-center overflow-hidden">
-                   <img src="https://i.pravatar.cc/150?u=jonathan" alt="Profile" />
+                  <img src="https://i.pravatar.cc/150?u=jonathan" alt="Profile" />
                 </div>
               </div>
               <span className="absolute bottom-0 right-0 bg-amber-500 text-black text-[8px] font-black px-2 py-1 rounded-full uppercase">Pro</span>
@@ -78,25 +84,30 @@ const UserDashboard = () => {
 
             <div className="text-center lg:text-left flex-1">
               <div className="flex flex-col lg:flex-row lg:items-center gap-4 mb-2">
-                <h2 className="text-3xl font-bold text-white">{userData.name}</h2>
+                <h2 className="text-3xl font-bold text-white">{user.first_name}</h2>
                 <span className="px-3 py-1 border border-amber-500/30 text-amber-500 text-[10px] font-mono rounded-full uppercase tracking-tighter">
                   {userData.tier}
                 </span>
               </div>
               <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-zinc-500 text-xs font-medium">
-                <span className="flex items-center gap-1"><MapPin size={12} /> {userData.location}</span>
+                <span className="flex items-center gap-1"><MapPin size={12} />India</span>
                 <span className="flex items-center gap-1"><Calendar size={12} /> Member since {userData.joined}</span>
               </div>
             </div>
+            <div className='flex flex-col gap-5 items-center'>
+              <button className="bg-white text-black text-xs font-bold px-6 py-3 rounded-xl hover:bg-amber-500 transition-colors uppercase tracking-widest" onClick={handleLogout}>
+                Logout
+              </button>
+              <button className="bg-white text-black text-xs font-bold px-6 py-3 rounded-xl hover:bg-amber-500 transition-colors uppercase tracking-widest">
+                Edit Profile
+              </button>
+            </div>
 
-            <button className="bg-white text-black text-xs font-bold px-6 py-3 rounded-xl hover:bg-amber-500 transition-colors uppercase tracking-widest">
-              Edit Profile
-            </button>
           </motion.div>
         </section>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          
+
           {/* 3. Upcoming Registered Events */}
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
             <div className="flex items-center justify-between mb-6">
@@ -166,7 +177,7 @@ const UserDashboard = () => {
 
 /* Helper Component for Sidebar Items */
 const NavItem = ({ icon, label, active = false, onClick }) => (
-  <button 
+  <button
     onClick={onClick}
     className={`w-full flex items-center gap-4 p-3 rounded-xl transition-all duration-300 ${active ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'text-zinc-500 hover:text-white hover:bg-zinc-800'}`}
   >

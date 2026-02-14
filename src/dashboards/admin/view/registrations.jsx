@@ -5,34 +5,35 @@ import {
   Clock, ArrowUpRight, Building2, User
 } from 'lucide-react';
 
-const RegistrationPortal = () => {
+const RegistrationPortal = ({ registrations }) => {
   const [selectedFounder, setSelectedFounder] = useState(null);
   const [isSending, setIsSending] = useState(false);
-
-  const registrations = [
-    { 
-      id: "FND-7721", 
-      name: "Marcus Aurelius", 
-      email: "marcus@stoic.vc", 
-      company: "Stoic Ventures", 
-      role: "Managing Partner",
-      event: "SF Tech Week",
-      bio: "Focusing on early-stage deep tech and robotics. Previously exited 2 companies in the logistics space.",
-      linkedin: "linkedin.com/in/marcus",
-      phone: "+1 415 555 0192"
-    },
-    { 
-      id: "FND-7722", 
-      name: "Sienna Miller", 
-      email: "sienna@future.io", 
-      company: "Future IO", 
-      role: "CEO & Founder",
-      event: "Founders Summit",
-      bio: "Building the next generation of carbon capture technology. Looking for Series B partnerships.",
-      linkedin: "linkedin.com/in/siennam",
-      phone: "+44 20 7946 0101"
-    }
-  ];
+  console.log(registrations);
+  
+  // const registrations = [
+  //   { 
+  //     id: "FND-7721", 
+  //     name: "Marcus Aurelius", 
+  //     email: "marcus@stoic.vc", 
+  //     company: "Stoic Ventures", 
+  //     role: "Managing Partner",
+  //     event: "SF Tech Week",
+  //     bio: "Focusing on early-stage deep tech and robotics. Previously exited 2 companies in the logistics space.",
+  //     linkedin: "linkedin.com/in/marcus",
+  //     phone: "+1 415 555 0192"
+  //   },
+  //   { 
+  //     id: "FND-7722", 
+  //     name: "Sienna Miller", 
+  //     email: "sienna@future.io", 
+  //     company: "Future IO", 
+  //     role: "CEO & Founder",
+  //     event: "Founders Summit",
+  //     bio: "Building the next generation of carbon capture technology. Looking for Series B partnerships.",
+  //     linkedin: "linkedin.com/in/siennam",
+  //     phone: "+44 20 7946 0101"
+  //   }
+  // ];
 
   const handleSendEmail = () => {
     setIsSending(true);
@@ -71,7 +72,7 @@ const RegistrationPortal = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-800/50">
-            {registrations.map((founder) => (
+            {registrations.data.map((founder) => (
               <tr key={founder.id} className="group hover:bg-zinc-800/20 transition-all">
                 <td className="px-8 py-6">
                   <div>
@@ -102,18 +103,18 @@ const RegistrationPortal = () => {
 
       {/* --- MOBILE CARD VIEW --- */}
       <div className="md:hidden space-y-4">
-        {registrations.map((founder) => (
+        {registrations.data.map((founder) => (
           <div key={founder.id} className="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-5 space-y-4">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="font-bold text-white">{founder.name}</h3>
-                <p className="text-xs text-zinc-500">{founder.company}</p>
+                <h3 className="font-bold text-white">{founder.full_name}</h3>
+                <p className="text-xs text-zinc-500">{founder.company_name}</p>
               </div>
-              <span className="text-[9px] font-mono text-amber-500 border border-amber-500/20 px-2 py-1 rounded bg-amber-500/5">VETTING</span>
+              <span className="text-[9px] font-mono text-amber-500 border border-amber-500/20 px-2 py-1 rounded bg-amber-500/5">{founder.status}</span>
             </div>
             <div className="flex items-center justify-between pt-2">
                <span className="text-[10px] text-zinc-400 flex items-center gap-1">
-                 <Building2 size={12}/> {founder.event}
+                 <Building2 size={12}/> {founder.industry_type}
                </span>
                <button 
                 onClick={() => setSelectedFounder(founder)}

@@ -15,6 +15,7 @@ import Signup from "./auth/signup/signup"
 import Team from "./team/team"
 import UserDashboard from "./dashboards/userdashboard"
 import AdminDashboard from "./dashboards/admin/admindashboard"
+import Requests from "./requests/founders-requests"
 
 const router = createBrowserRouter ([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter ([
       {
         path: "/admin-dashboard",
         element : <AdminDashboard/>
+      },
+      {
+        path: "/request-invitation",
+        element : <Requests/>
       }
     ]
   }

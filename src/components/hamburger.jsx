@@ -1,6 +1,6 @@
 import { LogOut, X, User, Users, ArrowUpRight } from "lucide-react";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 
 const Hamburger = ({ click, handleMenu }) => {
@@ -10,7 +10,8 @@ const Hamburger = ({ click, handleMenu }) => {
     { name: "Private Events", path: "/events" },
     { name: "Concierge Support", path: "/support" },
   ];
-
+  const token  = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
   return (
     <AnimatePresence>
       {click && (
@@ -23,6 +24,7 @@ const Hamburger = ({ click, handleMenu }) => {
         >
          
           <div className="flex justify-between items-center p-8">
+            <Link to={`${token ? '/profile/user':'login'}`}>
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
@@ -30,8 +32,9 @@ const Hamburger = ({ click, handleMenu }) => {
               className="flex items-center gap-3 px-4 py-2 rounded-full bg-zinc-900 border border-white/5"
             >
               <User className="size-4 text-yellow-500" />
-              <span className="text-white text-xs font-mono uppercase tracking-widest">Guest Member</span>
+              <span className="text-white text-xs font-mono uppercase tracking-widest">{token?`${user.first_name}` : 'Login'}</span>
             </motion.div>
+            </Link>
 
             <button 
               onClick={handleMenu}

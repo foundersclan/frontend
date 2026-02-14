@@ -3,8 +3,8 @@ import { ArrowUpRight, Quote } from "lucide-react";
 
 export const TeamIntro = () => {
   const team = [
-    { src: "/assets/nishant.png", name: "Nishant Saini", role: "Visionary Lead" },
-    { src: "/assets/muskan2.png", name: "Jordan Chen", role: "Strategy Architect" },
+    { src: "/team/nishant2.jpeg", name: "Nishant Saini", role: "Visionary Lead" },
+    { src: "/team/rakesh.jpeg", name: "Rakesh Jha", role: "Strategy Architect" },
   ];
 
   return (

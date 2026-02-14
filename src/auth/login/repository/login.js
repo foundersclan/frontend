@@ -1,40 +1,89 @@
 import axios from "axios";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-import { Auth, firedb } from "../../../firebase/firebaseconfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
 
-export const loginUser = async ({ email, password, phone }) => {
-  try {
-    const response = await axios.post(`${BASE_URL}/login`, { email, password, phone });
-    return response.data;
-  } catch (error) {
-    throw error.response?.data || { message: "Login failed" };
-  }
-};
+export const loginUser = async ({ email, password }) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/api/auth/login`, { email, password })
 
-export const userLoginFunction = async ({ role, userCred, setUserCred }) => {
-  try {
-    const users = await signInWithEmailAndPassword(Auth, userCred.email, userCred.password);
-    const q = query(
-      collection(firedb, "user"),
-      where("uid", "==", users.user.uid)
-    );
-    const querySnapshot = await getDocs(q);
-    let user;
-    querySnapshot.forEach(doc => user = doc.data());
-    if (user) {
-      localStorage.setItem("users", JSON.stringify(user));
-      setUserCred({
-        email: "",
-        password: ""
-      });
-      return true; 
-    } else {
-      throw new Error("User not found in database");
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+
+        return response.data
+
+    } catch (error) {
+        throw error.response?.data || { message: 'Login failed' }
     }
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-};
+}
+
+
+export const registerUser = async ({ first_name, last_name, email, password, phone }) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/api/auth/register`, {
+            first_name,
+            last_name,
+            email,
+            password,
+            phone
+        })
+
+
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+
+        return response.data
+
+    } catch (error) {
+        throw error.response?.data || { message: 'Registration failed' }
+    }
+}
+
+export const googleLogin = async ({ email, firstName, lastName }) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/api/auth/google`, {
+            email,
+            firstName,
+            lastName
+        })
+
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+
+        return response.data
+
+    } catch (error) {
+        throw error.response?.data || { message: 'Google login failed' }
+    }
+}
+
+export const getCurrentUser = async () => {
+    try {
+        const token = localStorage.getItem('token')
+        const response = await axios.get(`${BASE_URL}/api/auth/me`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        return response.data
+
+    } catch (error) {
+        throw error.response?.data || { message: 'Failed to get user' }
+    }
+}
+
+export const logoutUser = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+}
+
+export const getAuthHeaders = () => {
+    const token = localStorage.getItem('token')
+    return { Authorization: `Bearer ${token}` }
+}
+
+export const isAuthenticated = () => {
+    return !!localStorage.getItem('token')
+}
+
+export const getStoredUser = () => {
+    const user = localStorage.getItem('user')
+    return user ? JSON.parse(user) : null
+}
