@@ -14,17 +14,12 @@ import {
   X
 } from 'lucide-react';
 
-const EventManager = () => {
+const EventManager = ({events}) => {
   const [activeFilter, setActiveFilter] = useState('upcoming');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
 
-  const eventList = [
-    { id: "EVT-001", name: "SF Tech Week", status: "upcoming", date: "Oct 6, 2026", location: "San Francisco", attendees: 450, capacity: 500 },
-    { id: "EVT-002", name: "Founders Summit", status: "ongoing", date: "Feb 11, 2026", location: "New York", attendees: 120, capacity: 150 },
-    { id: "EVT-003", name: "London Alpha", status: "past", date: "May 12, 2025", location: "London", attendees: 300, capacity: 300 },
-  ];
 
-  const filteredEvents = eventList.filter(e => activeFilter === 'all' || e.status === activeFilter);
+  const filteredEvents = events.filter(e => activeFilter === 'all' || e.status === activeFilter);
 
   return (
     <div className="bg-[#050505] min-h-screen text-slate-300 p-6 md:p-12 relative overflow-hidden">
@@ -139,9 +134,13 @@ const EventManager = () => {
                 <button onClick={() => setIsCreateOpen(false)} className="text-zinc-500 hover:text-white"><X size={28}/></button>
               </div>
 
-              <form className="space-y-8">
+              <div className="space-y-8">
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase font-mono tracking-widest text-zinc-500 ml-1">Event Identification</label>
+                  <input type="text" placeholder="e.g. Tokyo Nexus Summit" className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl p-4 text-white focus:border-amber-500/50 outline-none transition-all" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-mono tracking-widest text-zinc-500 ml-1">Event Thumbnail</label>
                   <input type="text" placeholder="e.g. Tokyo Nexus Summit" className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl p-4 text-white focus:border-amber-500/50 outline-none transition-all" />
                 </div>
 
@@ -175,7 +174,7 @@ const EventManager = () => {
                     Discard Draft
                   </button>
                 </div>
-              </form>
+              </div>
             </motion.div>
           </>
         )}

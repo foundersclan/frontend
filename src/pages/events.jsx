@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Calendar, ArrowRight, History, Zap, X, ShieldCheck } from "lucide-react";
-
+import event1 from '../assets/past-events/event1.jpeg'
+import event2 from '../assets/past-events/event2.jpeg'
+import event3 from '../assets/past-events/event3.jpeg'
+import event5 from '../assets/past-events/event5.jpeg'
 export const Events = () => {
   const [activeTab, setActiveTab] = useState("upcoming");
   const [selectedEvent, setSelectedEvent] = useState(null); // Tracks modal state
 
   const eventData = {
     upcoming: [
-      { id: 1, url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800", name: "SF Tech Week", location: "San Francisco", date: "Oct 6 – Oct 12", tag: "SFTW // 01", description: "Explore the intersection of deep tech and venture capital." },
-      { id: 2, url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800", name: "Founders Summit", location: "New York City", date: "Nov 15 – Nov 20", tag: "FSNY // 02", description: "An invitation-only gathering of 500+ world-class architects." }
+    
     ],
     past: [
-      { id: 3, url: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800", name: "London Alpha", location: "London, UK", date: "May 2025", tag: "LDN // 09", description: "A closed-door session focusing on the European fintech landscape." }
+      { id: 3, url: event1, name: "Rich Mindset and Pyschology of Money", location: "Hisar,Haryana,India", date: "March 2025", tag: "IND // 22", description: "Are you ready to shift your mindset and unlock the secrets of financial success? We invite you to an exclusive lecture on Rich Mindset & The Psychology of Money, where you'll learn how successful individuals think about wealth, money management, and financial freedom" },
+      { id: 4, url: event2, name: "First Impression to Financial Literacy", location: "Hisar,Haryana,India", date: "March 2025", tag: "IND // 29", description: "Are you ready to transform your understanding of money and success? Join us for an engaging and practical session on First Impressions to Financial Literacy, where we’ll explore mindset shifts, real-world analogies, and actionable strategies for wealth-building" },
+      { id: 5, url: event3, name: "How Do I Start Freelancing", location: "Hisar,Haryana,India", date: "April 2025", tag: "IND // 28", description: "Get ready to unlock your earning potential! 💸 We're bringing together experienced freelancers with 4+ years of industry experience to share their secrets on how to earn ₹50,000 from scratch in just 3 months. 🤯 You'll get to learn from their real-life experiences, gain valuable insights, and take away actionable tips to boost your own career. " },
+      { id: 5, url: event3, name: "How Do I Start Freelancing", location: "Hisar,Haryana,India", date: "April 2025", tag: "IND // 28", description: "Get ready to unlock your earning potential! 💸 We're bringing together experienced freelancers with 4+ years of industry experience to share their secrets on how to earn ₹50,000 from scratch in just 3 months. 🤯 You'll get to learn from their real-life experiences, gain valuable insights, and take away actionable tips to boost your own career. " },
+      { id: 6, url: event5, name: "Develop 'Problem-Solving Eyes' and Networking", location: "Hisar,Haryana,India", date: "August 2025", tag: "IND // 22", description: "📢 Develop 'Problem-Solving Eyes' and Networking" },
     ]
   };
-
   return (
     <section className="bg-zinc-950 py-24 relative">
       {/* Header & Toggle logic remains the same as previous response... */}

@@ -1,4 +1,4 @@
-import { RefreshCcw, Sparkle, User, ArrowUpRight } from "lucide-react";
+import { RefreshCcw, Sparkle, User, ArrowUpRight, Target, ShieldCheck, Quote, Compass, Users } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
@@ -10,118 +10,171 @@ export const AboutUs = () => {
     offset: ["start end", "end start"],
   });
 
-  // Reduced travel distance for mobile to keep background text visible but contained
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
   return (
-    <section ref={targetRef} className="relative bg-zinc-950 py-20 md:py-40 px-6 overflow-hidden">
+    <section ref={targetRef} className="relative bg-[#050505] py-24 md:py-48 px-6 overflow-hidden">
       
-      {/* 1. BACKGROUND PARALLAX - Optimized for mobile width */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:100px_100px]" />
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-yellow-500/10 blur-[120px] rounded-full" />
+      </div>
+
       <motion.div 
         style={{ y }}
-        className="absolute top-10 md:top-20 left-0 text-[18vw] md:text-[20vw] font-black text-white/[0.02] select-none pointer-events-none whitespace-nowrap font-diplomata-sc leading-none"
+        className="absolute top-20 left-0 text-[18vw] font-black text-white/[0.01] select-none pointer-events-none whitespace-nowrap font-diplomata-sc leading-none"
       >
-        EVOLVE EVOLVE EVOLVE
+        SOVEREIGN SOVEREIGN SOVEREIGN
       </motion.div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* 2. HEADER SECTION - Flex to Column on Mobile */}
-        <div className="flex flex-col md:flex-row gap-8 md:gap-12 mb-16 md:mb-32 md:items-end">
-          <div className="w-full md:w-2/3">
+        {/* 2. HEADER: OUR STORY */}
+        <div className="flex flex-col lg:flex-row gap-12 mb-20 md:mb-32 items-start lg:items-end">
+          <div className="w-full lg:w-3/5">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1 }}
             >
-              <h2 className="text-[12vw] sm:text-6xl md:text-8xl font-bold leading-[0.95] tracking-tighter text-white mb-6">
-                WE BUILD <br /> 
-                <span className="text-yellow-500">LEGACIES</span> <br className="md:hidden" /> NOT <br />
-                JUST BUSINESSES.
+              <span className="flex items-center gap-3 text-yellow-500 font-mono text-[10px] uppercase tracking-[0.5em] mb-6">
+                <span className="w-8 h-px bg-yellow-500" /> Protocol 01 // Our Origin
+              </span>
+              <h2 className="text-[12vw] sm:text-7xl md:text-8xl font-bold leading-[0.9] tracking-tighter text-white uppercase">
+                Built by <span className="italic text-transparent bg-clip-text bg-gradient-to-b from-yellow-200 to-yellow-600">Founders,</span> <br /> 
+                For Founders.
               </h2>
             </motion.div>
           </div>
           
-          <div className="w-full md:w-1/3">
-            <motion.p 
+          <div className="w-full lg:w-2/5 border-l border-zinc-800 pl-8 pb-2">
+            <motion.div 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="text-zinc-400 text-base md:text-lg border-l-2 border-yellow-500/50 pl-6 leading-relaxed"
+              transition={{ delay: 0.4 }}
+              className="space-y-4"
             >
-              The difference between a trend and a brand is <b className="text-white">vision</b>. We provide the ecosystem for founders to transition from creators to industry leaders.
-            </motion.p>
+              <h4 className="text-white font-bold uppercase text-sm tracking-widest">The Struggle is Real.</h4>
+              <p className="text-zinc-400 text-base leading-relaxed font-light">
+                Ambition alone isn't enough. Building in a vacuum is the fastest way to burn out. We were tired of searching for answers alone, so we built the bridge ourselves.
+              </p>
+            </motion.div>
           </div>
         </div>
 
-        {/* 3. CARDS GRID - Stacking logic fixed */}
-        <div className="grid grid-cols-12 gap-4 md:gap-6">
+        {/* 3. THE FOUNDER & PHILOSOPHY GRID */}
+        <div className="grid grid-cols-12 gap-5 md:gap-8">
           
-          {/* Card 01 - Startup Launchpad */}
+          {/* Meet Nishant Card */}
           <motion.div 
-            whileHover={{ y: -5 }}
-            className="col-span-12 md:col-span-7 group relative h-[350px] md:h-[450px] bg-zinc-900/50 rounded-3xl overflow-hidden border border-white/5"
+            whileHover={{ y: -8 }}
+            className="col-span-12 lg:col-span-5 group relative bg-zinc-900/20 rounded-[2.5rem] overflow-hidden border border-white/[0.03] backdrop-blur-3xl p-10 md:p-12"
           >
-             <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-             <div className="relative h-full p-8 md:p-12 flex flex-col justify-between">
-                <Sparkle className="w-10 h-10 text-yellow-500" />
-                <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Startup Launchpad</h3>
-                    <p className="text-zinc-400 text-sm md:text-base max-w-sm">The ultimate catalyst for turning disruptive ideas into market-ready ventures with expert mentorship.</p>
+            <div className="flex flex-col h-full">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-yellow-500/20">
+                    <img src="/team/nishant2.jpeg" alt="Nishant CEO" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                 </div>
-                {/* <Link>
-                <button className="flex items-center gap-2 text-yellow-500 font-bold uppercase tracking-widest text-[10px] md:text-xs">
-                     <ArrowUpRight className="w-4 h-4" />
-                </button>
-                </Link> */}
-             </div>
+                <div>
+                    <h3 className="text-xl font-bold text-white">Nishant</h3>
+                    <p className="text-yellow-500 text-xs font-mono uppercase tracking-widest">Founder & CEO</p>
+                </div>
+              </div>
+              <Quote className="text-yellow-500/20 w-12 h-12 mb-4" />
+              <p className="text-zinc-300 text-lg italic leading-relaxed font-light">
+                "I didn't start this community because I had all the answers—I started it because I was tired of searching for them alone."
+              </p>
+            </div>
           </motion.div>
 
-          {/* Card 02 - Business Essentials */}
+          {/* Philosophy Card */}
           <motion.div 
-            whileHover={{ y: -5 }}
-            className="col-span-12 md:col-span-5 group p-8 md:p-12 bg-zinc-900/50 rounded-3xl border border-white/5 flex flex-col justify-between h-[300px] md:h-[450px]"
+            whileHover={{ y: -8 }}
+            className="col-span-12 lg:col-span-7 group relative bg-gradient-to-br from-zinc-900/40 to-black rounded-[2.5rem] border border-yellow-500/10 p-10 md:p-12 overflow-hidden"
           >
-            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-yellow-500/10 transition-colors">
-                <RefreshCcw className="w-5 h-5 md:w-6 md:h-6 text-yellow-500" />
+            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-30 transition-opacity">
+                <Sparkle size={120} className="text-yellow-500" />
             </div>
-            <div>
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Business Essentials</h3>
-                <p className="text-zinc-400 text-sm md:text-base">Blueprint for scaling operations and brand architecture.</p>
+            <span className="text-yellow-500 font-mono text-[10px] uppercase tracking-[0.4em] mb-4 block">Our Core Motto</span>
+            <h3 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tighter">GIVE FIRST.</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div className="space-y-2">
+                    <Users className="text-yellow-500 w-5 h-5" />
+                    <h4 className="text-white font-bold text-sm">Exclusive Community</h4>
+                    <p className="text-zinc-500 text-xs">No fluff, just growth with serious builders.</p>
+                </div>
+                <div className="space-y-2">
+                    <Target className="text-yellow-500 w-5 h-5" />
+                    <h4 className="text-white font-bold text-sm">Direct Mentorship</h4>
+                    <p className="text-zinc-500 text-xs">Guidance from those who've walked the path.</p>
+                </div>
+                <div className="space-y-2">
+                    <Compass className="text-yellow-500 w-5 h-5" />
+                    <h4 className="text-white font-bold text-sm">Collaborative Scaling</h4>
+                    <p className="text-zinc-500 text-xs">Solve bottlenecks through mutual support.</p>
+                </div>
             </div>
-            <div className="h-px w-full bg-white/10 group-hover:bg-yellow-500/40 transition-colors" />
           </motion.div>
 
-          {/* Card 03 - Growth Mindset (Banner) */}
+          {/* Path Selection Table (The Choice) */}
+          <div className="col-span-12 grid grid-cols-1 lg:grid-cols-2 gap-5 mt-8">
+              <div className="p-10 bg-zinc-900/10 border border-white/5 rounded-[2.5rem]">
+                  <h4 className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest mb-4">The "Solo" Path</h4>
+                  <ul className="space-y-3">
+                      {["Endless Guesswork", "Risky Investments", "Vacuum Burnout", "Navigating without a map"].map((item, i) => (
+                          <li key={i} className="text-zinc-400 text-sm flex items-center gap-3">
+                              <span className="w-1.5 h-1.5 bg-zinc-800 rounded-full" /> {item}
+                          </li>
+                      ))}
+                  </ul>
+              </div>
+              <div className="p-10 bg-yellow-500/5 border border-yellow-500/20 rounded-[2.5rem] relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-yellow-500 opacity-0 group-hover:opacity-[0.02] transition-opacity" />
+                  <h4 className="text-yellow-500 font-mono text-[10px] uppercase tracking-widest mb-4">The "Clan" Path</h4>
+                  <ul className="space-y-3">
+                      {["Expert-Led Movement", "Minimized Mistakes", "Maximum Network Value", "Build Vision with Winners"].map((item, i) => (
+                          <li key={i} className="text-white text-sm flex items-center gap-3 font-medium">
+                              <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full shadow-[0_0_10px_rgba(234,179,8,1)]" /> {item}
+                          </li>
+                      ))}
+                  </ul>
+              </div>
+          </div>
+
+          {/* CTA Banner */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="col-span-12 bg-gradient-to-r from-yellow-600 to-yellow-800 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 mt-2"
+            className="col-span-12 bg-gradient-to-r from-yellow-500 to-yellow-700 rounded-[2.5rem] p-8 md:p-14 flex flex-col lg:flex-row items-center justify-between gap-10 mt-4 relative overflow-hidden group"
           >
-            <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-4 md:gap-6">
-                <div className="p-4 bg-black/20 rounded-full backdrop-blur-md shrink-0">
-                    <User className="w-6 h-6 md:w-8 md:h-8 text-white" />
+            <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-8">
+                <div className="p-6 bg-black/20 rounded-full backdrop-blur-md">
+                    <ShieldCheck className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                    <h3 className="text-xl md:text-3xl font-bold text-white">Growth Mindset</h3>
-                    <p className="text-yellow-100/80 text-sm md:text-base">Personal mastery for elite performance.</p>
+                    <h3 className="text-2xl md:text-4xl font-bold text-white tracking-tight">Stop Building in the Dark.</h3>
+                    <p className="text-yellow-100/80 text-sm md:text-lg font-light">Join a community that values your growth as much as you do.</p>
                 </div>
             </div>
-            <Link to={'/request-invitation'}>
-            <button className="w-full md:w-auto px-10 py-4 bg-white text-black font-black uppercase tracking-widest text-[10px] rounded-xl hover:bg-zinc-100 transition-all active:scale-95 shadow-xl shadow-black/20">
-                Join the Elite
-            </button>
+
+            <Link to="/request-invitation" className="w-full lg:w-auto">
+              <motion.button 
+                whileHover={{ scale: 1.05, backgroundColor: "#fff", color: "#000" }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full lg:w-auto px-12 py-5 bg-black text-white font-black uppercase tracking-[0.2em] text-[11px] rounded-2xl transition-all shadow-2xl"
+              >
+                  Join the Founders Clan
+              </motion.button>
             </Link>
           </motion.div>
 
         </div>
       </div>
 
-      {/* 4. BOTTOM FADE OUT */}
-      <div className="absolute bottom-0 left-0 w-full h-32 md:h-64 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black to-transparent pointer-events-none" />
     </section>
   );
 };

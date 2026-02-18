@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Building, BarChart3, MessageSquare, ShieldCheck, ArrowLeft,MoveLeft } from 'lucide-react';
+import { User, Building, BarChart3, MessageSquare, ShieldCheck, ArrowLeft, MoveLeft } from 'lucide-react';
 import PersonalDetails from "./view/personal-details";
 import BusinessIntelligence from "./view/company-details";
 import BusinessMetrics from "./view/revenue-details";
@@ -22,21 +22,46 @@ const Requests = () => {
     prevStep,
     handleSubmit,
     resetForm,
+    otpSent,
+    otpVerified,
+    otpValue,
+    setOtpValue,
+    otpLoading,
+    otpError,
+    otpSuccess,
+    resendTimer,
+    sendOtp,
+    verifyOtp,
   } = useRequests();
+
   const sections = [
-    { id: 'personal',    label: 'Identity',      icon: <User size={16} />,        component: PersonalDetails },
-    { id: 'business',    label: 'Intelligence',   icon: <Building size={16} />,    component: BusinessIntelligence },
-    { id: 'metrics',     label: 'Metrics',        icon: <BarChart3 size={16} />,   component: BusinessMetrics },
-    { id: 'qualitative', label: 'Questionnaire',  icon: <MessageSquare size={16}/>,component: QualitativeIntelligence },
-    { id: 'vetting',     label: 'Referral',       icon: <ShieldCheck size={16} />, component: FinalVetting },
+    { id: 'personal',    label: 'Identity',      icon: <User size={16} />,          component: PersonalDetails },
+    { id: 'business',    label: 'Intelligence',   icon: <Building size={16} />,       component: BusinessIntelligence },
+    { id: 'metrics',     label: 'Metrics',        icon: <BarChart3 size={16} />,      component: BusinessMetrics },
+    { id: 'qualitative', label: 'Questionnaire',  icon: <MessageSquare size={16} />,  component: QualitativeIntelligence },
+    { id: 'vetting',     label: 'Referral',       icon: <ShieldCheck size={16} />,    component: FinalVetting },
   ];
 
   const ActiveComponent = sections[currentStep].component;
   const isLastStep = currentStep === sections.length - 1;
 
+  // OTP props — only passed to PersonalDetails (step 0)
+  const otpProps = currentStep === 0 ? {
+    otpSent,
+    otpVerified,
+    otpValue,
+    setOtpValue,
+    otpLoading,
+    otpError,
+    otpSuccess,
+    resendTimer,
+    sendOtp,
+    verifyOtp,
+  } : {}
+
   return (
     <div className="min-h-screen bg-[#020202] text-slate-300 overflow-x-hidden">
-       <div className="max-w-7xl mx-auto p-6">
+      <div className="max-w-7xl mx-auto p-6">
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-slate-600 hover:text-orange-500 transition-colors group"
@@ -45,6 +70,7 @@ const Requests = () => {
           <span className="font-medium">Back to Home</span>
         </Link>
       </div>
+
       {/* 1. Global Progress Bar */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-zinc-900 z-[100]">
         <motion.div
@@ -135,6 +161,7 @@ const Requests = () => {
                   handleChange={handleChange}
                   handleContributionChange={handleContributionChange}
                   onNext={nextStep}
+                  {...otpProps}
                 />
               </motion.div>
             </AnimatePresence>
@@ -153,7 +180,8 @@ const Requests = () => {
             ) : (
               <button
                 onClick={nextStep}
-                className="bg-white text-black px-12 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-amber-500 transition-all"
+                disabled={currentStep === 0 && !otpVerified}
+                className="bg-white text-black px-12 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-amber-500 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white"
               >
                 Continue to {sections[currentStep + 1].label}
               </button>

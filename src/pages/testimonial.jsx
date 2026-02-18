@@ -1,30 +1,13 @@
 import { ArrowLeft, ArrowRight, QuoteIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import reviews from '../api/reviews.json'
 export const Testimonial = () => {
-  const Reviews = [
-    {
-      quote: "Joining this community was the best decision for my startup. The networking events are invaluable, and the mentorship changed my entire strategy.",
-      name: "Alex Thompson",
-      title: "Founder, InnovateTech Solutions"
-    },
-    {
-      quote: "The practical leadership tools provided here allowed our small team to scale efficiently. The insights are current, actionable, and delivered by genuine experts.",
-      name: "Maria Sanchez",
-      title: "CEO, Quantum Growth Agency"
-    },
-    {
-      quote: "I was struggling with my personal development journey as an entrepreneur, but the resources here provided the necessary structure and mindset shift.",
-      name: "James K.",
-      title: "Independent Developer"
-    },
-  ];
 
   const [index, setIndex] = useState(0);
 
-  const next = () => setIndex((prev) => (prev + 1) % Reviews.length);
-  const prev = () => setIndex((prev) => (prev === 0 ? Reviews.length - 1 : prev - 1));
+  const next = () => setIndex((prev) => (prev + 1) % reviews.length);
+  const prev = () => setIndex((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
 
   useEffect(() => {
     const timer = setInterval(next, 8000);

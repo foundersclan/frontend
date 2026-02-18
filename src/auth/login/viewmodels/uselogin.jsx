@@ -57,7 +57,7 @@ export const useLogin = () => {
             setUserCred({ email: "", password: "" })
 
             if (data.user.role === 'admin') {
-                navigate('/admin')
+                navigate('/admin-dashboard')
             } else {
                 navigate('/')
             }
@@ -83,7 +83,7 @@ export const useLogin = () => {
             setisLoggedIn(true)
 
             if (data.user.role === 'admin') {
-                navigate('/admin')
+                navigate('/admin-dashboard')
             } else {
                 navigate('/')
             }

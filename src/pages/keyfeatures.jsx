@@ -83,9 +83,9 @@ export const Features = () => {
             </div>
 
           
-            <div className="mt-auto pt-8 flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+            {/* <div className="mt-auto pt-8 flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
               <ArrowUpRight className="text-yellow-500 w-5 h-5" />
-            </div>
+            </div> */}
           </motion.div>
         ))}
       </motion.div>
@@ -97,7 +97,7 @@ export const Features = () => {
           whileInView={{ opacity: 1 }}
           className="text-zinc-600 text-sm font-mono tracking-tighter"
         >
-          © BRAND_SYSTEM // 2024_RESOURCES
+          © BRAND_SYSTEM // 2025_RESOURCES
         </motion.p>
       </div>
 

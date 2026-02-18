@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, ShieldCheck, Target } from 'lucide-react';
-
+import team from '../assets/think-insight.jpeg'
 const Team = () => {
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -12,11 +12,11 @@ const Team = () => {
     { name: "Nishant Saini", role: "Chief Visionary", image: "/team/nishant.png" },
     { name: "Aman Monga", role: "G.O.A.T of Tech", image: "/team/aman.jpeg" },
     { name: "Riya", role: "Operations Lead", image: "/team/riya.jpeg" },
-    { name: "Prashant", role: "Media Team Manager", image: "/team/prashant.jpeg" },
+    { name: "Shourya Sharma", role: "Impact Catalyst", image: "/team/shourya.jpeg" },
+    { name: "Jayant", role: "Media Team Manager", image: "/team/jayant.jpeg" },
     { name: "Muskan Jindal", role: "Offline Market Head", image: "/team/muskan.jpeg" },
     { name: "Jaya Saini", role: "Engagement Lead", image: "/team/jaya2.jpeg" },
-    { name: "Shourya Sharma", role: "Impact Catalyst", image: "/team/shourya.jpeg" },
-    { name: "Aaryan", role: "Event Curator", image: "/team/aryan.jpeg" },
+    { name: "Aaryan", role: "Video Editor", image: "/team/aryan.jpeg" },
     { name: "Khushi Chauhan", role: "Content Creator", image: "/team/khushi.jpeg" }
   ];
 
@@ -37,7 +37,7 @@ const Team = () => {
             Collective Intelligence
           </span>
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter">
-            OUR <span className="italic font-serif text-amber-500">OPERATIVES.</span>
+            OUR <span className="italic font-serif text-amber-500">OPERATIVES</span>
           </h1>
           <p className="max-w-2xl mx-auto text-zinc-500 text-lg font-light leading-relaxed">
             The architects of ambition. We don't just manage the clan; we safeguard the vision of every founder within our ecosystem.
@@ -124,7 +124,7 @@ const Team = () => {
                 
                 {/* Group Photo Placeholder */}
                 <img 
-                    src="/assets/groupimg.jpg" 
+                    src={team}
                     alt="Founders Clan Collective" 
                     className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
                 />
@@ -146,7 +146,7 @@ const Team = () => {
         >
             <h2 className="text-5xl md:text-7xl font-bold mb-12 text-white tracking-tight">
               One Vision. <br/>
-              <span className="italic font-serif text-amber-500">Six Architects.</span>
+              <span className="italic font-serif text-amber-500">{allMembers.length} Architects.</span>
             </h2>
             
             <motion.button 

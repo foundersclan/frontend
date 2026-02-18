@@ -16,6 +16,8 @@ import Team from "./team/team"
 import UserDashboard from "./dashboards/userdashboard"
 import AdminDashboard from "./dashboards/admin/admindashboard"
 import Requests from "./requests/founders-requests"
+import { ComingSoon } from "./pages/comingsoon/coming-soon"
+import { Services } from "./pages/services/services"
 
 const router = createBrowserRouter ([
   {
@@ -66,6 +68,14 @@ const router = createBrowserRouter ([
       {
         path: "/request-invitation",
         element : <Requests/>
+      },
+      {
+        path: "/services",
+        element : <Services/>
+      },
+      {
+        path: "/blog",
+        element : <ComingSoon/>
       }
     ]
   }

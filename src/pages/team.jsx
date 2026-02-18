@@ -106,12 +106,12 @@ export const TeamIntro = () => {
                 </p>
             </div>
 
-            <button className="flex items-center gap-3 text-white font-bold uppercase tracking-[0.2em] text-xs group">
+            {/* <button className="flex items-center gap-3 text-white font-bold uppercase tracking-[0.2em] text-xs group">
                 Work With Us 
                 <span className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-yellow-500 group-hover:border-yellow-500 transition-all">
                     <ArrowUpRight className="w-4 h-4 group-hover:text-black" />
                 </span>
-            </button>
+            </button> */}
           </motion.div>
 
         </div>

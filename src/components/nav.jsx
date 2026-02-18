@@ -2,7 +2,9 @@ import { Link, NavLink } from "react-router-dom";
 import { motion } from "motion/react";
 
 export const NavBar = ({ handleMenu }) => {
-
+      const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
   return (
     <motion.nav 
       initial={{ y: -100, opacity: 0 }}
@@ -12,9 +14,9 @@ export const NavBar = ({ handleMenu }) => {
     >
       
       {/* 1. LOGO SECTION */}
-      <div className="pointer-events-auto shrink-0">
+      <div className="pointer-events-auto shrink-0" onClick={scrollToTop}>
         <NavLink to="/" className="group flex items-center gap-2 md:gap-4 bg-zinc-900/40 backdrop-blur-xl border border-white/5 p-1 pr-4 md:pr-6 rounded-full transition-all hover:bg-zinc-900/80">
-          <div className="relative">
+          <div className="relative" >
              <img 
               src="assets/logowithoutbg.png" 
               className="w-9 h-9 md:w-12 md:h-12 rounded-full border border-yellow-500/20 object-cover p-1 bg-zinc-950" 
@@ -45,6 +47,7 @@ export const NavBar = ({ handleMenu }) => {
         
         <Link to='request-invitation'>
           <motion.button 
+            onClick={scrollToTop}
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.95 }}
             className={`
