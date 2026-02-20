@@ -1,44 +1,48 @@
 import React from 'react';
-import { 
-  IndianRupee, 
-  Users, 
-  Wallet, 
-  Layers,
-} from 'lucide-react';
+import { IndianRupee, Users, Wallet, Layers } from 'lucide-react';
 
-const BusinessMetrics = ({ formData, handleChange, onNext }) => {
+const FieldError = ({ message }) =>
+  message ? <p className="text-[11px] text-red-400 px-1 mt-2">{message}</p> : null;
+
+const BusinessMetrics = ({ formData, handleChange, fieldErrors = {}, onNext }) => {
   const { eliteFilter } = formData;
 
   const mrrOptions = [
-    { label: 'Pre-revenue',           value: 'pre-revenue' },
-    { label: '₹1 - ₹1 Lakh',         value: '1_to_1,00,000' },
-    { label: '₹1 Lakh - ₹10 Lakhs',  value: '1,00,000_to_10,00,000' },
-    { label: '₹10 Lakhs - ₹50 Lakhs',value: '10,00,000_to_50,00,000' },
-    { label: '₹50 Lakhs+',           value: '50,00,000+' },
+    { label: 'Pre-revenue',            value: 'pre-revenue' },
+    { label: '₹1 - ₹1 Lakh',          value: '1_to_1,00,000' },
+    { label: '₹1 Lakh - ₹10 Lakhs',   value: '1,00,000_to_10,00,000' },
+    { label: '₹10 Lakhs - ₹50 Lakhs', value: '10,00,000_to_50,00,000' },
+    { label: '₹50 Lakhs+',            value: '50,00,000+' },
   ];
 
   const teamOptions = [
     { label: '1 (Solo)', value: 'solo' },
-    { label: '2-5',      value: '2-5' },
+    { label: '2-5',      value: '2-5'  },
     { label: '6-20',     value: '6-20' },
-    { label: '21-50',    value: '21-50' },
+    { label: '21-50',    value: '21-50'},
     { label: '100+',     value: '100+' },
   ];
 
   const fundingOptions = [
-    { label: 'Bootstrapped',   value: 'bootstrapped' },
-    { label: 'Angel Funded',   value: 'angel_funded' },
-    { label: 'VC Funded',      value: 'vc_funded' },
+    { label: 'Bootstrapped', value: 'bootstrapped' },
+    { label: 'Angel Funded', value: 'angel_funded' },
+    { label: 'VC Funded',    value: 'vc_funded'    },
   ];
 
   const marketOptions = [
-    { label: 'B2B',   value: 'b2b' },
-    { label: 'B2C',   value: 'b2c' },
-    { label: 'B2G',   value: 'b2g' },
-    { label: 'D2C',   value: 'd2c' },
-    { label: 'P2P',   value: 'p2p' },
+    { label: 'B2B',   value: 'b2b'   },
+    { label: 'B2C',   value: 'b2c'   },
+    { label: 'B2G',   value: 'b2g'   },
+    { label: 'D2C',   value: 'd2c'   },
+    { label: 'P2P',   value: 'p2p'   },
     { label: 'B2B2C', value: 'b2b2c' },
   ];
+
+  // Helper: error border for button-style selectors
+  const optionClass = (field, value, activeClass, inactiveClass) =>
+    eliteFilter[field] === value
+      ? activeClass
+      : `${inactiveClass} ${fieldErrors[field] ? 'border-red-500/70' : ''}`;
 
   return (
     <div className="text-slate-300">
@@ -70,13 +74,16 @@ const BusinessMetrics = ({ formData, handleChange, onNext }) => {
                   className={`py-4 px-6 rounded-2xl border text-xs font-medium transition-all text-center ${
                     eliteFilter.mrr === opt.value
                       ? 'bg-amber-500/10 border-amber-500 text-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.1)]'
-                      : 'bg-zinc-950/40 border-zinc-800 hover:border-zinc-600 text-zinc-500'
+                      : `bg-zinc-950/40 text-zinc-500 hover:border-zinc-600 ${
+                          fieldErrors.mrr ? 'border-red-500/70' : 'border-zinc-800'
+                        }`
                   }`}
                 >
                   {opt.label}
                 </button>
               ))}
             </div>
+            <FieldError message={fieldErrors.mrr} />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -98,13 +105,16 @@ const BusinessMetrics = ({ formData, handleChange, onNext }) => {
                     className={`px-4 py-2 rounded-xl border text-[10px] font-bold transition-all ${
                       eliteFilter.teamSize === opt.value
                         ? 'bg-amber-500 border-amber-500 text-black'
-                        : 'border-zinc-800 text-zinc-500 hover:border-zinc-600'
+                        : `text-zinc-500 hover:border-zinc-600 ${
+                            fieldErrors.teamSize ? 'border-red-500/70' : 'border-zinc-800'
+                          }`
                     }`}
                   >
                     {opt.label}
                   </button>
                 ))}
               </div>
+              <FieldError message={fieldErrors.teamSize} />
             </div>
 
             {/* Funding Status */}
@@ -124,13 +134,16 @@ const BusinessMetrics = ({ formData, handleChange, onNext }) => {
                     className={`w-full py-3 px-5 rounded-xl border text-left text-xs transition-all ${
                       eliteFilter.fundingStatus === opt.value
                         ? 'bg-zinc-800 border-amber-500 text-white'
-                        : 'bg-zinc-950/20 border-zinc-800 text-zinc-600 hover:border-zinc-700'
+                        : `bg-zinc-950/20 text-zinc-600 hover:border-zinc-700 ${
+                            fieldErrors.fundingStatus ? 'border-red-500/70' : 'border-zinc-800'
+                          }`
                     }`}
                   >
                     {opt.label}
                   </button>
                 ))}
               </div>
+              <FieldError message={fieldErrors.fundingStatus} />
             </div>
           </div>
 
@@ -151,13 +164,16 @@ const BusinessMetrics = ({ formData, handleChange, onNext }) => {
                   className={`py-4 rounded-2xl border text-[10px] font-black tracking-tighter transition-all ${
                     eliteFilter.marketClassification === opt.value
                       ? 'bg-white text-black border-white'
-                      : 'bg-zinc-950/40 border-zinc-800 text-zinc-600 hover:border-zinc-600'
+                      : `bg-zinc-950/40 text-zinc-600 hover:border-zinc-600 ${
+                          fieldErrors.marketClassification ? 'border-red-500/70' : 'border-zinc-800'
+                        }`
                   }`}
                 >
                   {opt.label}
                 </button>
               ))}
             </div>
+            <FieldError message={fieldErrors.marketClassification} />
           </div>
 
         </div>

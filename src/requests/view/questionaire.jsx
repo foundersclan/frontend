@@ -1,24 +1,27 @@
 import React from 'react';
 import { 
-  BrainCircuit, 
-  Zap, 
-  Users, 
-  MessageSquareText, 
-  Check,
-  ShieldCheck,
-  Crown
+  BrainCircuit, Zap, Users, MessageSquareText, 
+  Check, ShieldCheck, Crown
 } from 'lucide-react';
 
-const QualitativeIntelligence = ({ formData, handleChange, handleContributionChange, onNext }) => {
+const FieldError = ({ message }) =>
+  message ? <p className="text-[11px] text-red-400 px-1 mt-2">{message}</p> : null;
+
+const QualitativeIntelligence = ({ formData, handleChange, handleContributionChange, fieldErrors = {}, onNext }) => {
   const { valueExchange } = formData;
 
   const contributions = [
-    { id: 'technical_expertise',      label: 'Sharing technical expertise (Coding/AI)', icon: <BrainCircuit size={14} /> },
-    { id: 'marketing_growth',         label: 'Marketing & Growth hacking tips',         icon: <Zap size={14} /> },
-    { id: 'investment_fundraising',   label: 'Investment/Fundraising connections',       icon: <ShieldCheck size={14} /> },
-    { id: 'hiring_talent',            label: 'Hiring/Talent advice',                    icon: <Users size={14} /> },
-    { id: 'mentoring',                label: 'Mentoring early-stage founders',           icon: <MessageSquareText size={14} /> },
+    { id: 'technical_expertise',    label: 'Sharing technical expertise (Coding/AI)', icon: <BrainCircuit size={14} /> },
+    { id: 'marketing_growth',       label: 'Marketing & Growth hacking tips',         icon: <Zap size={14} /> },
+    { id: 'investment_fundraising', label: 'Investment/Fundraising connections',       icon: <ShieldCheck size={14} /> },
+    { id: 'hiring_talent',          label: 'Hiring/Talent advice',                    icon: <Users size={14} /> },
+    { id: 'mentoring',              label: 'Mentoring early-stage founders',           icon: <MessageSquareText size={14} /> },
   ];
+
+  const textareaClass = (field) =>
+    `w-full bg-zinc-950/50 border rounded-[2rem] p-6 focus:border-amber-500 outline-none transition-all resize-none text-sm leading-relaxed placeholder:text-zinc-700 ${
+      fieldErrors[field] ? 'border-red-500/70' : 'border-zinc-800'
+    }`;
 
   return (
     <div className="text-slate-300">
@@ -35,7 +38,7 @@ const QualitativeIntelligence = ({ formData, handleChange, handleContributionCha
             Community Fit
           </h2>
           <p className="text-zinc-500 text-sm mt-4 max-w-xl leading-relaxed">
-            Founders Clan is built on high-signal exchange. Tell us about the challenges 
+            Founders Clan is built on high-signal exchange. Tell us about the challenges
             you've conquered and how you intend to strengthen the collective.
           </p>
         </header>
@@ -51,8 +54,17 @@ const QualitativeIntelligence = ({ formData, handleChange, handleContributionCha
               placeholder="Describe the situation, your intervention, and the outcome..."
               value={valueExchange.biggestProblemSolved}
               onChange={(e) => handleChange('valueExchange', 'biggestProblemSolved', e.target.value)}
-              className="w-full bg-zinc-950/50 border border-zinc-800 rounded-[2rem] p-6 h-40 focus:border-amber-500 outline-none transition-all resize-none text-sm leading-relaxed placeholder:text-zinc-700"
+              className={`${textareaClass('biggestProblemSolved')} h-40`}
             />
+            {/* Character count hint */}
+            <div className="flex justify-between px-1">
+              <FieldError message={fieldErrors.biggestProblemSolved} />
+              <span className={`text-[10px] font-mono ml-auto ${
+                valueExchange.biggestProblemSolved.length < 50 ? 'text-red-500/60' : 'text-zinc-600'
+              }`}>
+                {valueExchange.biggestProblemSolved.length} / 50 min
+              </span>
+            </div>
           </div>
 
           {/* 15. Current Challenge */}
@@ -66,12 +78,15 @@ const QualitativeIntelligence = ({ formData, handleChange, handleContributionCha
                 placeholder="e.g. Scaling GTM in SE Asia or Series B Crunch"
                 value={valueExchange.currentChallenge}
                 onChange={(e) => handleChange('valueExchange', 'currentChallenge', e.target.value)}
-                className="w-full bg-zinc-950/50 border border-zinc-800 rounded-2xl px-6 py-5 focus:border-amber-500 outline-none transition-all text-sm"
+                className={`w-full bg-zinc-950/50 border rounded-2xl px-6 py-5 focus:border-amber-500 outline-none transition-all text-sm ${
+                  fieldErrors.currentChallenge ? 'border-red-500/70' : 'border-zinc-800'
+                }`}
               />
               <p className="text-[9px] text-zinc-600 mt-2 ml-1 italic">
                 Used to curate specific networking cohorts.
               </p>
             </div>
+            <FieldError message={fieldErrors.currentChallenge} />
           </div>
 
           {/* 16. Contributions */}
@@ -87,7 +102,9 @@ const QualitativeIntelligence = ({ formData, handleChange, handleContributionCha
                   className={`flex items-center gap-4 p-4 rounded-2xl border cursor-pointer transition-all ${
                     valueExchange.contribution.includes(item.id)
                       ? 'bg-amber-500/10 border-amber-500 text-white'
-                      : 'bg-zinc-950/30 border-zinc-800 text-zinc-500 hover:border-zinc-700'
+                      : `bg-zinc-950/30 text-zinc-500 hover:border-zinc-700 ${
+                          fieldErrors.contribution ? 'border-red-500/70' : 'border-zinc-800'
+                        }`
                   }`}
                 >
                   <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${
@@ -106,6 +123,7 @@ const QualitativeIntelligence = ({ formData, handleChange, handleContributionCha
                 </div>
               ))}
             </div>
+            <FieldError message={fieldErrors.contribution} />
           </div>
 
           {/* 17. Why Elite? */}
@@ -117,8 +135,16 @@ const QualitativeIntelligence = ({ formData, handleChange, handleContributionCha
               placeholder="What are you looking for that you haven't found elsewhere?"
               value={valueExchange.whyJoinElite}
               onChange={(e) => handleChange('valueExchange', 'whyJoinElite', e.target.value)}
-              className="w-full bg-zinc-950/50 border border-zinc-800 rounded-[2rem] p-6 h-32 focus:border-amber-500 outline-none transition-all resize-none text-sm leading-relaxed"
+              className={`${textareaClass('whyJoinElite')} h-32`}
             />
+            <div className="flex justify-between px-1">
+              <FieldError message={fieldErrors.whyJoinElite} />
+              <span className={`text-[10px] font-mono ml-auto ${
+                valueExchange.whyJoinElite.length < 50 ? 'text-red-500/60' : 'text-zinc-600'
+              }`}>
+                {valueExchange.whyJoinElite.length} / 50 min
+              </span>
+            </div>
           </div>
 
         </div>

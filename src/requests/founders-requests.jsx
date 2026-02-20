@@ -32,6 +32,7 @@ const Requests = () => {
     resendTimer,
     sendOtp,
     verifyOtp,
+    fieldErrors
   } = useRequests();
 
   const sections = [
@@ -161,6 +162,7 @@ const Requests = () => {
                   handleChange={handleChange}
                   handleContributionChange={handleContributionChange}
                   onNext={nextStep}
+                  fieldErrors={fieldErrors}
                   {...otpProps}
                 />
               </motion.div>

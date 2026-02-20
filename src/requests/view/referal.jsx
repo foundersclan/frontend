@@ -1,15 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  UserPlus, 
-  CreditCard, 
-  Link, 
-  PhoneCall, 
-  CheckCircle,
-  ArrowRight,
-} from 'lucide-react';
+import { UserPlus, CreditCard, Link, PhoneCall } from 'lucide-react';
 
-const FinalVetting = ({ formData, handleChange, onNext }) => {
+const FieldError = ({ message }) =>
+  message ? <p className="text-[11px] text-red-400 px-1 mt-2">{message}</p> : null;
+
+const FinalVetting = ({ formData, handleChange, fieldErrors = {}, onNext }) => {
   const { verification } = formData;
 
   const membershipOptions = [
@@ -20,7 +16,7 @@ const FinalVetting = ({ formData, handleChange, onNext }) => {
 
   const vettingOptions = [
     { label: 'Yes', value: 'yes' },
-    { label: 'No',  value: 'no' },
+    { label: 'No',  value: 'no'  },
   ];
 
   return (
@@ -36,6 +32,7 @@ const FinalVetting = ({ formData, handleChange, onNext }) => {
 
         <div className="space-y-12">
 
+          {/* 18. Referral — optional, no error needed */}
           <div className="space-y-4">
             <label className="text-[10px] uppercase font-mono text-zinc-400 tracking-widest font-bold px-1">
               18. Referral Source (Optional)
@@ -52,7 +49,7 @@ const FinalVetting = ({ formData, handleChange, onNext }) => {
             </div>
           </div>
 
-      
+          {/* 19. Membership Commitment */}
           <div className="space-y-4">
             <label className="text-[10px] uppercase font-mono text-zinc-400 tracking-widest font-bold px-1">
               19. Membership Commitment *
@@ -66,7 +63,9 @@ const FinalVetting = ({ formData, handleChange, onNext }) => {
                   className={`py-4 px-6 rounded-2xl border text-xs font-bold transition-all ${
                     verification.willingToPayMembership === option.value
                       ? 'bg-amber-500/10 border-amber-500 text-amber-400'
-                      : 'bg-zinc-950/40 border-zinc-800 text-zinc-600 hover:border-zinc-700'
+                      : `bg-zinc-950/40 text-zinc-600 hover:border-zinc-700 ${
+                          fieldErrors.willingToPayMembership ? 'border-red-500/70' : 'border-zinc-800'
+                        }`
                   }`}
                 >
                   <CreditCard size={14} className="inline mr-2 mb-1" />
@@ -74,9 +73,10 @@ const FinalVetting = ({ formData, handleChange, onNext }) => {
                 </button>
               ))}
             </div>
+            <FieldError message={fieldErrors.willingToPayMembership} />
           </div>
 
-      
+          {/* 20. Pitch Deck URL — optional but validated if filled */}
           <div className="space-y-4">
             <div className="flex justify-between px-1">
               <label className="text-[10px] uppercase font-mono text-zinc-400 tracking-widest font-bold">
@@ -98,12 +98,15 @@ const FinalVetting = ({ formData, handleChange, onNext }) => {
                 placeholder="https://drive.google.com/file/..."
                 value={verification.pitchDeckUrl}
                 onChange={(e) => handleChange('verification', 'pitchDeckUrl', e.target.value)}
-                className="w-full bg-zinc-950/50 border border-zinc-800 rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all text-sm placeholder:text-zinc-700"
+                className={`w-full bg-zinc-950/50 border rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all text-sm placeholder:text-zinc-700 ${
+                  fieldErrors.pitchDeckUrl ? 'border-red-500/70' : 'border-zinc-800'
+                }`}
               />
             </div>
+            <FieldError message={fieldErrors.pitchDeckUrl} />
           </div>
 
-       
+          {/* 21. Vetting Call */}
           <div className="space-y-4">
             <label className="text-[10px] uppercase font-mono text-zinc-400 tracking-widest font-bold px-1">
               21. Available for a 10-minute vetting call? *
@@ -117,7 +120,9 @@ const FinalVetting = ({ formData, handleChange, onNext }) => {
                   className={`flex-1 py-4 rounded-2xl border text-xs font-black uppercase tracking-widest transition-all ${
                     verification.vettingCall === option.value
                       ? 'bg-white text-black border-white'
-                      : 'bg-zinc-950/40 border-zinc-800 text-zinc-600 hover:border-zinc-700'
+                      : `bg-zinc-950/40 text-zinc-600 hover:border-zinc-700 ${
+                          fieldErrors.vettingCall ? 'border-red-500/70' : 'border-zinc-800'
+                        }`
                   }`}
                 >
                   {option.value === 'yes' && (
@@ -127,7 +132,9 @@ const FinalVetting = ({ formData, handleChange, onNext }) => {
                 </button>
               ))}
             </div>
+            <FieldError message={fieldErrors.vettingCall} />
           </div>
+
         </div>
       </div>
     </div>

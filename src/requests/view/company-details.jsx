@@ -1,28 +1,30 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Building2, 
-  Globe, 
-  Target, 
-  Calendar, 
-  ShieldCheck, 
-  FileText,
-  ChevronDown,
-  Hash
+  Building2, Globe, Target, Calendar, 
+  ShieldCheck, FileText, ChevronDown, Hash
 } from 'lucide-react';
 
-const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
+const FieldError = ({ message }) =>
+  message ? <p className="text-[11px] text-red-400 px-1 mt-1">{message}</p> : null;
+
+const BusinessIntelligence = ({ formData, handleChange, fieldErrors = {}, onNext }) => {
   const { businessDetails } = formData;
 
+  const inputClass = (field) =>
+    `w-full bg-zinc-950/50 border rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all ${
+      fieldErrors[field] ? 'border-red-500/70' : 'border-zinc-800'
+    }`;
+
   const stages = [
-    { id: 'ideation',       label: 'Ideation',        sub: 'Pitch Deck / MVP' },
-    { id: 'early_traction', label: 'Early Traction',  sub: 'First few customers' },
-    { id: 'growth',         label: 'Growth',          sub: 'Consistent Revenue' },
-    { id: 'scaling',        label: 'Scaling',         sub: 'Series A+ / High Revenue' }
+    { id: 'ideation',       label: 'Ideation',       sub: 'Pitch Deck / MVP' },
+    { id: 'early_traction', label: 'Early Traction', sub: 'First few customers' },
+    { id: 'growth',         label: 'Growth',         sub: 'Consistent Revenue' },
+    { id: 'scaling',        label: 'Scaling',        sub: 'Series A+ / High Revenue' }
   ];
 
   const industries = [
-    'SaaS', 'Fintech', 'E-commerce', 
+    'SaaS', 'Fintech', 'E-commerce',
     'EdTech', 'Service-based', 'Manufacturing', 'Others'
   ];
 
@@ -43,6 +45,8 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
 
           {/* 1. Core Identity */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            {/* Company Name */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase font-mono text-zinc-500 tracking-widest px-1">
                 Startup / Company Name *
@@ -54,11 +58,13 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
                   placeholder="e.g. Acme Corp"
                   value={businessDetails.companyName}
                   onChange={(e) => handleChange('businessDetails', 'companyName', e.target.value)}
-                  className="w-full bg-zinc-950/50 border border-zinc-800 rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all"
+                  className={inputClass('companyName')}
                 />
               </div>
+              <FieldError message={fieldErrors.companyName} />
             </div>
 
+            {/* Inception Date */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase font-mono text-zinc-500 tracking-widest px-1">
                 Inception Date *
@@ -69,9 +75,10 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
                   type="month"
                   value={businessDetails.businessStartedDate}
                   onChange={(e) => handleChange('businessDetails', 'businessStartedDate', e.target.value)}
-                  className="w-full bg-zinc-950/50 border border-zinc-800 rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all text-zinc-400"
+                  className={`${inputClass('businessStartedDate')} text-zinc-400`}
                 />
               </div>
+              <FieldError message={fieldErrors.businessStartedDate} />
             </div>
           </div>
 
@@ -92,12 +99,17 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
               placeholder="Describe what you are building..."
               value={businessDetails.businessIdea}
               onChange={(e) => handleChange('businessDetails', 'businessIdea', e.target.value)}
-              className="w-full bg-zinc-950/50 border border-zinc-800 rounded-2xl p-4 h-24 focus:border-amber-500 outline-none transition-all resize-none text-sm leading-relaxed"
+              className={`w-full bg-zinc-950/50 border rounded-2xl p-4 h-24 focus:border-amber-500 outline-none transition-all resize-none text-sm leading-relaxed ${
+                fieldErrors.businessIdea ? 'border-red-500/70' : 'border-zinc-800'
+              }`}
             />
+            <FieldError message={fieldErrors.businessIdea} />
           </div>
 
           {/* 3. Industry & Website */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            {/* Industry */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase font-mono text-zinc-500 tracking-widest px-1">
                 Industry / Niche *
@@ -107,7 +119,9 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
                 <select
                   value={businessDetails.industryType}
                   onChange={(e) => handleChange('businessDetails', 'industryType', e.target.value)}
-                  className="w-full bg-zinc-950/50 border border-zinc-800 rounded-2xl pl-12 pr-10 py-4 focus:border-amber-500 outline-none transition-all appearance-none text-sm text-zinc-400"
+                  className={`w-full bg-zinc-950/50 border rounded-2xl pl-12 pr-10 py-4 focus:border-amber-500 outline-none transition-all appearance-none text-sm text-zinc-400 ${
+                    fieldErrors.industryType ? 'border-red-500/70' : 'border-zinc-800'
+                  }`}
                 >
                   <option value="">Select Industry</option>
                   {industries.map((industry) => (
@@ -118,8 +132,10 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
                 </select>
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-600 pointer-events-none" size={16} />
               </div>
+              <FieldError message={fieldErrors.industryType} />
             </div>
 
+            {/* Website */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase font-mono text-zinc-500 tracking-widest px-1">
                 Website URL (Optional)
@@ -131,9 +147,12 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
                   placeholder="https://..."
                   value={businessDetails.websiteUrl}
                   onChange={(e) => handleChange('businessDetails', 'websiteUrl', e.target.value)}
-                  className="w-full bg-zinc-950/50 border border-zinc-800 rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all text-sm"
+                  className={`w-full bg-zinc-950/50 border rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all text-sm ${
+                    fieldErrors.websiteUrl ? 'border-red-500/70' : 'border-zinc-800'
+                  }`}
                 />
               </div>
+              <FieldError message={fieldErrors.websiteUrl} />
             </div>
           </div>
 
@@ -149,7 +168,9 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
                   className={`p-4 border rounded-2xl cursor-pointer transition-all ${
                     businessDetails.currentStage === s.id
                       ? 'bg-amber-500/10 border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.1)]'
-                      : 'bg-zinc-950/30 border-zinc-800 hover:border-zinc-700'
+                      : fieldErrors.currentStage
+                        ? 'bg-zinc-950/30 border-red-500/70 hover:border-red-400'
+                        : 'bg-zinc-950/30 border-zinc-800 hover:border-zinc-700'
                   }`}
                 >
                   <input
@@ -167,6 +188,7 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
                 </label>
               ))}
             </div>
+            <FieldError message={fieldErrors.currentStage} />
           </div>
 
           <hr className="border-zinc-800/50" />
@@ -181,6 +203,8 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+              {/* GST */}
               <div className="space-y-2">
                 <div className="flex justify-between px-1">
                   <label className="text-[10px] uppercase font-mono text-zinc-500 tracking-widest">
@@ -196,12 +220,16 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
                     type="text"
                     placeholder="22AAAAA0000A1Z5"
                     value={businessDetails.gstNumber}
-                    onChange={(e) => handleChange('businessDetails', 'gstNumber', e.target.value)}
-                    className="w-full bg-zinc-950/50 border border-zinc-800 rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all placeholder:text-zinc-800"
+                    onChange={(e) => handleChange('businessDetails', 'gstNumber', e.target.value.toUpperCase())}
+                    className={`w-full bg-zinc-950/50 border rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all placeholder:text-zinc-800 ${
+                      fieldErrors.gstNumber ? 'border-red-500/70' : 'border-zinc-800'
+                    }`}
                   />
                 </div>
+                <FieldError message={fieldErrors.gstNumber} />
               </div>
 
+              {/* CIN */}
               <div className="space-y-2">
                 <label className="text-[10px] uppercase font-mono text-zinc-500 tracking-widest px-1">
                   CIN (If Registered)
@@ -212,11 +240,15 @@ const BusinessIntelligence = ({ formData, handleChange, onNext }) => {
                     type="text"
                     placeholder="U12345MH2023PTC123456"
                     value={businessDetails.cinNumber}
-                    onChange={(e) => handleChange('businessDetails', 'cinNumber', e.target.value)}
-                    className="w-full bg-zinc-950/50 border border-zinc-800 rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all placeholder:text-zinc-800"
+                    onChange={(e) => handleChange('businessDetails', 'cinNumber', e.target.value.toUpperCase())}
+                    className={`w-full bg-zinc-950/50 border rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none transition-all placeholder:text-zinc-800 ${
+                      fieldErrors.cinNumber ? 'border-red-500/70' : 'border-zinc-800'
+                    }`}
                   />
                 </div>
+                <FieldError message={fieldErrors.cinNumber} />
               </div>
+
             </div>
           </div>
 
