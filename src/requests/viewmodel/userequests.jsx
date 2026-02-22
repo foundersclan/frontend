@@ -10,29 +10,22 @@ const isValidEmail = (email) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 
 const isValidPhone = (phone) =>
-    /^[6-9]\d{9}$/.test(phone) // Indian 10-digit mobile
+    /^[6-9]\d{9}$/.test(phone)
 
 const isValidLinkedIn = (url) =>
     !url || /^https?:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/.test(url)
 
 const isValidUrl = (url) => {
-    if (!url) return true // optional
+    if (!url) return true
     try { new URL(url); return true }
     catch { return false }
 }
 
-// const isValidGST = (gst) =>
-//     !gst || /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(gst)
-
-// const isValidCIN = (cin) =>
-//     !cin || /^[A-Z]{1}[0-9]{5}[A-Z]{2}[0-9]{4}[A-Z]{3}[0-9]{6}$/.test(cin)
-
-const validateStep = (step, formData, otpVerified) => {
+const validateStep = (step, formData) => {
     const errors = {}
     const { personalDetails, businessDetails, eliteFilter, valueExchange, verification } = formData
 
     if (step === 0) {
-        // Section 1: Personal & Verification
         if (!personalDetails.fullName?.trim())
             errors.fullName = 'Full name is required.'
 
@@ -47,8 +40,6 @@ const validateStep = (step, formData, otpVerified) => {
             errors.email = 'Email is required.'
         else if (!isValidEmail(personalDetails.email))
             errors.email = 'Enter a valid email address.'
-        else if (!otpVerified)
-            errors.email = 'Please verify your email with OTP.'
 
         if (!personalDetails.whatsapp?.trim())
             errors.whatsapp = 'WhatsApp number is required.'
@@ -69,7 +60,6 @@ const validateStep = (step, formData, otpVerified) => {
     }
 
     if (step === 1) {
-        // Section 2: Business Vitals
         if (!businessDetails.companyName?.trim())
             errors.companyName = 'Company name is required.'
 
@@ -81,24 +71,14 @@ const validateStep = (step, formData, otpVerified) => {
         if (!businessDetails.businessStartedDate)
             errors.businessStartedDate = 'Business start date is required.'
 
-        // if (businessDetails.websiteUrl && !isValidUrl(businessDetails.websiteUrl))
-        //     errors.websiteUrl = 'Enter a valid URL (e.g. https://yoursite.com).'
-
         if (!businessDetails.industryType)
             errors.industryType = 'Please select your industry type.'
 
         if (!businessDetails.currentStage)
             errors.currentStage = 'Please select your current stage.'
-
-        // if (businessDetails.gstNumber && !isValidGST(businessDetails.gstNumber))
-        //     errors.gstNumber = 'Enter a valid GST number.'
-
-        // if (businessDetails.cinNumber && !isValidCIN(businessDetails.cinNumber))
-        //     errors.cinNumber = 'Enter a valid CIN number.'
     }
 
     if (step === 2) {
-        // Section 3: Elite Filter
         if (!eliteFilter.mrr)
             errors.mrr = 'Please select your MRR range.'
 
@@ -113,7 +93,6 @@ const validateStep = (step, formData, otpVerified) => {
     }
 
     if (step === 3) {
-        // Section 4: Value Exchange
         if (!valueExchange.biggestProblemSolved?.trim())
             errors.biggestProblemSolved = 'This field is required.'
         else if (valueExchange.biggestProblemSolved.trim().length < 50)
@@ -134,7 +113,6 @@ const validateStep = (step, formData, otpVerified) => {
     }
 
     if (step === 4) {
-        // Section 5: Verification
         if (!verification.willingToPayMembership)
             errors.willingToPayMembership = 'Please select an option.'
 
@@ -177,31 +155,10 @@ export const useRequests = () => {
     const [currentStep, setCurrentStep] = useState(0)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-    const [fieldErrors, setFieldErrors] = useState({}) 
-
-    // ── OTP State ──────────────────────────────────────────────
-    const [otpSent, setOtpSent] = useState(false)
-    const [otpVerified, setOtpVerified] = useState(false)
-    const [otpValue, setOtpValue] = useState('')
-    const [otpLoading, setOtpLoading] = useState(false)
-    const [otpError, setOtpError] = useState(null)
-    const [otpSuccess, setOtpSuccess] = useState(null)
-    const [resendTimer, setResendTimer] = useState(0)
-    // ──────────────────────────────────────────────────────────
+    const [fieldErrors, setFieldErrors] = useState({})
 
     const handleChange = (section, field, value) => {
-        if (section === 'personalDetails' && field === 'email') {
-            setOtpSent(false)
-            setOtpVerified(false)
-            setOtpValue('')
-            setOtpError(null)
-            setOtpSuccess(null)
-            setResendTimer(0)
-        }
-
-        // Clear field error on change
         setFieldErrors(prev => ({ ...prev, [field]: undefined }))
-
         setFormData(prev => ({
             ...prev,
             [section]: { ...prev[section], [field]: value }
@@ -219,81 +176,11 @@ export const useRequests = () => {
         })
     }
 
-    // ── OTP Helpers ────────────────────────────────────────────
-    const startResendTimer = () => {
-        setResendTimer(60)
-        const interval = setInterval(() => {
-            setResendTimer(prev => {
-                if (prev <= 1) { clearInterval(interval); return 0 }
-                return prev - 1
-            })
-        }, 1000)
-    }
-
-    const sendOtp = async () => {
-        const email = formData.personalDetails.email?.trim()
-
-        if (!email) {
-            setOtpError('Please enter your email address first.')
-            return
-        }
-        if (!isValidEmail(email)) {
-            setOtpError('Please enter a valid email address.')
-            return
-        }
-
-        setOtpLoading(true)
-        setOtpError(null)
-        setOtpSuccess(null)
-
-        try {
-            await axios.post(`${BASE_URL}/api/otp/send`, { email },
-                { headers: { 'Content-Type': 'application/json' } })
-            setOtpSent(true)
-            setOtpSuccess('OTP sent! Please check your mail.')
-            startResendTimer()
-        } catch (err) {
-            setOtpError(err.response?.data?.message || 'Failed to send OTP. Try again.')
-        } finally {
-            setOtpLoading(false)
-        }
-    }
-
-    const verifyOtp = async () => {
-        const email = formData.personalDetails.email?.trim()
-
-        if (!otpValue || otpValue.length !== 6) {
-            setOtpError('Please enter the 6-digit OTP.')
-            return
-        }
-        if (!/^\d{6}$/.test(otpValue)) {
-            setOtpError('OTP must be 6 digits only.')
-            return
-        }
-
-        setOtpLoading(true)
-        setOtpError(null)
-        setOtpSuccess(null)
-
-        try {
-            await axios.post(`${BASE_URL}/api/otp/verify`, { email, otp: otpValue },
-                { headers: { 'Content-Type': 'application/json' } })
-            setOtpVerified(true)
-            setOtpSuccess('Email verified successfully ✓')
-            setFieldErrors(prev => ({ ...prev, email: undefined }))
-        } catch (err) {
-            setOtpError(err.response?.data?.message || 'Invalid OTP. Please try again.')
-        } finally {
-            setOtpLoading(false)
-        }
-    }
-    
-
     const nextStep = () => {
-        const errors = validateStep(currentStep, formData, otpVerified)
+        const errors = validateStep(currentStep, formData)
         if (Object.keys(errors).length > 0) {
             setFieldErrors(errors)
-            return 
+            return
         }
         setFieldErrors({})
         setCurrentStep(prev => Math.min(prev + 1, 4))
@@ -340,15 +227,9 @@ export const useRequests = () => {
     }
 
     const handleSubmit = async () => {
-        
-        const errors = validateStep(4, formData, otpVerified)
+        const errors = validateStep(4, formData)
         if (Object.keys(errors).length > 0) {
             setFieldErrors(errors)
-            return
-        }
-
-        if (!otpVerified) {
-            setError('Please verify your email with OTP before submitting.')
             return
         }
 
@@ -382,12 +263,6 @@ export const useRequests = () => {
         setCurrentStep(0)
         setError(null)
         setFieldErrors({})
-        setOtpSent(false)
-        setOtpVerified(false)
-        setOtpValue('')
-        setOtpError(null)
-        setOtpSuccess(null)
-        setResendTimer(0)
     }
 
     return {
@@ -402,15 +277,5 @@ export const useRequests = () => {
         prevStep,
         handleSubmit,
         resetForm,
-        otpSent,
-        otpVerified,
-        otpValue,
-        setOtpValue,
-        otpLoading,
-        otpError,
-        otpSuccess,
-        resendTimer,
-        sendOtp,
-        verifyOtp,
     }
 }

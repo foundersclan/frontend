@@ -22,16 +22,6 @@ const Requests = () => {
     prevStep,
     handleSubmit,
     resetForm,
-    otpSent,
-    otpVerified,
-    otpValue,
-    setOtpValue,
-    otpLoading,
-    otpError,
-    otpSuccess,
-    resendTimer,
-    sendOtp,
-    verifyOtp,
     fieldErrors
   } = useRequests();
 
@@ -45,20 +35,6 @@ const Requests = () => {
 
   const ActiveComponent = sections[currentStep].component;
   const isLastStep = currentStep === sections.length - 1;
-
-  // OTP props — only passed to PersonalDetails (step 0)
-  const otpProps = currentStep === 0 ? {
-    otpSent,
-    otpVerified,
-    otpValue,
-    setOtpValue,
-    otpLoading,
-    otpError,
-    otpSuccess,
-    resendTimer,
-    sendOtp,
-    verifyOtp,
-  } : {}
 
   return (
     <div className="min-h-screen bg-[#020202] text-slate-300 overflow-x-hidden">
@@ -163,7 +139,6 @@ const Requests = () => {
                   handleContributionChange={handleContributionChange}
                   onNext={nextStep}
                   fieldErrors={fieldErrors}
-                  {...otpProps}
                 />
               </motion.div>
             </AnimatePresence>
@@ -182,7 +157,7 @@ const Requests = () => {
             ) : (
               <button
                 onClick={nextStep}
-                disabled={currentStep === 0 && !otpVerified}
+                disabled={false}
                 className="bg-white text-black px-12 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-amber-500 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white"
               >
                 Continue to {sections[currentStep + 1].label}
