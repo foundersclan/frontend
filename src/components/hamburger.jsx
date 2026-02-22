@@ -13,8 +13,8 @@ const Hamburger = ({ click, handleMenu }) => {
     { name: "Private Events", path: "/events" },
     { name: "Concierge Support", path: "/support" },
   ];
-  const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('Founders_token');
+  const user = JSON.parse(localStorage.getItem('Founders_user'));
   const destination = !token ? "/login" : user?.role === "admin" ? "/admin-dashboard" : "/profile/user";
 
 

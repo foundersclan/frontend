@@ -25,18 +25,16 @@ export const useAdminDashboard = () => {
         axios.get(`${BASE_URL}/api/registrations`, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("Founders_token")}`,
           },
         }),
         axios.get(`${BASE_URL}/api/events`, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("Founders_token")}`,
           },
         }),
       ]);
-      console.log(registrationsRes);
-      
       setRegistrations(registrationsRes.data);
       setEvents(eventsRes.data);
     } catch (err) {
@@ -58,7 +56,7 @@ export const useAdminDashboard = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("Founders_token")}`,
           },
         }
       );
@@ -86,7 +84,7 @@ export const useAdminDashboard = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("Founders_token")}`,
           },
         }
       );

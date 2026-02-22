@@ -1,6 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -180,6 +181,7 @@ export const useRequests = () => {
         const errors = validateStep(currentStep, formData)
         if (Object.keys(errors).length > 0) {
             setFieldErrors(errors)
+            toast.error('Please fix the errors before continuing.')
             return
         }
         setFieldErrors({})
@@ -230,23 +232,27 @@ export const useRequests = () => {
         const errors = validateStep(4, formData)
         if (Object.keys(errors).length > 0) {
             setFieldErrors(errors)
+            toast.error('Please fix the errors before submitting.')
             return
         }
 
         setLoading(true)
         setError(null)
+        const toastId = toast.loading('Submitting your application...')
         try {
             await axios.post(`${BASE_URL}/api/registrations`, flattenFormData(), {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('Founders_token')}`
                 }
             })
-            alert("Invitation Request Sent Successfully")
+            toast.success('Invitation Request Sent Successfully!', { id: toastId })
             resetForm()
             navigate('/profile/user')
         } catch (err) {
-            setError(err.response?.data?.message || err.message || 'Something went wrong')
+            const message = err.response?.data?.message || err.message || 'Something went wrong'
+            setError(message)
+            toast.error(message, { id: toastId })
         } finally {
             setLoading(false)
         }

@@ -14,8 +14,6 @@ export const verifyToken =()=>{
             console.error('Token verification failed:', err);
             return false;
         } else {
-            console.log('Token verified successfully:', decoded);
-            console.log(token);
             return true;
         }
     });

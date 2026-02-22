@@ -114,23 +114,23 @@ export const Login = () => {
             </div>
 
             {/* Divider Logic */}
-            <div className="flex items-center gap-4 my-10">
-              <div className="h-px bg-white/5 flex-grow" />
+            <div className="flex items-center gap-4 ">
+              {/* <div className="h-px bg-white/5 flex-grow" />
               <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest px-2">Social Auth</span>
-              <div className="h-px bg-white/5 flex-grow" />
+              <div className="h-px bg-white/5 flex-grow" /> */}
             </div>
 
             {/* Google Integration */}
-            <button 
+            {/* <button 
               onClick={handleGoogleSignIn}
               className="w-full border border-white/10 bg-white/5 hover:bg-white/10 text-white py-5 rounded-2xl flex items-center justify-center gap-4 transition-all duration-300 group"
             >
               <img src="/assets/google.svg" className="size-5 group-hover:scale-110 transition-transform" alt="Google" />
               <span className="text-xs font-mono uppercase tracking-widest">Connect via Google</span>
-            </button>
+            </button> */}
 
             {/* Signup Link */}
-            <div className="mt-10 text-center">
+            <div className="mt-5 text-center">
               <p className="text-zinc-500 text-xs tracking-tight">
                 Not part of the Clan?{" "}
                 <NavLink to="/signup" className="text-yellow-500 font-bold hover:text-yellow-400 transition-colors underline underline-offset-8 decoration-yellow-500/30">

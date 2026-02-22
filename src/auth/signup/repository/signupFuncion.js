@@ -14,8 +14,8 @@ export const registerUser = async ({ first_name, last_name, email, password, pho
         })
 
         // Save token and user to localStorage
-        localStorage.setItem('token', response.data.token)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('Founders_token', response.data.token)
+        localStorage.setItem('Founders_user', JSON.stringify(response.data.user))
 
         return response.data
 
@@ -34,8 +34,8 @@ export const googleLogin = async ({ email, firstName, lastName }) => {
         })
 
         // Save token and user to localStorage
-        localStorage.setItem('token', response.data.token)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('Founders_token', response.data.token)
+        localStorage.setItem('Founders_user', JSON.stringify(response.data.user))
 
         return response.data
 
@@ -46,23 +46,23 @@ export const googleLogin = async ({ email, firstName, lastName }) => {
 
 // Helper: get token for authenticated requests
 export const getAuthHeaders = () => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('Founders_token')
     return { Authorization: `Bearer ${token}` }
 }
 
 // Helper: check if user is logged in
 export const isAuthenticated = () => {
-    return !!localStorage.getItem('token')
+    return !!localStorage.getItem('Founders_token')
 }
 
 // Helper: get user from localStorage
 export const getStoredUser = () => {
-    const user = localStorage.getItem('user')
+    const user = localStorage.getItem('Founders_user')
     return user ? JSON.parse(user) : null
 }
 
 // Logout
 export const logoutUser = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
+    localStorage.removeItem('Founders_token')
+    localStorage.removeItem('Founders_user')
 }

@@ -6,8 +6,8 @@ export const loginUser = async ({ email, password }) => {
     try {
         const response = await axios.post(`${BASE_URL}/api/auth/login`, { email, password })
 
-        localStorage.setItem('token', response.data.token)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('Founders_token', response.data.token)
+        localStorage.setItem('Founders_user', JSON.stringify(response.data.user))
 
         return response.data
 
@@ -28,8 +28,8 @@ export const registerUser = async ({ first_name, last_name, email, password, pho
         })
 
 
-        localStorage.setItem('token', response.data.token)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('Founders_token', response.data.token)
+        localStorage.setItem('Founders_user', JSON.stringify(response.data.user))
 
         return response.data
 
@@ -46,8 +46,8 @@ export const googleLogin = async ({ email, firstName, lastName }) => {
             lastName
         })
 
-        localStorage.setItem('token', response.data.token)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('Founders_token', response.data.token)
+        localStorage.setItem('Founders_user', JSON.stringify(response.data.user))
 
         return response.data
 
@@ -70,20 +70,20 @@ export const getCurrentUser = async () => {
 }
 
 export const logoutUser = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
+    localStorage.removeItem('Founders_token')
+    localStorage.removeItem('Founders_user')
 }
 
 export const getAuthHeaders = () => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('Founders_token')
     return { Authorization: `Bearer ${token}` }
 }
 
 export const isAuthenticated = () => {
-    return !!localStorage.getItem('token')
+    return !!localStorage.getItem('Founders_token')
 }
 
 export const getStoredUser = () => {
-    const user = localStorage.getItem('user')
+    const user = localStorage.getItem('Founders_user')
     return user ? JSON.parse(user) : null
 }

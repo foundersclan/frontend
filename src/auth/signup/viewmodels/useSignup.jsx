@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { registerUser } from "../repository/signupFuncion";
 import { useNavigate } from "react-router";
 import { MyContext } from "../../../context/my-context";
+import toast from "react-hot-toast";
 
 export const useSignup = () => {
     const navigate = useNavigate();
@@ -16,9 +17,6 @@ export const useSignup = () => {
     })
     const [errors, setErrors] = useState({})
 
-    // ✅ REMOVED the auto-redirect useEffect
-
-    // Validate on input change
     useEffect(() => {
         validate()
     }, [userdata])
@@ -66,6 +64,7 @@ export const useSignup = () => {
         }
 
         setLoading(true)
+        const toastId = toast.loading('Creating your account...')
         try {
             const data = await registerUser({
                 first_name: userdata.firstName,
@@ -84,6 +83,7 @@ export const useSignup = () => {
                 password:  "",
                 phone:     "",
             })
+            toast.success('Account created successfully!', { id: toastId })
 
             if (data.user.role === 'admin') {
                 navigate('/admin')
@@ -94,6 +94,7 @@ export const useSignup = () => {
         } catch (error) {
             setisLoggedIn(false)
             setErrors({ general: error.message || 'Signup failed' })
+            toast.error(error.message || 'Signup failed', { id: toastId })
         } finally {
             setLoading(false)
         }

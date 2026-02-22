@@ -27,7 +27,6 @@ const AdminDashboard = () => {
     updateRegistrationStatus,
     refreshData,
   } = useAdminDashboard();
-  console.log(registrations);
   
   // Calculate dynamic stats from actual data
   const stats = [
@@ -189,7 +188,7 @@ const AdminDashboard = () => {
             </div>
             <button 
               onClick={() => {
-                localStorage.removeItem('token');
+                localStorage.removeItem('Founders_token');
                 window.location.href = '/login';
               }}
               className="hover:bg-zinc-800 p-2 rounded-lg transition-colors"

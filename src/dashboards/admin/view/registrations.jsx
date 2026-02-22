@@ -3,50 +3,189 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Mail, ShieldCheck, X, Eye, Linkedin, 
   Clock, ArrowUpRight, Building2, User,
-  CheckCircle, XCircle
+  CheckCircle, XCircle, Download
 } from 'lucide-react';
+import jsPDF from 'jspdf';
+import toast from 'react-hot-toast'
 
 const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
   const [selectedFounder, setSelectedFounder] = useState(null);
   const [isActioning, setIsActioning] = useState(false);
-  
-  const handleApprove = async () => {
-    if (!selectedFounder) return;
-    
-    setIsActioning(true);
-    const result = await updateStatus(selectedFounder.id, 'approved');
-    
-    if (result.success) {
-      alert("Registration approved successfully!");
-      setSelectedFounder(null);
-    } else {
-      alert(`Error: ${result.error}`);
+
+  const downloadPDF = (founder) => {
+    const doc = new jsPDF()
+    const pageWidth = doc.internal.pageSize.getWidth()
+
+    // ── Header Bar ──────────────────────────────────────────
+    doc.setFillColor(245, 158, 11) // amber-500
+    doc.rect(0, 0, pageWidth, 18, 'F')
+
+    doc.setTextColor(0, 0, 0)
+    doc.setFontSize(11)
+    doc.setFont('helvetica', 'bold')
+    doc.text('FOUNDERSCLAN', 14, 12)
+
+    doc.setFont('helvetica', 'normal')
+    doc.setFontSize(8)
+    doc.text(`REG-${founder.id}  •  ${new Date().toLocaleDateString()}`, pageWidth - 14, 12, { align: 'right' })
+
+    // ── Title ────────────────────────────────────────────────
+    doc.setTextColor(15, 15, 15)
+    doc.setFontSize(20)
+    doc.setFont('helvetica', 'bold')
+    doc.text(founder.full_name || 'N/A', 14, 34)
+
+    doc.setFontSize(10)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(100, 100, 100)
+    doc.text(`${founder.role || 'Founder'}  at  ${founder.company_name || 'N/A'}`, 14, 42)
+
+    // Status badge
+    const statusColor = founder.status === 'approved' ? [34, 197, 94] :
+                        founder.status === 'rejected'  ? [239, 68, 68]  : [245, 158, 11]
+    doc.setFillColor(...statusColor)
+    doc.roundedRect(pageWidth - 45, 28, 30, 10, 2, 2, 'F')
+    doc.setTextColor(255, 255, 255)
+    doc.setFontSize(7)
+    doc.setFont('helvetica', 'bold')
+    doc.text((founder.status || 'pending').toUpperCase(), pageWidth - 30, 34.5, { align: 'center' })
+
+    // Divider
+    doc.setDrawColor(230, 230, 230)
+    doc.line(14, 50, pageWidth - 14, 50)
+
+    // ── Section Helper ───────────────────────────────────────
+    const section = (title, y) => {
+      doc.setFillColor(245, 245, 245)
+      doc.rect(14, y, pageWidth - 28, 7, 'F')
+      doc.setTextColor(100, 100, 100)
+      doc.setFontSize(7)
+      doc.setFont('helvetica', 'bold')
+      doc.text(title.toUpperCase(), 17, y + 5)
+      return y + 12
     }
-    setIsActioning(false);
-  };
+
+    const field = (label, value, x, y, maxWidth = 80) => {
+      doc.setTextColor(150, 150, 150)
+      doc.setFontSize(7)
+      doc.setFont('helvetica', 'normal')
+      doc.text(label, x, y)
+
+      doc.setTextColor(20, 20, 20)
+      doc.setFontSize(9)
+      doc.setFont('helvetica', 'bold')
+      const lines = doc.splitTextToSize(value || 'N/A', maxWidth)
+      doc.text(lines, x, y + 5)
+      return y + 5 + lines.length * 5
+    }
+
+    // ── 01. Personal Info ────────────────────────────────────
+    let y = section('01. Personal Information', 55)
+    field('Email', founder.email, 14, y)
+    field('Phone / WhatsApp', founder.phone, 110, y)
+    y += 14
+
+    field('Location', `${founder.city || ''}, ${founder.state || ''}`, 14, y)
+    field('LinkedIn', founder.linkedin_url || 'Not provided', 110, y, 80)
+    y += 14
+
+    // ── 02. Business Info ────────────────────────────────────
+    y = section('02. Business Intelligence', y + 4)
+    field('Company', founder.company_name, 14, y)
+    field('Industry', founder.industry_type, 110, y)
+    y += 14
+
+    field('Current Stage', founder.current_stage, 14, y)
+    field('Business Started', founder.business_started_month_year || 'N/A', 110, y)
+    y += 14
+
+    if (founder.business_idea) {
+      field('Business Idea', founder.business_idea, 14, y, pageWidth - 28)
+      y += Math.ceil(founder.business_idea.length / 80) * 6 + 12
+    }
+
+    // ── 03. Metrics ──────────────────────────────────────────
+    y = section('03. Business Metrics', y + 4)
+    field('MRR', founder.mrr, 14, y)
+    field('Team Size', founder.team_size, 65, y)
+    field('Funding Status', founder.funding_status, 116, y)
+    y += 14
+
+    field('Market Classification', founder.market_classification, 14, y)
+    y += 14
+
+    // ── 04. Value Exchange ───────────────────────────────────
+    y = section('04. Value Exchange', y + 4)
+
+    if (founder.biggest_problem_solved) {
+      field('Biggest Problem Solved', founder.biggest_problem_solved, 14, y, pageWidth - 28)
+      y += Math.ceil(founder.biggest_problem_solved.length / 80) * 6 + 12
+    }
+
+    if (founder.current_challenge) {
+      field('Current Challenge', founder.current_challenge, 14, y, pageWidth - 28)
+      y += Math.ceil(founder.current_challenge.length / 80) * 6 + 12
+    }
+
+    if (founder.why_join_elite) {
+      field('Why Join Elite', founder.why_join_elite, 14, y, pageWidth - 28)
+      y += Math.ceil(founder.why_join_elite.length / 80) * 6 + 12
+    }
+
+    // ── 05. Verification ─────────────────────────────────────
+    y = section('05. Verification', y + 4)
+    field('Willing to Pay Membership', founder.willing_to_pay_membership, 14, y)
+    field('Open to Vetting Call', founder.vetting_call, 110, y)
+    y += 14
+
+    if (founder.referral) {
+      field('Referral', founder.referral, 14, y)
+      y += 14
+    }
+
+    // ── Footer ───────────────────────────────────────────────
+    doc.setFillColor(245, 158, 11)
+    doc.rect(0, doc.internal.pageSize.getHeight() - 10, pageWidth, 10, 'F')
+    doc.setTextColor(0, 0, 0)
+    doc.setFontSize(7)
+    doc.setFont('helvetica', 'normal')
+    doc.text('FoundersClan — Confidential Registration Report', pageWidth / 2, doc.internal.pageSize.getHeight() - 4, { align: 'center' })
+
+    doc.save(`FoundersClan_REG-${founder.id}_${founder.full_name?.replace(/\s+/g, '_')}.pdf`)
+  }
+ 
+  
+ const handleApprove = async () => {
+  if (!selectedFounder) return;
+  setIsActioning(true);
+  const result = await updateStatus(selectedFounder.id, 'approved');
+  if (result.success) {
+    toast.success("Registration approved successfully!");
+    setSelectedFounder(null);
+  } else {
+    toast.error(`Error: ${result.error}`);
+  }
+  setIsActioning(false);
+};
 
   const handleReject = async () => {
     if (!selectedFounder) return;
-    
     const reason = prompt("Enter rejection reason (optional):");
-    
     setIsActioning(true);
     const result = await updateStatus(selectedFounder.id, 'rejected', reason);
-    
     if (result.success) {
-      alert("Registration rejected.");
+      toast.success("Registration Rejected successfully!");
       setSelectedFounder(null);
     } else {
-      alert(`Error: ${result.error}`);
+      toast.error(`Error: ${result.error}`);
     }
     setIsActioning(false);
   };
 
-  // Safe data access
+  
   const foundersList = registrations?.data || [];
   const pendingCount = foundersList.filter(f => f.status === 'pending').length;
 
-  // Helper to get status color
   const getStatusColor = (status) => {
     switch(status) {
       case 'approved': return 'text-green-500 border-green-500/20 bg-green-500/5';
@@ -306,6 +445,14 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
                     className="flex-1 bg-zinc-950 border border-zinc-800 text-white font-black uppercase tracking-widest py-4 rounded-xl md:rounded-2xl text-[10px] hover:text-red-500 hover:border-red-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                   >
                     <XCircle size={16} /> Reject
+                  </button>
+
+                  {/* Download PDF Button */}
+                  <button
+                    onClick={() => downloadPDF(selectedFounder)}
+                    className="flex-1 bg-zinc-800 border border-zinc-700 text-white font-black uppercase tracking-widest py-4 rounded-xl md:rounded-2xl text-[10px] hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all flex items-center justify-center gap-3"
+                  >
+                    <Download size={16} /> Download PDF
                   </button>
                 </div>
                 

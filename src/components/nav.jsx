@@ -1,10 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import { motion } from "motion/react";
-
+import logo from '../assets/logowithoutbg.png'
 export const NavBar = ({ handleMenu }) => {
       const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
+    const token = localStorage.getItem('Founders_token')
   return (
     <motion.nav 
       initial={{ y: -100, opacity: 0 }}
@@ -18,7 +19,7 @@ export const NavBar = ({ handleMenu }) => {
         <NavLink to="/" className="group flex items-center gap-2 md:gap-4 bg-zinc-900/40 backdrop-blur-xl border border-white/5 p-1 pr-4 md:pr-6 rounded-full transition-all hover:bg-zinc-900/80">
           <div className="relative" >
              <img 
-              src="assets/logowithoutbg.png" 
+              src={logo}
               className="w-9 h-9 md:w-12 md:h-12 rounded-full border border-yellow-500/20 object-cover p-1 bg-zinc-950" 
               alt="Logo" 
             />
@@ -26,7 +27,7 @@ export const NavBar = ({ handleMenu }) => {
           </div>
           
           <div className="flex flex-col">
-            <span className="font-diplomata-sc text-white text-[15px] md:text-sm tracking-widest leading-none">
+            <span className="font-diplomata-sc text-white text-[20px] md:text-sm tracking-widest leading-none">
               FOUNDERS <b className="text-yellow-500">CLAN</b>
             </span>
           </div>
@@ -45,7 +46,7 @@ export const NavBar = ({ handleMenu }) => {
       {/* 3. ACTIONS SECTION */}
       <div className="flex items-center gap-2 md:gap-6 pointer-events-auto">
         
-        <Link to='request-invitation'>
+        <Link to={token ? "request-invitation" : '/login'}>
           <motion.button 
             onClick={scrollToTop}
             whileHover={{ y: -2 }}

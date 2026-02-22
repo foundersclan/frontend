@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { loginUser, googleLogin, getStoredUser, isAuthenticated } from "../repository/login";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../../context/my-context";
+import toast from "react-hot-toast";
 
 export const useLogin = () => {
     const navigate = useNavigate();
@@ -13,9 +14,6 @@ export const useLogin = () => {
     });
     const [errors, setErrors] = useState({});
 
-    // ✅ REMOVED the auto-redirect useEffect
-
-    // Validate on input change
     useEffect(() => {
         validate()
     }, [userCred])
@@ -46,6 +44,7 @@ export const useLogin = () => {
         }
 
         setLoading(true)
+        const toastId = toast.loading('Logging in...')
         try {
             const data = await loginUser({
                 email:    userCred.email,
@@ -55,16 +54,18 @@ export const useLogin = () => {
             setUser(data.user)
             setisLoggedIn(true)
             setUserCred({ email: "", password: "" })
+            toast.success('Logged in successfully!', { id: toastId })
 
             if (data.user.role === 'admin') {
                 navigate('/admin-dashboard')
             } else {
                 navigate('/')
             }
-
+            
         } catch (error) {
             setisLoggedIn(false)
             setErrors({ general: error.message || 'Login failed' })
+            toast.error(error.message || 'Login failed', { id: toastId })
         } finally {
             setLoading(false)
         }
@@ -72,6 +73,7 @@ export const useLogin = () => {
 
     const handleGoogleSignIn = async (googleUserData) => {
         setLoading(true)
+        const toastId = toast.loading('Signing in with Google...')
         try {
             const data = await googleLogin({
                 email:     googleUserData.email,
@@ -81,6 +83,7 @@ export const useLogin = () => {
 
             setUser(data.user)
             setisLoggedIn(true)
+            toast.success('Logged in with Google!', { id: toastId })
 
             if (data.user.role === 'admin') {
                 navigate('/admin-dashboard')
@@ -91,6 +94,7 @@ export const useLogin = () => {
         } catch (error) {
             setisLoggedIn(false)
             setErrors({ general: error.message || 'Google login failed' })
+            toast.error(error.message || 'Google login failed', { id: toastId })
         } finally {
             setLoading(false)
         }

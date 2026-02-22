@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 const UserDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('Founders_user'));
   const userData = {
     name: "Jonathan Wick",
     tier: "Founder Tier",
@@ -26,8 +26,8 @@ const UserDashboard = () => {
     bio: "Scaling fintech solutions for the next generation of global markets."
   };
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
+    localStorage.removeItem('Founders_token')
+    localStorage.removeItem('Founders_user')
     navigate('/login');
   }
   const registeredEvents = [
@@ -76,7 +76,7 @@ const UserDashboard = () => {
             <div className="relative">
               <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-amber-500 to-amber-200 p-1">
                 <div className="w-full h-full rounded-full bg-zinc-950 flex items-center justify-center overflow-hidden">
-                  <img src="https://i.pravatar.cc/150?u=jonathan" alt="Profile" />
+                  {/* <img src="https://i.pravatar.cc/150?u=jonathan" alt="Profile" /> */}
                 </div>
               </div>
               <span className="absolute bottom-0 right-0 bg-amber-500 text-black text-[8px] font-black px-2 py-1 rounded-full uppercase">Pro</span>
@@ -86,7 +86,7 @@ const UserDashboard = () => {
               <div className="flex flex-col lg:flex-row lg:items-center gap-4 mb-2">
                 <h2 className="text-3xl font-bold text-white">{user.first_name}</h2>
                 <span className="px-3 py-1 border border-amber-500/30 text-amber-500 text-[10px] font-mono rounded-full uppercase tracking-tighter">
-                  {userData.tier}
+                  {user.role === "user" ? "Member" : user.role}
                 </span>
               </div>
               <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-zinc-500 text-xs font-medium">
@@ -114,11 +114,11 @@ const UserDashboard = () => {
               <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
                 <Zap size={18} className="text-amber-500" /> Upcoming Itinerary
               </h3>
-              <span className="text-zinc-600 text-[10px] uppercase font-mono">{registeredEvents.length} Sessions</span>
+              <span className="text-zinc-600 text-[10px] uppercase font-mono">0 Sessions</span>
             </div>
 
             <div className="space-y-4">
-              {registeredEvents.map(event => (
+              {/* {registeredEvents.map(event => (
                 <div key={event.id} className="group bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 p-6 rounded-2xl transition-all">
                   <div className="flex justify-between items-start">
                     <div>
@@ -131,7 +131,7 @@ const UserDashboard = () => {
                     </span>
                   </div>
                 </div>
-              ))}
+              ))} */}
             </div>
           </motion.div>
 
@@ -142,7 +142,7 @@ const UserDashboard = () => {
                 <History size={18} className="text-zinc-500" /> Past Legacy
               </h3>
             </div>
-
+{/* 
             <div className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden">
               <table className="w-full text-left text-xs">
                 <thead className="bg-zinc-800/30 text-zinc-500 uppercase font-mono tracking-tighter">
@@ -166,7 +166,7 @@ const UserDashboard = () => {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </div> */}
           </motion.div>
 
         </div>
