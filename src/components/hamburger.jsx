@@ -3,7 +3,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 
-const Hamburger = ({ click, handleMenu }) => {
+const Hamburger = ({ click, handleMenu , hamRef }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -22,6 +22,7 @@ const Hamburger = ({ click, handleMenu }) => {
     <AnimatePresence>
       {click && (
         <motion.div
+          ref={hamRef}
           initial={{ x: "100%" }}
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
@@ -32,6 +33,7 @@ const Hamburger = ({ click, handleMenu }) => {
           <div className="flex justify-between items-center p-8">
             <Link to={destination}>
               <motion.div
+              onClick={handleMenu}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}

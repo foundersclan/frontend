@@ -96,12 +96,12 @@ const validateStep = (step, formData) => {
     if (step === 3) {
         if (!valueExchange.biggestProblemSolved?.trim())
             errors.biggestProblemSolved = 'This field is required.'
-        else if (valueExchange.biggestProblemSolved.trim().length < 50)
+        else if (valueExchange.biggestProblemSolved.trim().length < 30)
             errors.biggestProblemSolved = 'Please provide at least 50 characters.'
 
         if (!valueExchange.currentChallenge?.trim())
             errors.currentChallenge = 'This field is required.'
-        else if (valueExchange.currentChallenge.trim().length < 50)
+        else if (valueExchange.currentChallenge.trim().length < 30)
             errors.currentChallenge = 'Please provide at least 50 characters.'
 
         if (!valueExchange.contribution || valueExchange.contribution.length === 0)
@@ -109,7 +109,7 @@ const validateStep = (step, formData) => {
 
         if (!valueExchange.whyJoinElite?.trim())
             errors.whyJoinElite = 'This field is required.'
-        else if (valueExchange.whyJoinElite.trim().length < 50)
+        else if (valueExchange.whyJoinElite.trim().length < 30)
             errors.whyJoinElite = 'Please provide at least 50 characters.'
     }
 

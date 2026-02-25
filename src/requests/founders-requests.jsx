@@ -26,11 +26,11 @@ const Requests = () => {
   } = useRequests();
 
   const sections = [
-    { id: 'personal',    label: 'Identity',      icon: <User size={16} />,          component: PersonalDetails },
-    { id: 'business',    label: 'Intelligence',   icon: <Building size={16} />,       component: BusinessIntelligence },
-    { id: 'metrics',     label: 'Metrics',        icon: <BarChart3 size={16} />,      component: BusinessMetrics },
-    { id: 'qualitative', label: 'Questionnaire',  icon: <MessageSquare size={16} />,  component: QualitativeIntelligence },
-    { id: 'vetting',     label: 'Referral',       icon: <ShieldCheck size={16} />,    component: FinalVetting },
+    { id: 'personal', label: 'Identity', icon: <User size={16} />, component: PersonalDetails },
+    { id: 'business', label: 'Intelligence', icon: <Building size={16} />, component: BusinessIntelligence },
+    { id: 'metrics', label: 'Metrics', icon: <BarChart3 size={16} />, component: BusinessMetrics },
+    { id: 'qualitative', label: 'Questionnaire', icon: <MessageSquare size={16} />, component: QualitativeIntelligence },
+    { id: 'vetting', label: 'Referral', icon: <ShieldCheck size={16} />, component: FinalVetting },
   ];
 
   const ActiveComponent = sections[currentStep].component;
@@ -81,21 +81,18 @@ const Requests = () => {
             {sections.map((section, idx) => (
               <div
                 key={section.id}
-                className={`flex items-center gap-4 transition-all duration-500 ${
-                  currentStep === idx ? 'opacity-100 translate-x-2' : 'opacity-30'
-                }`}
+                className={`flex items-center gap-4 transition-all duration-500 ${currentStep === idx ? 'opacity-100 translate-x-2' : 'opacity-30'
+                  }`}
               >
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all ${
-                  currentStep === idx
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all ${currentStep === idx
                     ? 'border-amber-500 bg-amber-500/10 text-amber-500'
                     : 'border-zinc-800 text-zinc-600'
-                }`}>
+                  }`}>
                   {section.icon}
                 </div>
                 <div className="flex flex-col">
-                  <span className={`text-xs font-bold uppercase tracking-widest ${
-                    currentStep === idx ? 'text-white' : 'text-zinc-700'
-                  }`}>
+                  <span className={`text-xs font-bold uppercase tracking-widest ${currentStep === idx ? 'text-white' : 'text-zinc-700'
+                    }`}>
                     {section.label}
                   </span>
                 </div>
@@ -145,12 +142,23 @@ const Requests = () => {
           </div>
 
           {/* Navigation Controls */}
-          <div className="mt-12 pt-8 border-t border-zinc-800/50 flex justify-end">
+          <div className="mt-12 pt-8 border-t border-zinc-800/50 flex justify-between gap-5">
+            {
+              currentStep > 0 && <button
+                onClick={prevStep}
+                disabled={currentStep === 0}
+                className="bg-white text-black md:px-12 px-8 md:py-4 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-amber-500 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white w-max"
+              >
+                Back To {sections[currentStep - 1].label}
+              </button>
+            }
+
+
             {isLastStep ? (
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="bg-amber-500 text-black px-12 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-amber-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-amber-500 text-black  md:px-12 px-8 md:py-4 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-amber-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Submitting...' : 'Submit Application'}
               </button>
@@ -158,11 +166,12 @@ const Requests = () => {
               <button
                 onClick={nextStep}
                 disabled={false}
-                className="bg-white text-black px-12 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-amber-500 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white"
+                className="bg-white text-black md:px-12 px-8 md:py-4 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-amber-500 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white"
               >
                 Continue to {sections[currentStep + 1].label}
               </button>
             )}
+
           </div>
 
         </main>

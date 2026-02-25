@@ -60,9 +60,9 @@ const QualitativeIntelligence = ({ formData, handleChange, handleContributionCha
             <div className="flex justify-between px-1">
               <FieldError message={fieldErrors.biggestProblemSolved} />
               <span className={`text-[10px] font-mono ml-auto ${
-                valueExchange.biggestProblemSolved.length < 50 ? 'text-red-500/60' : 'text-zinc-600'
+                valueExchange.biggestProblemSolved.length < 30 ? 'text-red-500/60' : 'text-zinc-600'
               }`}>
-                {valueExchange.biggestProblemSolved.length} / 50 min
+                {valueExchange.biggestProblemSolved.length} / 30 min
               </span>
             </div>
           </div>
@@ -140,9 +140,9 @@ const QualitativeIntelligence = ({ formData, handleChange, handleContributionCha
             <div className="flex justify-between px-1">
               <FieldError message={fieldErrors.whyJoinElite} />
               <span className={`text-[10px] font-mono ml-auto ${
-                valueExchange.whyJoinElite.length < 50 ? 'text-red-500/60' : 'text-zinc-600'
+                valueExchange.whyJoinElite.length < 30 ? 'text-red-500/60' : 'text-zinc-600'
               }`}>
-                {valueExchange.whyJoinElite.length} / 50 min
+                {valueExchange.whyJoinElite.length} / 30 min
               </span>
             </div>
           </div>

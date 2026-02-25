@@ -68,7 +68,7 @@ export const Login = () => {
                 <Fingerprint className="text-yellow-500 size-8" />
               </motion.div>
               <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tighter leading-none">
-                IDENTITY <span className="text-yellow-500 font-black italic">CHECK.</span>
+                LOGIN TO <span className="text-yellow-500 font-black italic">Continue</span>
               </h2>
               <p className="text-zinc-500 text-[10px] md:text-xs font-mono uppercase tracking-[0.3em] mt-3">
                 Secure Access Protocol v2.0

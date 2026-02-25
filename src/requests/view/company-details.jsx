@@ -208,7 +208,7 @@ const BusinessIntelligence = ({ formData, handleChange, fieldErrors = {}, onNext
               <div className="space-y-2">
                 <div className="flex justify-between px-1">
                   <label className="text-[10px] uppercase font-mono text-zinc-500 tracking-widest">
-                    GST Number
+                    GST Number (optional)
                   </label>
                   <span className="text-[9px] text-amber-500/70 font-bold uppercase tracking-tighter">
                     Recommended Filter

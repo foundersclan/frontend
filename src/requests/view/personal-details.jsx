@@ -156,7 +156,7 @@ const PersonalDetails = ({
                                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600" size={18} />
                                     <input
                                         type="tel"
-                                        placeholder="+91 ••• ••• ••••"
+                                        placeholder="9876543210"
                                         value={personalDetails.whatsapp}
                                         onChange={(e) => handleChange('personalDetails', 'whatsapp', e.target.value)}
                                         className={`w-full bg-zinc-950/50 border rounded-2xl pl-12 pr-4 py-4 focus:border-amber-500 outline-none text-sm ${

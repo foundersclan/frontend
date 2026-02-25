@@ -98,9 +98,9 @@ const UserDashboard = () => {
               <button className="bg-white text-black text-xs font-bold px-6 py-3 rounded-xl hover:bg-amber-500 transition-colors uppercase tracking-widest" onClick={handleLogout}>
                 Logout
               </button>
-              <button className="bg-white text-black text-xs font-bold px-6 py-3 rounded-xl hover:bg-amber-500 transition-colors uppercase tracking-widest">
+              {/* <button className="bg-white text-black text-xs font-bold px-6 py-3 rounded-xl hover:bg-amber-500 transition-colors uppercase tracking-widest">
                 Edit Profile
-              </button>
+              </button> */}
             </div>
 
           </motion.div>

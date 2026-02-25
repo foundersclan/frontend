@@ -2,10 +2,10 @@ import { Instagram, Linkedin, Youtube, ArrowUpCircle } from "lucide-react";
 import { motion } from "framer-motion"; 
 import { Link } from "react-router-dom";
 
+const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+};
 export const Footer = () => {
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
 
     // Social data array - Fixed syntax
     const socialLinks = [
@@ -58,7 +58,7 @@ export const Footer = () => {
                         />
                         <FooterGroup 
                             title="Resources" 
-                            links={[ "Services","Events", "Contact"]} 
+                            links={[ "Services","Events", "Support"]} 
                         />
                         {/* <FooterGroup 
                             title="Legal" 
@@ -97,7 +97,7 @@ const FooterGroup = ({ title, links }) => (
         </h3>
         <ul className="space-y-4">
             {links.map((link) => (
-                <li key={link}>
+                <li key={link}  onClick={scrollToTop}>
                     {/* Using Link for internal routing instead of <a> */}
                     <Link 
                         to={`/${link.toLowerCase().replace(/\s+/g, '-')}`} 

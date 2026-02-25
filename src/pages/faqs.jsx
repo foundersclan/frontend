@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, ArrowBigDown, ArrowDown } from "lucide-react";
 
 export const Faqs = () => {
   const faqsData = [
@@ -100,9 +100,9 @@ export const Faqs = () => {
           className="mt-20 flex flex-col items-center p-12 bg-zinc-900/50 rounded-3xl border border-white/5 text-center"
         >
           <p className="text-zinc-400 mb-6">Still have a specific inquiry?</p>
-          <button className="px-8 py-4 bg-white text-black font-black uppercase tracking-widest text-xs hover:bg-yellow-500 transition-colors duration-300">
-            Contact Concierge
-          </button>
+          <h1 className="px-8 flex items-center gap-3 py-4  text-zinc-200 font-black uppercase tracking-widest text-xs transition-colors duration-300">
+          Fill out the fomr below <ArrowDown/>
+          </h1>
         </motion.div>
       </div>
     </section>
