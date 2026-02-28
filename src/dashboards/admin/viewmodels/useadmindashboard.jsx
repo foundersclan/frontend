@@ -75,7 +75,6 @@ export const useAdminDashboard = () => {
     }
   };
 
-  // Update registration status (bonus function)
   const updateRegistrationStatus = async (id, status, rejection_reason = null) => {
     try {
       await axios.patch(
@@ -89,7 +88,6 @@ export const useAdminDashboard = () => {
         }
       );
 
-      // Update local state
       setRegistrations((prev) =>
         prev.map((reg) =>
           reg.id === id

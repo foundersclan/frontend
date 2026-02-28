@@ -33,7 +33,7 @@ export const NavBar = ({ handleMenu }) => {
     >
 
       {/* 1. LOGO SECTION */}
-      <div className="pointer-events-auto shrink-0 flex items-center gap-2 w-auto bg-zinc-900/40" onClick={scrollToTop}>
+      <div className="pointer-events-auto shrink-0 flex items-center gap-2 w-auto" onClick={scrollToTop}>
         <button
           onClick={handleMenu}
           className="group flex md:hidden flex-col justify-center items-end gap-1.5 w-10 h-10 md:w-12 md:h-12 bg-zinc-900/40 backdrop-blur-xl border border-white/5 rounded-full px-3 md:px-3.5 hover:border-yellow-500/50 transition-all duration-500"

@@ -2,6 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
+import { GenerateOtp, VerifyOtp } from "../repository/requests"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -152,7 +153,8 @@ export const useRequests = () => {
             pitchDeckUrl: '', vettingCall: '',
         },
     })
-
+    const [otp, setotp] = useState("");
+    const [verified , setisVerified] = useState(false);
     const [currentStep, setCurrentStep] = useState(0)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -227,7 +229,46 @@ export const useRequests = () => {
             vetting_call: verification.vettingCall || null,
         }
     }
-
+    const handleSendOtp = async () => {
+        setLoading(true)
+        setError(null)
+        const email = formData.personalDetails.email;
+        const toastId = toast.loading('Sending your Otp...')
+        try {
+            await GenerateOtp({ email });
+            toast.success('Otp Sent Successfully!', { id: toastId })
+        } catch (error) {
+            const message = error.response?.data?.message || error.message || 'Something went wrong'
+            console.log(error.message);
+            
+            setError(message)
+            toast.error(message, { id: toastId })
+        } finally {
+            setLoading(false)
+        }
+    }
+    const handleOtpChange = (e) => {
+        
+        setotp(e.target.value);
+    };
+    const handleVerifyOtp = async () => {
+        setLoading(true)
+        setError(null)
+        const email = formData.personalDetails.email;
+        const toastId = toast.loading('Verifying your Otp...')
+        try {
+            await VerifyOtp({ email, otp });
+            setisVerified(true);
+            toast.success('Otp Verified Successfully!', { id: toastId })
+        } catch (err) {
+            const message = err.response?.data?.message || err.message || 'Something went wrong'
+            setError(message)
+            console.error(message);
+            toast.error(message, { id: toastId })
+        } finally {
+            setLoading(false)
+        }
+    }
     const handleSubmit = async () => {
         const errors = validateStep(4, formData)
         if (Object.keys(errors).length > 0) {
@@ -235,7 +276,6 @@ export const useRequests = () => {
             toast.error('Please fix the errors before submitting.')
             return
         }
-
         setLoading(true)
         setError(null)
         const toastId = toast.loading('Submitting your application...')
@@ -283,5 +323,11 @@ export const useRequests = () => {
         prevStep,
         handleSubmit,
         resetForm,
+        handleSendOtp,
+        handleVerifyOtp,
+        handleOtpChange,
+        otp,
+        setotp,
+        verified
     }
 }

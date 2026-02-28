@@ -11,13 +11,14 @@ const Team = () => {
   const allMembers = [
     { name: "Nishant Saini", role: "Chief Visionary", image: "/team/nishant.png" },
     { name: "Aman Monga", role: "G.O.A.T of Tech", image: "/team/aman.jpeg" },
-    { name: "Riya", role: "Operations Lead", image: "/team/riya.jpeg" },
+    // { name: "Riya", role: "Operations Lead", image: "/team/riya.jpeg" },
     { name: "Shourya Sharma", role: "Impact Catalyst", image: "/team/shourya.jpeg" },
     { name: "Jayant", role: "Media Team Manager", image: "/team/jayant.jpeg" },
     { name: "Muskan Jindal", role: "Offline Market Head", image: "/team/muskan.jpeg" },
     { name: "Jaya Saini", role: "Engagement Lead", image: "/team/jaya2.jpeg" },
     { name: "Aaryan", role: "Video Editor", image: "/team/aryan.jpeg" },
-    { name: "Khushi Chauhan", role: "Content Creator", image: "/team/khushi.jpeg" }
+    { name: "Khushi Chauhan", role: "Viral Engineer", image: "/team/khushi.jpeg" },
+    { name: "Ambhuj", role: "Content Creator", image: "/team/ambuj.jpeg" }
   ];
 
   return (

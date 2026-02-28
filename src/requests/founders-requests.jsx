@@ -22,7 +22,13 @@ const Requests = () => {
     prevStep,
     handleSubmit,
     resetForm,
-    fieldErrors
+    fieldErrors,
+    handleSendOtp,
+    handleVerifyOtp,
+    handleOtpChange,
+    otp,
+    setotp,
+    verified
   } = useRequests();
 
   const sections = [
@@ -85,8 +91,8 @@ const Requests = () => {
                   }`}
               >
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all ${currentStep === idx
-                    ? 'border-amber-500 bg-amber-500/10 text-amber-500'
-                    : 'border-zinc-800 text-zinc-600'
+                  ? 'border-amber-500 bg-amber-500/10 text-amber-500'
+                  : 'border-zinc-800 text-zinc-600'
                   }`}>
                   {section.icon}
                 </div>
@@ -136,12 +142,17 @@ const Requests = () => {
                   handleContributionChange={handleContributionChange}
                   onNext={nextStep}
                   fieldErrors={fieldErrors}
+                  handleOtpChange={handleOtpChange}
+                  handleSendOtp={handleSendOtp}
+                  handleVerifyOtp={handleVerifyOtp}
+                  otp={otp}
+                  setotp={setotp}
+                  verified={verified}
                 />
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Navigation Controls */}
           <div className="mt-12 pt-8 border-t border-zinc-800/50 flex justify-between gap-5">
             {
               currentStep > 0 && <button
@@ -165,7 +176,7 @@ const Requests = () => {
             ) : (
               <button
                 onClick={nextStep}
-                disabled={false}
+                disabled={currentStep === 0 && !verified}
                 className="bg-white text-black md:px-12 px-8 md:py-4 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-amber-500 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white"
               >
                 Continue to {sections[currentStep + 1].label}
