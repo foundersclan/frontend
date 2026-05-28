@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { motion,useScroll, useTransform, useSpring } from  "framer-motion";
+import { useRef } from "react";
 import { Quote } from "lucide-react";
 
 export const TeamIntro = () => {
@@ -16,22 +17,37 @@ export const TeamIntro = () => {
     { name: "Ambhuj", role: "Content Creator", src: "/team/ambuj.jpeg" }
   ];
 
-  return (
-    <section className="relative bg-zinc-950 py-32 overflow-hidden">
+  const scrollSectionRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: scrollSectionRef,
+    offset: ["start end", "end start"],
+  });
 
+  const xRaw = useTransform(scrollYProgress, [0, 1], ["5%", "-80%"]);
+  const xTranslate = useSpring(xRaw, {
+    stiffness: 50,
+    damping: 20,
+    mass: 0.5
+  });
+
+  return (
+    <section
+      ref={scrollSectionRef}
+      className="relative bg-zinc-950 py-32 overflow-hidden"
+    >
       <div className="absolute top-0 right-0 w-1/2 h-full bg-yellow-500/[0.02] -skew-x-12 translate-x-1/4 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-
         {/* Header */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-24 items-start">
           <div className="md:col-span-8">
             <motion.span
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              className="text-yellow-500 font-mono tracking-[0.5em] text-xs uppercase mb-4 block"
+              className=" flex items-center gap-3 text-yellow-500 font-mono tracking-[0.5em] text-xs uppercase mb-4 "
             >
-              The Human Element // 0.1
+            <span className="w-10 h-px bg-yellow-500" /> THE ORIGINATORS
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
@@ -50,7 +66,8 @@ export const TeamIntro = () => {
               transition={{ delay: 0.3 }}
               className="text-zinc-500 text-lg leading-relaxed border-l border-yellow-500/30 pl-6"
             >
-              We are a collective of thinkers and doers. We don't just follow blueprints; we invent them.
+              We are a collective of thinkers and doers. We don&apos;t just
+              follow blueprints, we invent them.
             </motion.p>
           </div>
         </div>
@@ -58,45 +75,48 @@ export const TeamIntro = () => {
 
       {/* ── Infinite Scrolling Strip ── */}
       <div className="relative w-full overflow-hidden mb-24">
-
         {/* Left fade */}
         <div className="absolute left-0 top-0 h-full w-32 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
         {/* Right fade */}
         <div className="absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none" />
 
-        <motion.div
-          className="flex gap-6"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            duration: 20,
-            ease: "linear",
-            repeat: Infinity,
-          }}
-          style={{ width: "max-content" }}
-        >
-          {/* Render twice for seamless loop */}
-          {[...team, ...team].map((member, index) => (
-            <div
-              key={index}
-              className="group relative rounded-3xl overflow-hidden flex-shrink-0 bg-zinc-900 border border-white/5"
-              style={{ width: "280px", height: "360px" }}
-            >
-              <img
-                src={member.src}
-                alt={member.name}
-                className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-in-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-              <div className="absolute bottom-6 left-6">
-                <p className="text-yellow-500 font-bold  text-md uppercase tracking-[0.2em] mb-1">
-                  {member.role}
-                </p>
-                <h4 className="text-lg font-bold text-white">{member.name}</h4>
+        <motion.div style={{ x: xTranslate }} className="will-change-transform">
+          <motion.div
+            className="flex gap-6 w-max"
+            animate={{ x: ["0%", "-33%"] }}
+            transition={{
+              duration: 20,
+              ease: "linear",
+              repeat: Infinity,
+            }}
+            style={{ width: "max-content" }}
+          >
+            {/* Render twice for seamless loop */}
+            {[...team, ...team].map((member, index) => (
+              <div
+                key={index}
+                className="group relative rounded-3xl overflow-hidden flex-shrink-0 bg-zinc-900 border border-white/5"
+                style={{ width: "280px", height: "360px" }}
+              >
+                <img
+                  src={member.src}
+                  alt={member.name}
+                  className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-in-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                <div className="absolute bottom-6 left-6">
+                  <p className="text-yellow-500 font-bold  text-md uppercase tracking-[0.2em] mb-1">
+                    {member.role}
+                  </p>
+                  <h4 className="text-lg font-bold text-white">
+                    {member.name}
+                  </h4>
+                </div>
+                {/* Hover border glow */}
+                <div className="absolute inset-0 rounded-3xl border border-yellow-500/0 group-hover:border-yellow-500/30 transition-all duration-500" />
               </div>
-              {/* Hover border glow */}
-              <div className="absolute inset-0 rounded-3xl border border-yellow-500/0 group-hover:border-yellow-500/30 transition-all duration-500" />
-            </div>
-          ))}
+            ))}
+          </motion.div>
         </motion.div>
       </div>
 
@@ -113,15 +133,17 @@ export const TeamIntro = () => {
           </div>
           <div className="relative z-10 max-w-xl">
             <h4 className="text-3xl font-bold text-white mb-6 leading-tight">
-              Engineering <br /> Meaningful <br /> <span className="text-yellow-500">Impact.</span>
+              Engineering <br /> Meaningful <br />{" "}
+              <span className="text-yellow-500">Impact.</span>
             </h4>
             <p className="text-zinc-400 text-lg leading-relaxed">
-              Excellence isn't an act, it's a habit. We aim for long-term value in every line of code and every brand strategy we touch.
+              Excellence isn&apos;t an act, it&apos;s a habit. We aim for
+              long-term value in every line of code and every brand strategy we
+              touch.
             </p>
           </div>
         </motion.div>
       </div>
-
     </section>
   );
 };

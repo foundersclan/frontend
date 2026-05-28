@@ -19,7 +19,7 @@ body{
   overflow: hidden;
 }
 html{
-  scroll-behavior: smooth;
+  scroll-behavior:smooth;
 } 
 .font-diplomata-sc {
    font-family: "Diplomata", serif;

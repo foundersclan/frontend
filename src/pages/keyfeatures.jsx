@@ -1,4 +1,4 @@
-import { CheckCircle, Heart, MessageCircle, RefreshCcw, Users, ArrowUpRight } from "lucide-react";
+import { CheckCircle, Heart, MessageCircle, RefreshCcw, Users } from "lucide-react";
 import { motion } from "motion/react";
 
 export const Features = () => {
@@ -26,8 +26,8 @@ export const Features = () => {
             whileInView={{ opacity: 1, x: 0 }}
             className="max-w-2xl"
           >
-            <span className="text-yellow-500 font-bold uppercase tracking-[0.4em] text-xs mb-4 block">
-              Capabilities
+            <span className="flex items-center gap-3 text-yellow-500 font-bold uppercase tracking-[0.4em] text-xs mb-4">
+            <span className="w-10 h-px bg-yellow-500" /> Capabilities
             </span>
             <h2 className="text-5xl md:text-7xl font-bold text-white leading-tight">
               Fueling your <br />
@@ -91,7 +91,7 @@ export const Features = () => {
       </motion.div>
 
      
-      <div className="mt-16 text-center">
+      {/* <div className="mt-16 text-center">
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -99,7 +99,7 @@ export const Features = () => {
         >
           © BRAND_SYSTEM // 2025_RESOURCES
         </motion.p>
-      </div>
+      </div> */}
 
     </section>
   );

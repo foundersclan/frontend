@@ -30,9 +30,9 @@ export const Testimonial = () => {
             <motion.span 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              className="text-yellow-500 font-mono tracking-[0.4em] text-xs uppercase mb-6"
+              className="flex items-center gap-3 text-yellow-500 font-mono tracking-[0.4em] text-xs uppercase mb-6"
             >
-              Testimonials // Proof of Value
+            <span className="w-8 h-px bg-yellow-500" /> Testimonials // Proof of Value
             </motion.span>
             
             <h2 className="text-5xl md:text-7xl font-bold text-white tracking-tighter leading-tight mb-8">

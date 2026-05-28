@@ -11,6 +11,7 @@ import RegistrationPortal from './view/registrations';
 import EventManager from './view/event-managers';
 import MemberDirectory from './view/members';
 import { useAdminDashboard } from './viewmodels/useadmindashboard';
+import ReachOutApplicationManager from './view/ReachOutApplication';
 
 const AdminDashboard = () => {
   const [activeView, setActiveView] = useState('analytics');
@@ -80,6 +81,8 @@ const AdminDashboard = () => {
         );
       case 'directory': 
         return <MemberDirectory />;
+      case 'reachOutApplication':
+        return <ReachOutApplicationManager />;  
       default: 
         return <AnalyticsView stats={stats} registrations={registrations} events={events} />;
     }
@@ -175,6 +178,12 @@ const AdminDashboard = () => {
             icon={<Filter size={18} />} 
             active={activeView === 'directory'} 
             onClick={() => handleNavClick('directory')} 
+          />
+          <AdminNavItem 
+            label="Reach Out Application" 
+            icon={<Filter size={18} />} 
+            active={activeView === 'reachOutApplication'} 
+            onClick={() => handleNavClick('reachOutApplication')} 
           />
         </nav>
 

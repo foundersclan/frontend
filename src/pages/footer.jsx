@@ -82,7 +82,7 @@ export const Footer = () => {
                     </button>
 
                     <div className="flex gap-8">
-                        <span className="text-zinc-700 text-[10px] font-mono uppercase tracking-widest">Global HQ: London // NYC</span>
+                        <span className="text-zinc-700 text-[12px] font-mono uppercase tracking-widest">Made by founders</span>
                     </div>
                 </div>
             </div>
@@ -90,6 +90,8 @@ export const Footer = () => {
     );
 };
 
+
+/* eslint-disable react/prop-types */
 const FooterGroup = ({ title, links }) => (
     <div className="space-y-6">
         <h3 className="text-white font-mono text-[10px] uppercase tracking-[0.4em] opacity-50">

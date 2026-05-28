@@ -8,10 +8,12 @@ const Hamburger = ({ click, handleMenu , hamRef }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const links = [
+    { name: "Home", path:"/"},
     { name: "The Team", path: "/team" },
     { name: "Our Manifesto", path: "/about" },
     { name: "Private Events", path: "/events" },
     { name: "Concierge Support", path: "/support" },
+    { name: "FoundersClan_Campus_Catalyst" , path: "/FoundersClan_Campus_Catalyst"},
   ];
   const token = localStorage.getItem('Founders_token');
   const user = JSON.parse(localStorage.getItem('Founders_user'));
@@ -54,7 +56,7 @@ const Hamburger = ({ click, handleMenu , hamRef }) => {
 
 
           <nav className="flex flex-col justify-center flex-grow px-12 space-y-8">
-            <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.4em] mb-4">Directory</p>
+            {/* <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.4em] mb-4">Directory</p> */}
             {links.map((link, i) => (
               <motion.div
                 onClick={scrollToTop}
@@ -68,9 +70,9 @@ const Hamburger = ({ click, handleMenu , hamRef }) => {
                   onClick={handleMenu}
                   className="group flex items-end gap-4"
                 >
-                  <span className="text-zinc-800 text-2xl font-light font-mono group-hover:text-yellow-500/20 transition-colors">
+                  {/* <span className="text-zinc-800 text-2xl font-light font-mono group-hover:text-yellow-500/20 transition-colors">
                     0{i + 1}
-                  </span>
+                  </span> */}
                   <span className="text-4xl md:text-5xl font-bold text-zinc-300 group-hover:text-white group-hover:italic transition-all duration-300">
                     {link.name}
                   </span>

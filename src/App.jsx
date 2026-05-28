@@ -1,5 +1,4 @@
 import "./index.css"
-import { NavBar } from "./components/nav"
 import { AboutUs } from "./pages/about"
 import { Faqs } from "./pages/faqs"
 import { ContactPage } from "./pages/contact"
@@ -7,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Applayout } from "./components/Applayout"
 import { Home } from "./pages/home"
 import { Errorpage } from "./pages/errorPage"
-import { Events } from "./pages/events"
+// import { Events } from "./pages/events"
 import { MyState } from "./context/my-state"
 import { Login } from "./auth/login/login"
 import Signup from "./auth/signup/signup"
@@ -18,6 +17,8 @@ import Requests from "./requests/founders-requests"
 import { ComingSoon } from "./pages/comingsoon/coming-soon"
 import { Services } from "./pages/services/services"
 import { Toaster } from "react-hot-toast"
+import { Events } from "./pages/event/events"
+import FoundersClan_Campus_Catalyst from "./pages/FoundersClan_Campus_Catalyst/FoundersClan_Campus_Catalyst"
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,8 @@ const router = createBrowserRouter([
       { path: "/request-invitation", element: <Requests /> },
       { path: "/services", element: <Services /> },
       { path: "/blog", element: <ComingSoon /> },
-    ]
+      { path: "/FoundersClan_Campus_Catalyst/*", element: <FoundersClan_Campus_Catalyst />}
+    ] 
   }
 ])
 

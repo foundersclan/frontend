@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Plus, Minus, ArrowBigDown, ArrowDown } from "lucide-react";
+import { Plus, Minus, ArrowDown } from "lucide-react";
 
-export const Faqs = () => {
+
+/* eslint-disable react/prop-types */
+export const Faqs = ({onButtonClick}) => {
   const faqsData = [
     { id: 1, question: "What is the primary focus of the clan?", answer: "We focus on accelerating early-stage founders by providing expert mentorship, actionable resources, and a strong peer-to-peer network." },
     { id: 2, question: "How often are the networking events held?", answer: "Networking events, both virtual and in-person, featuring key industry speakers and investor pitch opportunities." },
@@ -25,9 +27,9 @@ export const Faqs = () => {
             <motion.span
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              className="text-yellow-500 font-mono tracking-[0.4em] text-xs uppercase mb-4 block"
+              className="flex items-center gap-3 text-yellow-500 font-mono tracking-[0.4em] text-xs uppercase mb-4"
             >
-              Curated Support // FAQ
+             <span className="w-8 h-px bg-yellow-500" /> Curated Support // FAQ
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
@@ -97,12 +99,14 @@ export const Faqs = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          className="mt-20 flex flex-col items-center p-12 bg-zinc-900/50 rounded-3xl border border-white/5 text-center"
+          className="mt-20 flex flex-col items-center p-12 bg-zinc-900/50 rounded-3xl border border-white/5 text-center text-xl"
         >
           <p className="text-zinc-400 mb-6">Still have a specific inquiry?</p>
-          <h1 className="px-8 flex items-center gap-3 py-4  text-zinc-200 font-black uppercase tracking-widest text-xs transition-colors duration-300">
-          Fill out the fomr below <ArrowDown/>
+          <button onClick={onButtonClick} >
+          <h1 className="px-8 flex items-center gap-3 py-4  text-zinc-200 font-black uppercase tracking-widest  transition-colors duration-300 hover:text-yellow-500">
+          Fill out the form below <ArrowDown/>
           </h1>
+          </button>
         </motion.div>
       </div>
     </section>

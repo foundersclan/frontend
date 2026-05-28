@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 export const LandingPage = () => {
@@ -27,7 +27,10 @@ export const LandingPage = () => {
         style={{ y: textY }}
         className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none select-none"
       >
-        <h2 className="text-[25vw] md:text-[20vw] font-black text-white/[0.05] leading-none mt-[-20vh] md:mt-0">
+          <h2 className="text-[20vw] md:text-[15vw] font-black text-white/[0.05] leading-none mt-[-20vh] md:mt-0">
+          FOUNDERS
+        </h2>
+        <h2 className="text-[20vw] md:text-[15vw] font-black text-white/[0.05] leading-none mt-[-20vh] md:mt-0">
           CLAN
         </h2>
       </motion.div>
@@ -61,7 +64,7 @@ export const LandingPage = () => {
         <motion.img 
           style={{ y: imageY }}
           src="/assets/manwithnobackground.png" 
-          className="h-[65vh] sm:h-[75vh] md:h-[95vh] w-auto object-contain object-bottom drop-shadow-[0_0_50px_rgba(0,0,0,0.8)]"
+          className="h-[65vh] sm:h-[75vh] md:h-[90vh]  w-auto object-contain object-bottom drop-shadow-[0_0_50px_rgba(0,0,0,0.8)]"
           alt="Brand Character"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -78,7 +81,7 @@ export const LandingPage = () => {
       {/* 6. SCROLL INDICATOR */}
       <motion.div 
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 1 }}  
         transition={{ delay: 2.5 }}
         className="absolute bottom-6 md:bottom-10 z-50 flex flex-col items-center gap-2"
       >

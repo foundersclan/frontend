@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { registerUser } from "../repository/signupFuncion";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../../context/my-context";
 import toast from "react-hot-toast";
 

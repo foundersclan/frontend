@@ -1,19 +1,18 @@
-import { collection, addDoc, Timestamp } from "firebase/firestore";
-import { useContext, useState } from "react";
-import { FaInstagram, FaYoutube, FaLinkedinIn } from "react-icons/fa";
-import { toast } from "react-toastify";
-import { firedb } from "../firebase/firebaseconfig";
-import { useNavigate } from "react-router-dom";
-import { Instagram, Mail, Twitter, Youtube } from "lucide-react";
-import { motion } from "motion/react";
+import { useContext, useRef } from "react";
 import { MyContext } from "../context/my-context";
 import { ContactForm } from "../components/contact-form";
 import { Faqs } from "./faqs";
 import { Loader } from "../components/components/loading";
 export const ContactPage = () => {
    
-    const { loading, setLoading } = useContext(MyContext);
- 
+    const { loading } = useContext(MyContext);
+    const contactFormRef = useRef(null);
+    const scrollToContact = () => {
+    contactFormRef.current?.scrollIntoView({ 
+      behavior: "smooth", 
+      block: "start" 
+    });
+  };
 
     return (
         <section
@@ -23,8 +22,10 @@ export const ContactPage = () => {
             {loading && (
                <Loader/>
             )}
-        <Faqs/>
+        <Faqs onButtonClick={scrollToContact}/>
+        <div ref={contactFormRef} >
          <ContactForm/>
+        </div>
         </section>
     )
 }

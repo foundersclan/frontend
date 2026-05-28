@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, ShieldCheck, Target } from 'lucide-react';
+import {  ShieldCheck } from 'lucide-react';
 import team from '../assets/think-insight.jpeg'
 const Team = () => {
   const fadeInUp = {
@@ -41,7 +40,7 @@ const Team = () => {
             OUR <span className="italic font-serif text-amber-500">OPERATIVES</span>
           </h1>
           <p className="max-w-2xl mx-auto text-zinc-500 text-lg font-light leading-relaxed">
-            The architects of ambition. We don't just manage the clan; we safeguard the vision of every founder within our ecosystem.
+            The architects of ambition. We don&apos;t just manage the clan; we safeguard the vision of every founder within our ecosystem.
           </p>
         </motion.div>
       </motion.section>
@@ -149,14 +148,21 @@ const Team = () => {
               One Vision. <br/>
               <span className="italic font-serif text-amber-500">{allMembers.length} Architects.</span>
             </h2>
-            
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-12 py-5 bg-amber-600 text-black font-black uppercase tracking-[0.2em] text-[10px] rounded-full"
+             
+            <a
+              href={import.meta.env.VITE_DISCORD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full lg:w-auto"
             >
-              Collaborate With Us
-            </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-12 py-5 bg-amber-600 text-black font-black uppercase tracking-[0.2em] text-[10px] rounded-full"
+              >
+                Collaborate With Us
+              </motion.button>
+            </a>
         </motion.div>
       </section>
     </div>

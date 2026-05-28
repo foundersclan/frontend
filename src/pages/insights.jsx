@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
 import team from "../assets/team-insights.png"
 import lead from "../assets/think-insight.jpeg"
 import grow from "../assets/grow-insight.jpeg"
@@ -42,9 +41,9 @@ export const Insights = () => {
             <motion.p 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              className="text-yellow-500 font-mono text-sm tracking-[0.4em] uppercase mb-4"
+              className="flex items-center gap-3 text-yellow-500 font-mono text-sm tracking-[0.4em] uppercase mb-4"
             >
-              Knowledge Base // Archive
+            <span className="w-8 h-px bg-yellow-500" /> Knowledge Base // Archive
             </motion.p>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -75,7 +74,7 @@ export const Insights = () => {
               className="group cursor-pointer"
             >
             
-              <div className="relative overflow-hidden rounded-sm aspect-[16/10] bg-zinc-900">
+              <div className="relative overflow-hidden rounded-2xl aspect-[16/10] bg-zinc-900">
                 <motion.img 
                   src={ele.image} 
                   alt={ele.head}
