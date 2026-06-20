@@ -18,7 +18,8 @@ import { ComingSoon } from "./pages/comingsoon/coming-soon"
 import { Services } from "./pages/services/services"
 import { Toaster } from "react-hot-toast"
 import { Events } from "./pages/event/events"
-import FoundersClan_Campus_Catalyst from "./pages/FoundersClan_Campus_Catalyst/FoundersClan_Campus_Catalyst"
+import { LazyMotion, domAnimation } from "framer-motion";
+import CampusAmbassador from "./pages/CampusAmbassador/CampusAmbassador"
 
 const router = createBrowserRouter([
   {
@@ -37,15 +38,16 @@ const router = createBrowserRouter([
       { path: "/profile/user", element: <UserDashboard /> },
       { path: "/admin-dashboard", element: <AdminDashboard /> },
       { path: "/request-invitation", element: <Requests /> },
-      { path: "/services", element: <Services /> },
+      { path: "/services", element: <ComingSoon /> },
       { path: "/blog", element: <ComingSoon /> },
-      { path: "/FoundersClan_Campus_Catalyst/*", element: <FoundersClan_Campus_Catalyst />}
+      { path: "/CampusAmbassador/*", element: <CampusAmbassador />}
     ] 
   }
 ])
 
 const App = () => {
   return (
+    <LazyMotion features={domAnimation}>
     <MyState>
       <Toaster
         position="top-right"
@@ -66,6 +68,7 @@ const App = () => {
       />
       <RouterProvider router={router} />
     </MyState>
+    </LazyMotion>
   )
 }
 

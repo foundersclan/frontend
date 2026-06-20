@@ -12,7 +12,8 @@ export const Events = () => {
   });
 }, [activeTab]);
   return (
-    <section ref={sectionRef} className="bg-zinc-950 py-24">
+    // bg-zinc-950
+    <section ref={sectionRef} className="bg-[#050505] py-24">
       <div className="max-w-7xl mx-auto px-6 mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div>
           <span className="text-amber-500 font-mono text-[12px] uppercase tracking-[0.5em]">

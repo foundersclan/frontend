@@ -13,7 +13,7 @@ const Hamburger = ({ click, handleMenu , hamRef }) => {
     { name: "Our Manifesto", path: "/about" },
     { name: "Private Events", path: "/events" },
     { name: "Concierge Support", path: "/support" },
-    { name: "FoundersClan_Campus_Catalyst" , path: "/FoundersClan_Campus_Catalyst"},
+    { name: "Campus Ambassador" , path: "/CampusAmbassador"},
   ];
   const token = localStorage.getItem('Founders_token');
   const user = JSON.parse(localStorage.getItem('Founders_user'));

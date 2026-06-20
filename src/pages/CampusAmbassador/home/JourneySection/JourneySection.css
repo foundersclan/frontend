@@ -1,0 +1,13 @@
+@keyframes pull {
+  from {
+    right: -100px;
+  }
+
+  to {
+    right: 100%;
+  }
+}
+
+.animate-pull {
+  animation: pull 3s linear infinite;
+}

@@ -18,7 +18,7 @@ export function EventTimeline({ events, showCTA, onCTAClick }) {
   return (
     <section
       ref={containerRef}
-      className="w-full bg-black text-white py-24 px-6 overflow-x-hidden"
+      className="w-full bg-[#050505] text-white py-24 px-6 overflow-x-hidden z-0"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}

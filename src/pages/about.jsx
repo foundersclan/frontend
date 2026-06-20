@@ -42,11 +42,11 @@ const toggleMute = () => {
   return (
     <section
       ref={targetRef}
-      className="relative bg-[#050505] py-24 md:py-48 px-6 overflow-hidden"
+      className="relative bg-[#050505] py-24 md:py-48 px-6 overflow-hidden "
     >
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:100px_100px]" />
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-yellow-500/10 blur-[120px] rounded-full" />
+        {/* <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:100px_100px]" /> */}
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-yellow-500/10 blur-[100px] rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -68,7 +68,7 @@ const toggleMute = () => {
                   Founders,
                 </span>{" "}
                 <br />
-                For Founders.
+                For Founders
               </h2>
             </motion.div>
           </div>

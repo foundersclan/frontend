@@ -40,16 +40,16 @@ export const Applayout = () => {
             intro ? <Intro onFinish={()=> setintro(false)}/> : 
         <div className=" w-full overflow-hidden">
            
-            {
+            {/* {
                 !shouldHideUi &&
-                <div className="w-full -z-10 max-h-screen absolute">
+                <div className="w-full z-100 max-h-screen absolute">
                     <motion.img src="/assets/manwithnobackground.png" className="w-full h-screen object-contain" alt=""
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
                         whileHover={{ scale: 1.05, rotateY: 5 }} />
                 </div>
-            }
+            } */}
            {
             !shouldHideHeaderAndFooter &&  <Header />
            }

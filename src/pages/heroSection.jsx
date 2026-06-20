@@ -19,9 +19,8 @@ export const LandingPage = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute top-[-5%] left-[-10%] w-[60%] h-[40%] bg-yellow-600/10 blur-[120px] rounded-full" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[40%] bg-yellow-900/10 blur-[120px] rounded-full" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:3rem_3rem] md:bg-[size:4rem_4rem]" />
       </div>
-
+         
       {/* 2. BACKGROUND TEXT (CLAN) - Adjusted for mobile position */}
       <motion.div 
         style={{ y: textY }}
@@ -42,14 +41,14 @@ export const LandingPage = () => {
         transition={{ duration: 1.5, ease: "easeOut" }}
         className="relative flex flex-col items-center text-center px-4 z-30 mt-[-15vh] md:mt-0"
       >
-        <motion.p
+        {/* <motion.p
           initial={{ opacity: 0, letterSpacing: "0.2em" }}
           animate={{ opacity: 1, letterSpacing: "0.8em" }}
           transition={{ duration: 1.5 }}
           className="uppercase text-yellow-500/60 text-[8px] md:text-xs font-mono mb-4 md:mb-8"
         >
           Established // 2025
-        </motion.p>
+        </motion.p> */}
 
         <h1 className="font-diplomata-sc -z-50 text-4xl md:text-8xl lg:text-[10rem] text-white leading-none tracking-tighter">
           THE

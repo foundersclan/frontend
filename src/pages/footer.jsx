@@ -15,20 +15,18 @@ export const Footer = () => {
     ];
 
     return (
-        <footer className="bg-zinc-950 pt-32 pb-12 px-6 border-t border-white/5 relative overflow-hidden">
-            
-            {/* Background Decor */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 opacity-[0.02] pointer-events-none select-none">
-                <h2 className="text-[25vw] font-black tracking-tighter text-white">FOUNDERS</h2>
-            </div>
-
+        <footer className=" pt-20 pb-12 px-6 border-t border-white/5 relative overflow-hidden bg-zinc-950">
             <div className="max-w-7xl mx-auto relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
+                     {/* Background Decor */}
+                    <div className="hidden md:block absolute z-0 bottom-0 left-1/2 -translate-x-1/2 translate-y-1/5 opacity-[0.02] pointer-events-none select-none">
+                        <h2 className="text-[20vw] font-black tracking-tighter text-white">FOUNDERS</h2>
+                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-8">
                     
                     {/* Brand Section */}
-                    <div className="md:col-span-5 space-y-8">
+                    <div className="md:col-span-5 space-y-2">
                         <h2 className="text-4xl font-bold text-white tracking-tighter">
-                            FOUNDERS<span className="text-yellow-500">CLAN.</span>
+                            FOUNDERS<span className="text-yellow-500">CLAN</span>
                         </h2>
                         <p className="text-zinc-500 text-lg max-w-sm leading-relaxed">
                             Architecting the next generation of visionary leaders. 
@@ -53,7 +51,7 @@ export const Footer = () => {
                     {/* Links Grid */}
                     <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-10">
                         <FooterGroup 
-                            title="Navigation" 
+                            title="Community" 
                             links={["About", "Team","Blog"]} 
                         />
                         <FooterGroup 
@@ -68,8 +66,8 @@ export const Footer = () => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.3em]">
+                <div className="pt-10  border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+                    <p className="text-zinc-600 font-mono text-[14px] uppercase tracking-[0.09em]">
                         © {new Date().getFullYear()} Founders Clan // All Rights Reserved
                     </p>
                     
@@ -77,12 +75,12 @@ export const Footer = () => {
                         onClick={scrollToTop}
                         className="group flex items-center gap-3 text-zinc-500 hover:text-yellow-500 transition-colors duration-500"
                     >
-                        <span className="font-mono text-[10px] uppercase tracking-[0.2em]">Return to Top</span>
+                        <span className="font-mono text-[14px] uppercase tracking-[0.09em]">Return to Top</span>
                         <ArrowUpCircle className="group-hover:-translate-y-1 transition-transform" size={20} strokeWidth={1} />
                     </button>
 
                     <div className="flex gap-8">
-                        <span className="text-zinc-700 text-[12px] font-mono uppercase tracking-widest">Made by founders</span>
+                        <span className="text-zinc-700 text-[14px] font-mono uppercase tracking-widest">Made by founders</span>
                     </div>
                 </div>
             </div>
@@ -94,7 +92,7 @@ export const Footer = () => {
 /* eslint-disable react/prop-types */
 const FooterGroup = ({ title, links }) => (
     <div className="space-y-6">
-        <h3 className="text-white font-mono text-[10px] uppercase tracking-[0.4em] opacity-50">
+        <h3 className="text-white font-mono text-[14px] uppercase tracking-[0.4em] opacity-50">
             {title}
         </h3>
         <ul className="space-y-4">
