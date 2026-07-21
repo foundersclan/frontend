@@ -28,14 +28,14 @@ export function Button({
   // Determine button type: default to 'submit' for submit variant, 'button' for others
   const buttonType = type || (variant === 'submit' ? 'submit' : 'button');
   const baseClasses = 'relative px-10 py-3.5 bg-zinc-950 border border-white/10 text-white font-bold text-xs tracking-widest uppercase rounded-full transition-transform duration-300 active:scale-95 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed';
-  
+
   const gradientClasses = {
     primary: 'absolute -inset-0.5 bg-gradient-to-r from-amber-500 to-purple-600 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500',
     secondary: 'absolute -inset-0.5 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500',
     'cta-yellow': '',
     'submit': 'absolute -inset-0.5 bg-gradient-to-r from-amber-400 via-purple-600 to-amber-500 rounded-xl blur opacity-35 group-hover:opacity-75 transition duration-500',
   };
-  
+
   const variantBaseClasses = {
     // cta-yellow uses a visible yellow background and black text
     'cta-yellow': 'relative px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-black font-black text-sm tracking-tighter uppercase rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed',
@@ -60,7 +60,13 @@ export function Button({
         <Link
           to={navigateTo}
           className={computedClassName}
-          {...(disabled && { onClick: (e) => e.preventDefault() })}
+          onClick={(e) => {
+            if (disabled) {
+              e.preventDefault();
+              return;
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
         >
           <ButtonContent iconClassName={iconClassName} />
         </Link>

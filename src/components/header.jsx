@@ -2,11 +2,11 @@ import Hamburger from "./hamburger"
 import { NavBar } from "./nav"
 // import "./pages/page.css"
 import Hamburgericon from "./hamburgericon";
-import { useRef, useState , useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export const Header = () => {
   const [click, setClick] = useState(false);
-    const scrollToTop = () => {
+  const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const hamRef = useRef(null);
@@ -16,7 +16,7 @@ export const Header = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (hamRef.current && !hamRef.current.contains(event.target)) {
-       handleMenu
+        handleMenu
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -26,7 +26,7 @@ export const Header = () => {
   return (
     <header className="w-full ">
       <NavBar click={click} handleMenu={handleMenu} />
-      <Hamburger click={click} handleMenu={handleMenu} hamRef={hamRef}/>
+      <Hamburger click={click} handleMenu={handleMenu} hamRef={hamRef} />
     </header>
   )
 }

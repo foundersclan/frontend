@@ -19,9 +19,9 @@ export const Login = () => {
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505]">
       <AnimatePresence>
         {loading && (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="z-[100]"
           >
@@ -33,28 +33,28 @@ export const Login = () => {
       {/* 1. CINEMATIC BACKGROUND LAYER */}
       <div className="absolute inset-0 z-0">
         <video
+          src="https://res.cloudinary.com/davbxkvoc/video/upload/f_auto,q_auto,ac_none,w_1920/v1783705525/bgvideo_p5ympx.mp4"
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
           className="w-full h-full object-cover opacity-40 grayscale-[40%]"
-        >
-          <source src="/assets/bgvideo.mp4" type="video/mp4" />
-        </video>
+        />
         {/* Advanced Layering for Depth */}
         <div className="absolute inset-0 bg-gradient-to-tr from-black via-black/60 to-transparent" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-yellow-500/5 via-transparent to-transparent" />
       </div>
 
       {/* 2. RESPONSIVE LOGIN CONTAINER */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative z-20 w-full max-w-[480px] px-6 py-10 md:px-0"
       >
         <div className="relative group overflow-hidden bg-zinc-900/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-          
+
           {/* Subtle Inner Glow */}
           <div className="absolute -top-[20%] -right-[20%] w-64 h-64 bg-yellow-500/10 blur-[80px] rounded-full pointer-events-none" />
 
@@ -92,8 +92,8 @@ export const Login = () => {
                     className="w-full bg-zinc-950/40 border border-white/5 rounded-2xl py-5 pl-14 pr-4 text-white placeholder:text-zinc-700 focus:border-yellow-500/40 focus:bg-zinc-950/80 outline-none transition-all text-sm"
                   />
                   {errors[field.id] && (
-                    <motion.p 
-                      initial={{ opacity: 0, x: -5 }} 
+                    <motion.p
+                      initial={{ opacity: 0, x: -5 }}
                       animate={{ opacity: 1, x: 0 }}
                       className="text-red-500 text-[9px] mt-2 ml-4 font-mono uppercase tracking-widest"
                     >
@@ -143,18 +143,18 @@ export const Login = () => {
       </motion.div>
 
       {/* 3. RESPONSIVE DECORATIVE ELEMENTS */}
-      <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 hidden sm:flex items-center gap-4 opacity-40">
+      {/* <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 hidden sm:flex items-center gap-4 opacity-40">
         <div className="w-1 h-12 bg-yellow-500/50" />
         <p className="text-[9px] md:text-[10px] font-mono text-zinc-500 tracking-[0.4em] leading-relaxed uppercase">
           Terminal ID: 00-FC-88 <br />
           Node: North_Region_01 <br />
           <span className="text-yellow-500/60 font-bold">Encrypted Connection</span>
         </p>
-      </div>
+      </div> */}
 
       <div className="absolute top-10 right-10 hidden xl:flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-md">
-         <ShieldCheck className="size-3 text-yellow-500" />
-         <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-widest">AES-256 Verified</span>
+        <ShieldCheck className="size-3 text-yellow-500" />
+        <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-widest">AES-256 Verified</span>
       </div>
     </div>
   );

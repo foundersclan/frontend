@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Send,Check,Building,ArrowUpRight,ShieldCheck,User,Mail,Linkedin,Terminal,Activity ,Cpu,Globe,Trophy,Users,
+import {
+  Send, Check, Building, ArrowUpRight, ShieldCheck, User, Mail, Linkedin, Activity, Globe, Trophy, Users,
 } from "lucide-react";
 import { Button } from "../components/shared/Button";
+import toast from "react-hot-toast";
 
-// Reusable Premium Input field component with floating highlights
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 /* eslint-disable react/prop-types */
 function FormField({
   label,
@@ -20,7 +23,7 @@ function FormField({
     <div className="group relative">
       <label
         htmlFor={id}
-        className="flex items-center gap-1.5 text-[12px] font-bold tracking-widest text-zinc-400 uppercase mb-2.5 transition-colors group-focus-within:text-amber-400"
+        className="flex items-center gap-1.5 text-[10px] sm:text-[12px] font-bold tracking-widest text-zinc-400 uppercase mb-1.5 sm:mb-2.5 transition-colors group-focus-within:text-amber-400"
       >
         {Icon && (
           <Icon className="w-3.5 h-3.5 text-zinc-500 group-focus-within:text-amber-400/80 transition-colors" />
@@ -35,7 +38,7 @@ function FormField({
           required={required}
           value={value}
           onChange={onChange}
-          className="w-full bg-zinc-950/80 border border-white/10 rounded-xl pl-4 pr-10 py-3.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300"
+          className="w-full bg-zinc-950/80 border border-white/10 rounded-lg sm:rounded-xl pl-3 sm:pl-4 pr-10 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300"
           placeholder={placeholder}
         />
       </div>
@@ -47,7 +50,7 @@ export function ApplicationForm() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    company: "",
+    college: "",
     role: "",
     stage: "",
     linkedin: "",
@@ -55,11 +58,10 @@ export function ApplicationForm() {
     goals: "",
   });
 
-  const [formStage, setFormStage] = useState("editing"); // editing | transmitting | success
-  const [transmissionProgress, setTransmissionProgress] = useState(0);
-  const [activePacketLog, setActivePacketLog] = useState("");
+  const [formStage, setFormStage] = useState("editing"); // editing | success
+  const [loading, setLoading] = useState(false);
 
-  // Live calculation of completion progress for interactive user feedb
+  // Live calculation of completion progress for interactive user feedback
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -67,44 +69,59 @@ export function ApplicationForm() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormStage("transmitting");
-    setTransmissionProgress(10);
-    setActivePacketLog("Allocating secure operational buffers...");
+    if (loading) return;
 
-    // Stage 1: Security Handshake
-    setTimeout(() => {
-      setTransmissionProgress(35);
-      setActivePacketLog("Injecting encrypted validation payload...");
-    }, 800);
+    setLoading(true);
+    const toastId = toast.loading("Submitting application...");
 
-    // Stage 2: Triage Verification
-    setTimeout(() => {
-      setTransmissionProgress(70);
-      setActivePacketLog("Passing localized vetting screening telemetry...");
-    }, 1600);
+    try {
+      const RESPONSE_URL = `${BASE_URL}/api/campusAmbassdor/campusAmbassdorApplication`;
+      const response = await fetch(RESPONSE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          full_name: formData.fullName,
+          email: formData.email,
+          college: formData.college,
+          role: formData.role,
+          stage: formData.stage,
+          linkedin: formData.linkedin,
+          reason: formData.reason,
+          goals: formData.goals,
+        }),
+      });
 
-    // Stage 3: Packet Transmitted
-    setTimeout(() => {
-      setTransmissionProgress(100);
-      setActivePacketLog("Transmission authorized successfully.");
-    }, 2400);
+      let result = {};
+      try {
+        result = await response.json();
+      } catch {
+        result = { success: false, message: "Invalid server response." };
+      }
 
-    // Final Stage: Success Render
-    setTimeout(() => {
-      setFormStage("success");
-    }, 3000);
+      if (response.ok && result.success) {
+        toast.success("Application submitted successfully!", { id: toastId });
+        setFormStage("success");
+      } else {
+        toast.error(result.message || "Failed to submit application.", { id: toastId });
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+      toast.error("Network error. Failed to reach server.", { id: toastId });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const resetForm = () => {
     setFormStage("editing");
-    setTransmissionProgress(0);
-    setActivePacketLog("");
     setFormData({
       fullName: "",
       email: "",
-      company: "",
+      college: "",
       role: "",
       stage: "",
       linkedin: "",
@@ -113,77 +130,33 @@ export function ApplicationForm() {
     });
   };
 
-  if (formStage === "transmitting") {
-    return (
-      <div className="relative overflow-hidden bg-zinc-950/85 border border-amber-400/20 rounded-[32px] p-8 md:p-12 text-center backdrop-blur-3xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] min-h-[500px] flex flex-col justify-center items-center">
-        <div className="absolute top-0 left-0 w-full h-1 bg-zinc-900 overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-amber-400 to-amber-200 transition-all duration-300 shadow-[0_0_12px_#f59e0b]"
-            style={{ width: `${transmissionProgress}%` }}
-          />
-        </div>
-        <div className="relative mb-8">
-          <div className="w-24 h-24 rounded-full border border-amber-400/20 bg-amber-400/5 flex items-center justify-center animate-spin duration-[4000ms]">
-            <Cpu className="w-10 h-10 text-amber-400 animate-pulse" />
-          </div>
-          <div className="absolute inset-0 rounded-full bg-amber-400/5 blur-xl animate-ping" />
-        </div>
-        <h3 className="text-2xl font-black tracking-widest text-white uppercase mb-2">
-          Transmitting Payload
-        </h3>
-        <p className="text-zinc-500 text-xs tracking-widest uppercase mb-8">
-          Secure handshake in progress...
-        </p>
-
-        <div className="w-full max-w-md bg-black/80 border border-white/5 rounded-xl p-4 text-left font-mono text-[11px] text-zinc-400 shadow-inner">
-          <div className="flex items-center gap-2 text-amber-400/80 mb-2 border-b border-white/5 pb-1.5">
-            <Terminal className="w-3.5 h-3.5" />
-            <span>ENCRYPTED TERMINAL LINK</span>
-          </div>
-          <div className="space-y-1">
-            <p className="text-zinc-500 animate-pulse">
-              &gt; Initializing secure transport layer...
-            </p>
-            <p className="text-zinc-300">
-              &gt; Payload weight calculated: {JSON.stringify(formData).length}{" "}
-              bytes
-            </p>
-            <p className="text-amber-400/90">&gt; {activePacketLog}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   if (formStage === "success") {
     return (
-      <div className="relative overflow-hidden bg-zinc-950/85 border border-amber-400/20 rounded-[32px] p-8 md:p-12 text-center backdrop-blur-3xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] min-h-[500px] flex flex-col justify-center items-center">
+      <div className="relative overflow-hidden bg-zinc-950/85 border border-amber-400/20 rounded-2xl sm:rounded-[32px] p-6 md:p-12 text-center backdrop-blur-3xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] min-h-[400px] sm:min-h-[500px] flex flex-col justify-center items-center">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative z-10">
-          <div className="w-20 h-20 bg-amber-400/10 border border-amber-400/30 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
-            <Check className="w-10 h-10 text-amber-400" />
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-amber-400/10 border border-amber-400/30 rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8 animate-bounce">
+            <Check className="w-8 h-8 sm:w-10 sm:h-10 text-amber-400" />
           </div>
-          <h3 className="text-3xl font-black tracking-tighter text-white uppercase mb-4">
-            Transmission Received.
+          <h3 className="text-2xl sm:text-3xl font-black tracking-tighter text-white uppercase mb-4">
+            Application Received.
           </h3>
-          <p className="text-zinc-400 max-w-lg mx-auto text-sm leading-relaxed mb-8">
-            Your telemetry profile has successfully reached the Founders Clan
-            security core. Our vetting nodes triage applications inside 48
-            hours. Keep an active eye on your communication channels.
+          <p className="text-zinc-400 max-w-lg mx-auto text-xs sm:text-sm leading-relaxed mb-6 sm:mb-8">
+            Your Campus Ambassador application has been successfully submitted. Our team will review your application and get back to you within 48 hours. Keep an active eye on your communication channels.
           </p>
 
           <div className="flex flex-col items-center gap-4">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/60 border border-white/5 text-[10px] font-bold tracking-wider text-zinc-400 uppercase">
               <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-              CLEARED FOR MANUAL CLAN AUDIT
+              CLEARED FOR REVIEW
             </div>
 
             <button
               onClick={resetForm}
               className="text-xs text-zinc-500 hover:text-white underline transition-colors underline-offset-4 cursor-pointer"
             >
-              Submit another payload
+              Submit another application
             </button>
           </div>
         </div>
@@ -194,7 +167,7 @@ export function ApplicationForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative overflow-hidden bg-zinc-950/65 border border-white/10 rounded-[32px] p-6 md:p-10 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] group hover:border-white/15 transition-all duration-500 z-10"
+      className="relative overflow-hidden bg-zinc-950/65 border border-white/10 rounded-2xl sm:rounded-[32px] p-4 sm:p-6 md:p-10 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] group hover:border-white/20 transition-all duration-500 z-10"
     >
       {/* Laser Gradient Accent Line on top */}
       <div className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-amber-400/30 to-transparent pointer-events-none" />
@@ -204,7 +177,7 @@ export function ApplicationForm() {
       <div className="absolute bottom-1/4 -right-12 w-24 h-24 bg-amber-500/5 rounded-full blur-2xl pointer-events-none" />
 
       {/* Form Input Blocks */}
-      <div className="grid md:grid-cols-2 gap-6 mb-6">
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
         <FormField
           label="Full Name"
           id="fullName"
@@ -228,13 +201,13 @@ export function ApplicationForm() {
         />
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6 mb-6">
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
         <FormField
           label="College / Organisation Name"
           id="college"
           name="college"
           required
-          value={formData.company}
+          value={formData.college}
           onChange={handleChange}
           placeholder="e.g. ABC University"
           icon={Building}
@@ -251,12 +224,12 @@ export function ApplicationForm() {
         />
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6 mb-6">
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
         {/* Customized Select wrapper */}
         <div className="group relative">
           <label
             htmlFor="stage"
-            className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-zinc-400 uppercase mb-2.5 transition-colors group-focus-within:text-amber-400"
+            className="flex items-center gap-1.5 text-[10px] sm:text-[12px] font-bold tracking-widest text-zinc-400 uppercase mb-1.5 sm:mb-2.5 transition-colors group-focus-within:text-amber-400"
           >
             <Building className="w-3.5 h-3.5 text-zinc-500 group-focus-within:text-amber-400/80" />
             Company Stage <span className="text-amber-400/80">*</span>
@@ -268,7 +241,7 @@ export function ApplicationForm() {
               required
               value={formData.stage}
               onChange={handleChange}
-              className="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300 appearance-none cursor-pointer"
+              className="w-full bg-zinc-950/80 border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300 appearance-none cursor-pointer"
             >
               <option value="" className="bg-[#050505]">
                 Select Stage
@@ -301,15 +274,15 @@ export function ApplicationForm() {
           name="linkedin"
           value={formData.linkedin}
           onChange={handleChange}
-          placeholder="https://linkedin.com/in/founders"
+          placeholder="/founders-clan"
           icon={Linkedin}
         />
       </div>
 
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <label
           htmlFor="reason"
-          className="block text-[12px] font-bold tracking-widest text-zinc-400 uppercase mb-2.5"
+          className="block text-[10px] sm:text-[12px] font-bold tracking-widest text-zinc-400 uppercase mb-1.5 sm:mb-2.5"
         >
           Why do you want to join the clan?{" "}
           <span className="text-amber-400/80">*</span>
@@ -321,15 +294,15 @@ export function ApplicationForm() {
           value={formData.reason}
           onChange={handleChange}
           rows={3}
-          className="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300 resize-none leading-relaxed"
+          className="w-full bg-zinc-950/80 border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300 resize-none leading-relaxed"
           placeholder="Detail your execution speed and why the clan is your next strategic home..."
         />
       </div>
 
-      <div className="mb-10">
+      <div className="mb-6 sm:mb-10">
         <label
           htmlFor="goals"
-          className="block text-[12px] font-bold tracking-widest text-zinc-400 uppercase mb-2.5"
+          className="block text-[10px] sm:text-[12px] font-bold tracking-widest text-zinc-400 uppercase mb-1.5 sm:mb-2.5"
         >
           What are your main goals for the next 6-12 months?{" "}
           <span className="text-amber-400/80">*</span>
@@ -341,15 +314,16 @@ export function ApplicationForm() {
           value={formData.goals}
           onChange={handleChange}
           rows={3}
-          className="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300 resize-none leading-relaxed"
+          className="w-full bg-zinc-950/80 border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300 resize-none leading-relaxed"
           placeholder="Tell us about the big product milestones you're planning to execute..."
         />
       </div>
 
-      <Button 
-        label="Submit Application" 
-        icon={Send} 
+      <Button
+        label={loading ? "Submitting..." : "Submit Application"}
+        icon={loading ? undefined : Send}
         variant="submit"
+        disabled={loading}
         iconClassName="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"
       />
     </form>
@@ -358,65 +332,65 @@ export function ApplicationForm() {
 
 export function ApplyPage() {
   return (
-    <div className="relative pt-28 pb-20 min-h-screen w-full bg-[#2f183944] text-white font-sans overflow-hidden flex flex-col justify-start items-center">
+    <div className="relative pt-20 pb-12 md:pt-28 md:pb-20 min-h-screen w-full bg-[#2f183944] text-white font-sans overflow-hidden flex flex-col justify-start items-center">
 
       {/* Ambient Lighting Orbs resembling system design accents */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none z-0" />
       <div className="absolute bottom-10 left-10 w-[300px] h-[300px] bg-purple-600/5 rounded-full blur-[100px] pointer-events-none z-0" />
 
       {/* CORE WRAPPER */}
-      <div className="relative w-full max-w-7xl mx-auto px-6 z-10 flex flex-col">
+      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 z-10 flex flex-col">
         {/* UPPER TAG BAR */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase leading-[0.95] mb-6">
+        <div className="flex flex-col items-center text-center mb-8 md:mb-16">
+          <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-[0.95] mb-4 md:mb-6">
             ENTER THE <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 drop-shadow-[0_2px_15px_rgba(245,158,11,0.25)]">
-              FOUNDERS COHORT.
+              FOUNDERS CAMPUS AMBASSADOR PROGRAM
             </span>
           </h1>
 
-          <p className="text-zinc-400 text-sm md:text-lg max-w-xl mx-auto font-medium tracking-wide">
+          <p className="text-zinc-400 text-xs sm:text-sm md:text-lg max-w-xl mx-auto font-medium tracking-wide">
             State your operational benchmarks. We are curating hyper-focused
             technical teams scaling next-generation protocols.
           </p>
         </div>
 
         {/* ASYMMETRICAL COLUMN DIVISION */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start mt-2 md:mt-4">
           {/* Left Column: Core Community Highlights (Clean information layout) */}
-          <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-28">
-            <div className="p-6 rounded-[24px] border border-white/5 bg-zinc-950/45 backdrop-blur-xl space-y-6">
-              <h3 className="text-xl font-black tracking-widest text-amber-400 uppercase">
+          <div className="lg:col-span-5 space-y-6 lg:space-y-8 lg:sticky lg:top-28">
+            <div className="p-4 sm:p-6 rounded-2xl md:rounded-[24px] border border-white/5 bg-zinc-950/45 backdrop-blur-xl space-y-4 sm:space-y-6 shadow-[0_30px_60px_rgba(0,0,0,0.8)] group hover:border-white/20 transition-all duration-500 z-10">
+              <h3 className="text-lg sm:text-xl font-black tracking-widest text-amber-400 uppercase">
                 THE CLEARANCE MANIFESTO
               </h3>
 
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {/* Protocol Point 1 */}
-                <div className="flex gap-4">
-                  <div className="w-8 h-8 rounded-lg bg-amber-400/10 flex items-center justify-center text-amber-400 shrink-0">
-                    <Globe className="w-4 h-4" />
+                <div className="flex gap-3 sm:gap-4">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-400/10 flex items-center justify-center text-amber-400 shrink-0">
+                    <Globe className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-white mb-1">
+                    <h4 className="text-base sm:text-lg font-bold text-white mb-1">
                       Global Node Network
                     </h4>
-                    <p className="text-base text-zinc-400 leading-relaxed">
-                      Instant coordination with over 20K+ highly technical
-                      organizers worldwide.
+                    <p className="text-xs sm:text-sm md:text-base text-zinc-400 leading-relaxed">
+                      Instant coordination with over highly technical
+                      organizers.
                     </p>
                   </div>
                 </div>
 
                 {/* Protocol Point 2 */}
-                <div className="flex gap-4">
-                  <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 shrink-0">
-                    <Trophy className="w-4 h-4" />
+                <div className="flex gap-3 sm:gap-4">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 shrink-0">
+                    <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-white mb-1">
+                    <h4 className="text-base sm:text-lg font-bold text-white mb-1">
                       Resource Allocations
                     </h4>
-                    <p className="text-base text-zinc-400 leading-relaxed">
+                    <p className="text-xs sm:text-sm md:text-base text-zinc-400 leading-relaxed">
                       Sovereign access to dedicated micro-grants, scaling
                       networks, and exclusive venture pipelines.
                     </p>
@@ -424,15 +398,15 @@ export function ApplyPage() {
                 </div>
 
                 {/* Protocol Point 3 */}
-                <div className="flex gap-4">
-                  <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
-                    <Users className="w-4 h-4" />
+                <div className="flex gap-3 sm:gap-4">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
+                    <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-white mb-1">
+                    <h4 className="text-base sm:text-lg font-bold text-white mb-1">
                       High-Signal Sprints
                     </h4>
-                    <p className="text-base text-zinc-400 leading-relaxed">
+                    <p className="text-xs sm:text-sm md:text-base text-zinc-400 leading-relaxed">
                       Bi-weekly virtual builder roundtables designed strictly to
                       clear product launch bottlenecks.
                     </p>

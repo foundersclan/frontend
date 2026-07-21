@@ -1,24 +1,24 @@
-import { motion,useScroll, useTransform, useSpring } from  "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
 import { Quote } from "lucide-react";
 
 export const TeamIntro = () => {
- const team = [
-    { name: "Nishant Saini", role: "Chief Visionary", src: "/team/nishant.png" },
-    { name: "Rakesh Jha", role: "Mentor", src: "/team/rakesh.jpeg" },
+  const team = [
+    { name: "Nishant Saini", role: "Chief Visionary", src: "/team/nishant3.jpeg" },
+    { name: "Rakesh Jha", role: "Technical Product Manager", src: "/team/rakesh1.jpeg" },
     { name: "Aman Monga", role: "G.O.A.T of Tech", src: "/team/aman2.jpeg" },
     // { name: "Riya", role: "Operations Lead", image: "/team/riya.jpeg" },
     { name: "Shourya Sharma", role: "Impact Catalyst", src: "/team/shourya.jpeg" },
     { name: "Jayant", role: "Media Team Manager", src: "/team/jayant.jpeg" },
-    { name: "Muskan Jindal", role: "Offline Market Head", src: "/team/muskan.jpeg" },
+    { name: "Muskan Jindal", role: "Offline Market Head", src: "/team/muskan1.jpeg" },
     { name: "Jaya Saini", role: "Engagement Lead", src: "/team/jaya2.jpeg" },
     { name: "Aaryan", role: "Video Editor", src: "/team/aryan.jpeg" },
-    { name: "Khushi Chauhan", role: "Viral Engineer", src: "/team/khushi.jpeg" },
+    { name: "Khushi Chauhan", role: "Viral Engineer", src: "/team/khushi1.jpeg" },
     { name: "Ambhuj", role: "Content Creator", src: "/team/ambuj.jpeg" }
   ];
 
   const scrollSectionRef = useRef(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: scrollSectionRef,
     offset: ["start end", "end start"],
@@ -34,26 +34,26 @@ export const TeamIntro = () => {
   return (
     <section
       ref={scrollSectionRef}
-      className="relative bg-zinc-950 py-32 overflow-hidden"
+      className="relative overflow-hidden bg-zinc-950 py-16 sm:py-20 md:py-24 lg:py-32"
     >
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-yellow-500/[0.02] -skew-x-12 translate-x-1/4 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-yellow-500/20 -skew-x-12 translate-x-1/4 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto  px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 mb-16 md:mb-24 items-start">
           <div className="md:col-span-8">
             <motion.span
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               className=" flex items-center gap-3 text-yellow-500 font-mono tracking-[0.5em] text-xs uppercase mb-4 "
             >
-            <span className="w-10 h-px bg-yellow-500" /> THE ORIGINATORS
+              <span className="w-10 h-px bg-yellow-500" /> THE ORIGINATORS
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-5xl md:text-8xl font-bold text-white leading-none tracking-tighter"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tight font-bold text-white "
             >
               THE <span className="text-zinc-700">ORIGINALS</span> <br />
               BEHIND THE EXTRAORDINARY.
@@ -64,7 +64,7 @@ export const TeamIntro = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-zinc-500 text-lg leading-relaxed border-l border-yellow-500/30 pl-6"
+              className="text-zinc-200 text-base sm:text-lg leading-relaxed border-t lg:border-t-0 lg:border-l border-yellow-500/30 pt-6 lg:pt-0 lg:pl-6"
             >
               We are a collective of thinkers and doers. We don&apos;t just
               follow blueprints, we invent them.
@@ -74,11 +74,11 @@ export const TeamIntro = () => {
       </div>
 
       {/* ── Infinite Scrolling Strip ── */}
-      <div className="relative w-full overflow-hidden mb-24">
+      <div className="relative w-full overflow-hidden mb-18 md:mb-28">
         {/* Left fade */}
-        <div className="absolute left-0 top-0 h-full w-32 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 h-full w-4 md:w-6 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
         {/* Right fade */}
-        <div className="absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 h-full w-4 md:w-6 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none" />
 
         <motion.div style={{ x: xTranslate }} className="will-change-transform">
           <motion.div
@@ -95,20 +95,19 @@ export const TeamIntro = () => {
             {[...team, ...team].map((member, index) => (
               <div
                 key={index}
-                className="group relative rounded-3xl overflow-hidden flex-shrink-0 bg-zinc-900 border border-white/5"
-                style={{ width: "280px", height: "360px" }}
+                className="group relative rounded-2xl md:rounded-3xl overflow-hidden flex-shrink-0 bg-zinc-900 border border-white/5 w-[220px] h-[300px] sm:w-[250px] sm:h-[330px] md:w-[270px] md:h-[350px] lg:w-[280px] lg:h-[360px]"
               >
                 <img
                   src={member.src}
                   alt={member.name}
-                  className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-in-out"
+                  className="w-full h-full object-cover object-top  group-hover:scale-115 transition-all duration-700 ease-in-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-                <div className="absolute bottom-6 left-6">
-                  <p className="text-yellow-500 font-bold  text-md uppercase tracking-[0.2em] mb-1">
+                <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6">
+                  <p className="text-yellow-500 font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] mb-1">
                     {member.role}
                   </p>
-                  <h4 className="text-lg font-bold text-white">
+                  <h4 className="text-base sm:text-lg font-bold text-white">
                     {member.name}
                   </h4>
                 </div>
@@ -126,17 +125,17 @@ export const TeamIntro = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
-          className="p-12 rounded-3xl bg-zinc-900 border border-white/5 flex flex-col md:flex-row justify-between items-start gap-8 relative overflow-hidden"
+          className="p-6 sm:p-8 md:p-10 lg:p-12 rounded-3xl bg-zinc-900 border border-white/5 flex flex-col lg:flex-row justify-between items-start gap-8 relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 p-8">
-            <Quote className="w-12 h-12 text-yellow-500/20" />
+            <Quote className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-yellow-500/20" />
           </div>
           <div className="relative z-10 max-w-xl">
-            <h4 className="text-3xl font-bold text-white mb-6 leading-tight">
+            <h4 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
               Engineering <br /> Meaningful <br />{" "}
               <span className="text-yellow-500">Impact.</span>
             </h4>
-            <p className="text-zinc-400 text-lg leading-relaxed">
+            <p className="text-zinc-400 text-base sm:text-lg leading-relaxed">
               Excellence isn&apos;t an act, it&apos;s a habit. We aim for
               long-term value in every line of code and every brand strategy we
               touch.

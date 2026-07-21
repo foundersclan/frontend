@@ -3,7 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Users, Calendar, Plus, CheckCircle, XCircle,
   BarChart3, Search, Filter, MoreVertical, Activity,
-  Settings, LogOut, Menu, X, AlertCircle
+  Settings, LogOut, Menu, X, AlertCircle,
+  Compass,
+  Rocket,
+  Flame,
+  Globe
 } from 'lucide-react';
 
 // Sub-components
@@ -12,11 +16,12 @@ import EventManager from './view/event-managers';
 import MemberDirectory from './view/members';
 import { useAdminDashboard } from './viewmodels/useadmindashboard';
 import ReachOutApplicationManager from './view/ReachOutApplication';
+import CampusAmbassadorApplicationManager from './view/CampusAmbassadorApplicationManager';
 
 const AdminDashboard = () => {
   const [activeView, setActiveView] = useState('analytics');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+
   const {
     registrations,
     events,
@@ -28,62 +33,64 @@ const AdminDashboard = () => {
     updateRegistrationStatus,
     refreshData,
   } = useAdminDashboard();
-  
+
   // Calculate dynamic stats from actual data
   const stats = [
-    { 
-      label: "Total Registrations", 
-      value: registrations?.data?.length || 0, 
-      growth: "+12%", 
-      icon: <Users className="text-amber-500" /> 
+    {
+      label: "Total Registrations",
+      value: registrations?.data?.length || 0,
+      growth: "+12%",
+      icon: <Users className="text-amber-500" />
     },
-    { 
-      label: "Events", 
-      value: events?.length || 0, 
-      growth: "Global", 
-      icon: <Calendar className="text-blue-500" /> 
+    {
+      label: "Events",
+      value: events?.length || 0,
+      growth: "Global",
+      icon: <Calendar className="text-blue-500" />
     },
-    { 
-      label: "Pending", 
-      value: registrations?.data?.filter(r => r.status === 'pending').length || 0, 
-      growth: "Review", 
-      icon: <Activity className="text-red-500" /> 
+    {
+      label: "Pending",
+      value: registrations?.data?.filter(r => r.status === 'pending').length || 0,
+      growth: "Review",
+      icon: <Activity className="text-red-500" />
     },
-    { 
-      label: "Approved", 
-      value: registrations?.data?.filter(r => r.status === 'approved').length || 0, 
-      growth: "+18%", 
-      icon: <CheckCircle className="text-green-500" /> 
+    {
+      label: "Approved",
+      value: registrations?.data?.filter(r => r.status === 'approved').length || 0,
+      growth: "+18%",
+      icon: <CheckCircle className="text-green-500" />
     },
   ];
 
   const renderView = () => {
     switch (activeView) {
-      case 'analytics': 
+      case 'analytics':
         return <AnalyticsView stats={stats} registrations={registrations} events={events} />;
-      case 'registrations': 
+      case 'registrations':
         return (
-          <RegistrationPortal 
-            registrations={registrations} 
+          <RegistrationPortal
+            registrations={registrations}
             updateStatus={updateRegistrationStatus}
             refreshData={refreshData}
           />
         );
-      case 'events': 
+      case 'events':
         return (
-          <EventManager 
-            events={events} 
+          <EventManager
+            events={events}
             createEvent={createEvent}
             createLoading={createLoading}
             createError={createError}
             refreshData={refreshData}
           />
         );
-      case 'directory': 
+      case 'directory':
         return <MemberDirectory />;
       case 'reachOutApplication':
-        return <ReachOutApplicationManager />;  
-      default: 
+        return <ReachOutApplicationManager />;
+      case 'campusAmbassador':
+        return <CampusAmbassadorApplicationManager />
+      default:
         return <AnalyticsView stats={stats} registrations={registrations} events={events} />;
     }
   };
@@ -154,36 +161,42 @@ const AdminDashboard = () => {
         </div>
 
         <nav className="flex-1 space-y-2">
-          <AdminNavItem 
-            label="Analytics" 
-            icon={<BarChart3 size={18} />} 
-            active={activeView === 'analytics'} 
-            onClick={() => handleNavClick('analytics')} 
+          <AdminNavItem
+            label="Analytics"
+            icon={<BarChart3 size={18} />}
+            active={activeView === 'analytics'}
+            onClick={() => handleNavClick('analytics')}
           />
-          <AdminNavItem 
-            label="Registrations" 
-            icon={<Users size={18} />} 
-            active={activeView === 'registrations'} 
+          <AdminNavItem
+            label="Registrations"
+            icon={<Users size={18} />}
+            active={activeView === 'registrations'}
             onClick={() => handleNavClick('registrations')}
             badge={registrations?.data?.filter(r => r.status === 'pending').length}
           />
-          <AdminNavItem 
-            label="Events" 
-            icon={<Calendar size={18} />} 
-            active={activeView === 'events'} 
-            onClick={() => handleNavClick('events')} 
+          <AdminNavItem
+            label="Events"
+            icon={<Calendar size={18} />}
+            active={activeView === 'events'}
+            onClick={() => handleNavClick('events')}
           />
-          <AdminNavItem 
-            label="Directory" 
-            icon={<Filter size={18} />} 
-            active={activeView === 'directory'} 
-            onClick={() => handleNavClick('directory')} 
+          <AdminNavItem
+            label="Directory"
+            icon={<Filter size={18} />}
+            active={activeView === 'directory'}
+            onClick={() => handleNavClick('directory')}
           />
-          <AdminNavItem 
-            label="Reach Out Application" 
-            icon={<Filter size={18} />} 
-            active={activeView === 'reachOutApplication'} 
-            onClick={() => handleNavClick('reachOutApplication')} 
+          <AdminNavItem
+            label="Reach Out Application"
+            icon={<Globe size={18} />}
+            active={activeView === 'reachOutApplication'}
+            onClick={() => handleNavClick('reachOutApplication')}
+          />
+          <AdminNavItem
+            label="Campus Ambassador"
+            icon={<Rocket size={18} />}
+            active={activeView === 'campusAmbassador'}
+            onClick={() => handleNavClick('campusAmbassador')}
           />
         </nav>
 
@@ -195,7 +208,7 @@ const AdminDashboard = () => {
               </p>
               <p className="text-xs text-white font-bold">Admin</p>
             </div>
-            <button 
+            <button
               onClick={() => {
                 localStorage.removeItem('Founders_token');
                 window.location.href = '/login';
@@ -254,8 +267,8 @@ const AnalyticsView = ({ stats, registrations, events }) => (
     {/* Stats Grid */}
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
       {stats.map((stat, i) => (
-        <div 
-          key={i} 
+        <div
+          key={i}
           className="bg-zinc-900/40 border border-zinc-800 p-4 md:p-6 rounded-2xl md:rounded-3xl hover:border-zinc-700 transition-colors"
         >
           <div className="flex justify-between items-start mb-3 md:mb-4">
@@ -282,11 +295,10 @@ const AnalyticsView = ({ stats, registrations, events }) => (
         <div className="space-y-2">
           {registrations?.data?.slice(0, 3).map((reg) => (
             <div key={reg.id} className="flex items-center gap-3 text-xs">
-              <div className={`w-2 h-2 rounded-full ${
-                reg.status === 'approved' ? 'bg-green-500' : 
-                reg.status === 'rejected' ? 'bg-red-500' : 
-                'bg-yellow-500'
-              }`} />
+              <div className={`w-2 h-2 rounded-full ${reg.status === 'approved' ? 'bg-green-500' :
+                reg.status === 'rejected' ? 'bg-red-500' :
+                  'bg-yellow-500'
+                }`} />
               <span className="text-zinc-400 flex-1 truncate">{reg.full_name}</span>
               <span className="text-zinc-600 text-[10px]">{reg.company_name}</span>
             </div>
@@ -323,11 +335,10 @@ const AnalyticsView = ({ stats, registrations, events }) => (
 const AdminNavItem = ({ icon, label, active = false, onClick, badge }) => (
   <button
     onClick={onClick}
-    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl md:rounded-2xl transition-all relative ${
-      active
-        ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20'
-        : 'text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900/50'
-    }`}
+    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl md:rounded-2xl transition-all relative ${active
+      ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20'
+      : 'text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900/50'
+      }`}
   >
     {icon}
     <span className="text-xs font-bold uppercase tracking-widest flex-1 text-left">

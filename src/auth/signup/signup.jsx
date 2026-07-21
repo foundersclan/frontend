@@ -8,33 +8,33 @@ const Signup = () => {
   const { userdata, errors, setUserData, handleSignup, loading } = useSignup();
 
   return (
-    <div className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+    <div className="relative min-h-screen w-full overflow-hidden bg-black flex items-center justify-center px-4 py-10 sm:px-6 lg:px-8">
       {loading && <Loader />}
 
       {/* 1. CINEMATIC VIDEO BACKGROUND (Consistent with Login) */}
       <div className="absolute inset-0 z-0">
         <video
+          src="https://res.cloudinary.com/davbxkvoc/video/upload/f_auto,q_auto,ac_none,w_1920/v1783705525/bgvideo_p5ympx.mp4"
           autoPlay
           muted
           loop
           playsInline
-          className="w-full h-full object-cover opacity-40 grayscale"
-        >
-          <source src="/assets/bgvideo.mp4" type="video/mp4" />
-        </video>
+          preload="auto"
+          className="w-full h-full object-cover opacity-40 grayscale-[40%]"
+        />
         <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-zinc-950/80" />
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[3px]" />
       </div>
 
       {/* 2. REGISTRATION TERMINAL */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-20 w-full max-w-[550px] mx-4"
       >
         <div className="bg-zinc-900/40 backdrop-blur-3xl border border-white/10 p-8 md:p-10 rounded-[2.5rem] shadow-2xl">
-          
+
           {/* Header */}
           <div className="mb-8 flex justify-between items-end">
             <div>
@@ -115,7 +115,8 @@ const Signup = () => {
               whileHover={{ y: -2, boxShadow: "0 20px 40px rgba(234, 179, 8, 0.15)" }}
               whileTap={{ scale: 0.98 }}
               onClick={handleSignup}
-              className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-black uppercase tracking-[0.25em] text-[11px] py-5 rounded-xl transition-all flex items-center justify-center gap-3 mt-8 shadow-xl"
+              className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-black uppercase text-[10px] sm:text-[11px]
+tracking-[0.2em] sm:tracking-[0.25em] py-4 sm:py-5 rounded-xl transition-all flex items-center justify-center gap-3 mt-8 shadow-xl"
             >
               <UserPlus size={16} /> Complete Registration
             </motion.button>
@@ -133,7 +134,7 @@ const Signup = () => {
         </div>
 
         {/* Legal Micro-copy */}
-        <p className="mt-6 text-center text-[9px] text-zinc-700 font-mono uppercase tracking-widest">
+        <p className="mt-6 text-center text-[9px] text-zinc-500 font-mono uppercase tracking-widest">
           By registering, you agree to the Clan's protocols & data ethics.
         </p>
       </motion.div>

@@ -10,7 +10,8 @@ import {
   MapPin,
   ExternalLink,
   Award,
-  Zap
+  Zap,
+  Sparkles
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -41,7 +42,7 @@ const UserDashboard = () => {
   ];
 
   return (
-    <div className="flex  min-h-screen bg-[#050505] text-slate-200 font-sans ">
+    <div className="min-h-screen flex bg-[#050505] text-slate-200 font-sans">
 
       {/* 1. Sidebar Navigation */}
       {/* <aside className="w-20 lg:w-64 bg-zinc-900/50 border-r border-zinc-800 flex flex-col p-6 hidden md:flex  pt-30">
@@ -60,41 +61,41 @@ const UserDashboard = () => {
       </aside> */}
 
       {/* 2. Main Content Area */}
-      <main className="flex-1 p-6 md:pt-30 overflow-y-auto ">
+      <main className="flex-1 overflow-y-auto px-4 pt-24 pb-8 sm:px-6 md:px-8 lg:px-10 lg:pt-30">
 
         {/* Profile Header */}
         <section className="mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-zinc-900 border border-zinc-800 rounded-[2rem] p-8 flex flex-col lg:flex-row items-center gap-8 relative overflow-hidden"
+            className="bg-zinc-900 border border-zinc-800 rounded-3xl relative overflow-hidden flex flex-col lg:flex-row items-center gap-6 lg:gap-8 p-5 sm:p-6 md:p-8"
           >
             <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-              <User size={120} className="text-amber-500" />
+              <User className="w-20 h-20 md:w-28 md:h-28 text-amber-500" />
             </div>
 
             <div className="relative">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-amber-500 to-amber-200 p-1">
+              <div className="w-24 h-24  sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-amber-500 to-amber-200 p-1">
                 <div className="w-full h-full rounded-full bg-zinc-950 flex items-center justify-center overflow-hidden">
                   {/* <img src="https://i.pravatar.cc/150?u=jonathan" alt="Profile" /> */}
                 </div>
               </div>
-              <span className="absolute bottom-0 right-0 bg-amber-500 text-black text-[8px] font-black px-2 py-1 rounded-full uppercase">Pro</span>
+              {/* <span className="absolute bottom-0 right-0 bg-amber-500 text-black text-[8px] font-black px-2 py-1 rounded-full uppercase">Pro</span> */}
             </div>
 
             <div className="text-center lg:text-left flex-1">
               <div className="flex flex-col lg:flex-row lg:items-center gap-4 mb-2">
-                <h2 className="text-3xl font-bold text-white">{user.first_name}</h2>
-                <span className="px-3 py-1 border border-amber-500/30 text-amber-500 text-[10px] font-mono rounded-full uppercase tracking-tighter">
-                  {user.role === "user" ? "Member" : user.role}
-                </span>
+                <h2 className="text-2xl sm:text-3xl font-bold text-white break-words">{user.first_name}</h2>
+                {/* <span className="px-3 py-1 border border-amber-500/30 text-amber-500 text-[10px] font-mono rounded-full uppercase tracking-tighter">
+                  {user.role}
+                </span> */}
               </div>
               <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-zinc-500 text-xs font-medium">
-                <span className="flex items-center gap-1"><MapPin size={12} />India</span>
-                <span className="flex items-center gap-1"><Calendar size={12} /> Member since {userData.joined}</span>
+                {/* <span className="flex items-center gap-1"><MapPin size={12} />India</span> */}
+                {/* <span className="flex items-center gap-1"><Calendar size={12} /> Member since {userData.joined}</span> */}
               </div>
             </div>
-            <div className='flex flex-col gap-5 items-center'>
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto items-center justify-center">
               <button className="bg-white text-black text-xs font-bold px-6 py-3 rounded-xl hover:bg-amber-500 transition-colors uppercase tracking-widest" onClick={handleLogout}>
                 Logout
               </button>
@@ -106,10 +107,10 @@ const UserDashboard = () => {
           </motion.div>
         </section>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        {/* <div className="grid lg:grid-cols-2 gap-12"> */}
 
-          {/* 3. Upcoming Registered Events */}
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+        {/* 3. Upcoming Registered Events */}
+        {/* <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
                 <Zap size={18} className="text-amber-500" /> Upcoming Itinerary
@@ -118,7 +119,7 @@ const UserDashboard = () => {
             </div>
 
             <div className="space-y-4">
-              {/* {registeredEvents.map(event => (
+              {registeredEvents.map(event => (
                 <div key={event.id} className="group bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 p-6 rounded-2xl transition-all">
                   <div className="flex justify-between items-start">
                     <div>
@@ -131,18 +132,18 @@ const UserDashboard = () => {
                     </span>
                   </div>
                 </div>
-              ))} */}
+              ))}
             </div>
-          </motion.div>
+          </motion.div> */}
 
-          {/* 4. Past Attended Events */}
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+        {/* 4. Past Attended Events */}
+        {/* <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
                 <History size={18} className="text-zinc-500" /> Past Legacy
               </h3>
             </div>
-{/* 
+
             <div className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden">
               <table className="w-full text-left text-xs">
                 <thead className="bg-zinc-800/30 text-zinc-500 uppercase font-mono tracking-tighter">
@@ -166,11 +167,53 @@ const UserDashboard = () => {
                   ))}
                 </tbody>
               </table>
-            </div> */}
-          </motion.div>
+            </div>
+          </motion.div> */}
+        <div className="min-h-[65vh] lg:min-h-[80vh] flex items-center justify-center px-2 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="relative w-full max-w-2xl overflow-hidden rounded-[32px] border border-white/10 bg-zinc-950/60 backdrop-blur-xl sm:px-8 sm:py-10 p-10 text-center shadow-[0_20px_80px_rgba(0,0,0,0.5)]"
+          >
+            {/* Glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.12),transparent_65%)] pointer-events-none" />
 
+            {/* Top Glow */}
+            <div className="absolute -top-20 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-amber-500/10 blur-3xl" />
+            {/* Badge */}
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-2">
+
+              <span className="text-[11px] uppercase tracking-[0.35em] text-amber-400 font-mono">
+                UNDER DEVELOPMENT
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h2 className="text-4xl md:text-5xl font-black leading-tight">
+              <span className="text-white">Great</span>
+              <br />
+              <span className="bg-gradient-to-r from-yellow-200 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
+                Things
+              </span>
+              <br />
+              <span className="text-white">Are Coming</span>
+            </h2>
+
+            {/* Description */}
+            <p className="mx-auto mt-6 max-w-xl text-zinc-400 leading-8">
+              We're crafting an exclusive experience for the Founders Clan community.
+              Check back soon for new opportunities, events, and premium resources.
+            </p>
+            <img src="/assets/Under construction-cuate.svg" className="w-full h-full object-cover" alt="Under construction-cuate.svg" />
+            {/* Bottom Accent */}
+            <div className="mt-10 flex justify-center">
+              <div className="h-px w-40 bg-gradient-to-r from-transparent via-amber-500/60 to-transparent" />
+            </div>
+          </motion.div>
         </div>
-      </main>
+        {/* </div> */}
+      </main >
     </div>
   );
 };

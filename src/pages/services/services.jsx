@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Rocket, Briefcase, Crown, Terminal, 
-  Users, TrendingUp, ArrowRight, Shield 
+import {
+  Rocket, Briefcase, Crown, Terminal,
+  Users, TrendingUp, ArrowRight, Shield
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -54,13 +54,13 @@ const services = [
 export const Services = () => {
   return (
     <div className="bg-[#050505] text-white min-h-screen font-sans selection:bg-yellow-500 selection:text-black">
-      
+
       {/* 1. CINEMATIC HERO */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-yellow-500/5 blur-[120px] rounded-full pointer-events-none" />
-        
+
         <div className="max-w-7xl mx-auto text-center relative z-10">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, letterSpacing: "0.2em" }}
             animate={{ opacity: 1, letterSpacing: "0.5em" }}
             className="text-yellow-500 text-[10px] font-mono uppercase font-black mb-6 block"
@@ -90,9 +90,9 @@ export const Services = () => {
             >
               {/* Realistic Background Image */}
               <div className="absolute inset-0 z-0">
-                <img 
-                  src={service.image} 
-                  alt={service.title} 
+                <img
+                  src={service.image}
+                  alt={service.title}
                   className="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent" />
@@ -116,8 +116,8 @@ export const Services = () => {
                   <p className="text-zinc-400 text-sm leading-relaxed mb-6 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
                     {service.desc}
                   </p>
-                  <Link 
-                    to="/request-invitation" 
+                  <Link
+                    to="/request-invitation"
                     className="inline-flex items-center gap-2 text-white font-black text-[10px] uppercase tracking-[0.2em] group/btn"
                   >
                     Initiate Protocol <ArrowRight size={14} className="group-hover/btn:translate-x-2 transition-transform" />
@@ -131,22 +131,22 @@ export const Services = () => {
 
       {/* 3. CTA: READY FOR ACTIVATION */}
       <section className="max-w-5xl mx-auto px-6 pb-40">
-        <motion.div 
+        <motion.div
           whileHover={{ scale: 1.02 }}
           className="relative rounded-[3rem] p-12 md:p-24 overflow-hidden border border-yellow-500/30 bg-gradient-to-br from-zinc-900 to-black text-center"
         >
           {/* Subtle animated background for CTA */}
-          <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-          
+          {/* <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" /> */}
+
           <div className="relative z-10">
             <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter uppercase">
-              READY FOR <br/> <span className="italic text-yellow-500">ACTIVATION?</span>
+              READY FOR <br /> <span className="italic text-yellow-500">ACTIVATION?</span>
             </h2>
             <p className="text-zinc-400 max-w-lg mx-auto mb-12 text-lg font-light">
               Limited bandwidth available. We only accept founders who are prepared for radical expansion.
             </p>
             <Link to="/request-invitation">
-              <motion.button 
+              <motion.button
                 whileHover={{ boxShadow: "0 0 30px rgba(234,179,8,0.3)" }}
                 whileTap={{ scale: 0.95 }}
                 className="px-16 py-6 bg-yellow-500 text-black font-black uppercase tracking-[0.3em] text-xs rounded-2xl transition-all"
@@ -155,7 +155,7 @@ export const Services = () => {
               </motion.button>
             </Link>
           </div>
-          
+
           {/* Decorative Corner Marks */}
           <div className="absolute top-8 left-8 w-12 h-12 border-t-2 border-l-2 border-yellow-500/20" />
           <div className="absolute bottom-8 right-8 w-12 h-12 border-b-2 border-r-2 border-yellow-500/20" />

@@ -1,24 +1,41 @@
 import { LogOut, X, User, Users, ArrowUpRight } from "lucide-react";
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 
-const Hamburger = ({ click, handleMenu , hamRef }) => {
+/* eslint-disable react/prop-types */
+const Hamburger = ({ click, handleMenu, hamRef }) => {
+  const navigate = useNavigate();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const links = [
-    { name: "Home", path:"/"},
-    { name: "The Team", path: "/team" },
+    { name: "Home", path: "/" },
     { name: "Our Manifesto", path: "/about" },
     { name: "Private Events", path: "/events" },
+    { name: "Campus Ambassador", path: "/CampusAmbassador" },
+    { name: "The Team", path: "/team" },
     { name: "Concierge Support", path: "/support" },
-    { name: "Campus Ambassador" , path: "/CampusAmbassador"},
   ];
   const token = localStorage.getItem('Founders_token');
   const user = JSON.parse(localStorage.getItem('Founders_user'));
   const destination = !token ? "/login" : user?.role === "admin" ? "/admin-dashboard" : "/profile/user";
-
+  const handleLogout = () => {
+    localStorage.removeItem('Founders_token');
+    localStorage.removeItem('Founders_user');
+    handleMenu();
+    navigate('/login');
+  };
+  useEffect(() => {
+    if (click) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [click]);
 
   return (
     <AnimatePresence>
@@ -29,17 +46,17 @@ const Hamburger = ({ click, handleMenu , hamRef }) => {
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed top-0 right-0 z-[110] h-screen w-full md:w-[450px] bg-zinc-950 border-l border-white/5 shadow-[-50px_0_100px_rgba(0,0,0,0.9)] flex flex-col"
+          className="fixed top-0 right-0 z-[110] h-screen w-full md:w-[420px] bg-zinc-950 border-l border-white/5 shadow-[-50px_0_100px_rgba(0,0,0,0.9)] flex flex-col"
         >
 
-          <div className="flex justify-between items-center p-8">
+          <div className="flex justify-between items-center px-5 py-2">
             <Link to={destination}>
               <motion.div
-              onClick={handleMenu}
+                onClick={handleMenu}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="flex items-center gap-3 px-4 py-2 rounded-full bg-zinc-900 border border-white/5"
+                className="flex items-center gap-3 px-4 py-2 rounded-full bg-zinc-900 border border-white/5 translate-x-5 translate-y-3"
               >
                 <User className="size-4 text-yellow-500" />
                 <span className="text-white text-xs font-mono uppercase tracking-widest">{token ? `${user.first_name}` : 'Login'}</span>
@@ -48,15 +65,14 @@ const Hamburger = ({ click, handleMenu , hamRef }) => {
 
             <button
               onClick={handleMenu}
-              className="p-4 rounded-full bg-zinc-900 text-yellow-500 hover:rotate-90 transition-transform duration-500"
+              className="p-2 rounded-full bg-zinc-900 text-yellow-500 -translate-x-7 translate-y-4 hover:rotate-90 transition-transform duration-500"
             >
               <X size={30} strokeWidth={1} />
             </button>
           </div>
 
 
-          <nav className="flex flex-col justify-center flex-grow px-12 space-y-8">
-            {/* <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.4em] mb-4">Directory</p> */}
+          <nav className=" flex-1 overflow-y-auto px-12 py-8 space-y-8 scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {links.map((link, i) => (
               <motion.div
                 onClick={scrollToTop}
@@ -68,12 +84,9 @@ const Hamburger = ({ click, handleMenu , hamRef }) => {
                 <NavLink
                   to={link.path}
                   onClick={handleMenu}
-                  className="group flex items-end gap-4"
+                  className="group flex items-end gap-3"
                 >
-                  {/* <span className="text-zinc-800 text-2xl font-light font-mono group-hover:text-yellow-500/20 transition-colors">
-                    0{i + 1}
-                  </span> */}
-                  <span className="text-4xl md:text-5xl font-bold text-zinc-300 group-hover:text-white group-hover:italic transition-all duration-300">
+                  <span className="text-3xl md:text-4xl font-bold text-zinc-300 group-hover:text-white group-hover:italic transition-all duration-300">
                     {link.name}
                   </span>
                   <ArrowUpRight className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all text-yellow-500 mb-2" size={24} />
@@ -87,24 +100,23 @@ const Hamburger = ({ click, handleMenu , hamRef }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="p-12 border-t border-white/5"
+            className="p-3 border-t border-white/5 translate-x-9"
           >
-            <button className="flex items-center gap-4 text-zinc-500 hover:text-red-400 transition-colors uppercase font-mono text-xs tracking-[0.3em]">
+            {/* <button className="flex items-center gap-4 text-zinc-500 hover:text-red-400 transition-colors uppercase font-mono text-sm tracking-[0.3em]" onClick={handleLogout}>
               <LogOut size={16} />
               Terminate Session
-            </button>
-            <div className="mt-8">
-              <p className="text-zinc-700 text-[10px] leading-relaxed">
+            </button> */}
+            <div className="mt-2">
+              <p className="text-zinc-600 text-[12px] leading-relaxed">
                 © FOUNDERS CLAN <br />
-                PRIVATE ACCESS ONLY // EST. 2025
               </p>
             </div>
           </motion.div>
 
 
-          <div className="absolute bottom-10 right-[-20px] rotate-90 origin-bottom-right opacity-[0.03] pointer-events-none">
+          {/* <div className="absolute bottom-10 right-[-20px] rotate-90 origin-bottom-right opacity-[0.03] pointer-events-none">
             <h2 className="text-9xl font-black text-white whitespace-nowrap">NAVIGATION</h2>
-          </div>
+          </div> */}
         </motion.div>
       )}
     </AnimatePresence>

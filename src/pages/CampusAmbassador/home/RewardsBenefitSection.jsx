@@ -1,7 +1,6 @@
 import { Users, GraduationCap, Trophy, Briefcase, Rocket, Sparkles } from "lucide-react";
 import groupCommunity from "/assets/groupCommunity.svg";
-import { useScroll, useTransform } from "framer-motion";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const containerVariants = {
@@ -81,40 +80,41 @@ const benefits = [
   },
 ];
 
-export default function RewardsBenefitSection() {  
-// const {scrollYProgress} = useScroll();
-// const yParallax = useTransform(scrollYProgress,[0.3,0.6],[50,-50])
+export default function RewardsBenefitSection() {
+  // const {scrollYProgress} = useScroll();
+  // const yParallax = useTransform(scrollYProgress,[0.3,0.6],[50,-50])
 
- const sectionRef = useRef(null);
-   const { scrollYProgress } = useScroll({
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
-    const yParallax = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const yParallax = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
 
   return (
-    <section  ref={sectionRef} className="relative py-32 overflow-hidden ">
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-10 left-0 w-[450px] h-[450px] bg-violet-500/10 blur-[50px] rounded-full" />
-        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-yellow-500/20 blur-[100px]" />
-        <div className="absolute bottom-20 left-1 w-[950px] h-[350px] bg-sky-500/10 blur-[50px]" />
-      </div>
+    <section ref={sectionRef} className="relative py-20 md:py-28 lg:py-32">
+      {/* {Background} */}
 
       <motion.div variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{once:true,margin:"-100px"}}
-          className="relative max-w-7xl mx-auto px-6">
-        {/* Header */}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="relative max-w-7xl mx-auto px-6">
 
-        <div className="text-center mb-20">
-          <span className="inline-flex px-4 py-2 rounded-full border border-yellow-500/20 bg-yellow-500/10 text-yellow-300 text-xs uppercase tracking-[0.25em]">
-            Benefits
+        {/* {Background} */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-6 -left-30  w-56 h-56 md:w-80 md:h-80 lg:w-[450px] lg:h-[450px]  bg-violet-500/10 blur-[50px] animate-pulse rounded-full" />
+          <div className="absolute top-1/2 -right-40  w-72 h-72 md:w-[420px] md:h-[420px] lg:w-[500px] lg:h-[500px] bg-yellow-500/20 blur-[100px]" />
+          <div className="absolute -bottom-20 -left-40 w-[950px] h-[350px] bg-sky-500/10 blur-[50px] rounded-[70px]" />
+        </div>
+
+        <div className="text-center mb-8 sm:mb-20">
+          <span className="inline-flex text-yellow-300 text-base uppercase tracking-[0.25em]">
+            Rewards
           </span>
 
-          <h2 className="mt-8 text-5xl md:text-7xl font-black text-white leading-none">
+          <h2 className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight">
             MEMBER
             <span className="text-yellow-400"> ADVANTAGES.</span>
           </h2>
@@ -125,39 +125,62 @@ export default function RewardsBenefitSection() {
           </p>
         </div>
 
+        {/* {Mobile SVG} */}
+        <motion.div style={{ y: yParallax }} className="flex justify-center mb-12 lg:hidden">
+          <img
+            src={groupCommunity}
+            alt="Community"
+            className="w-full max-w-xs sm:max-w-sm"
+          />
+        </motion.div>
         {/* Bento Layout */}
-        <motion.div variants={itemVariants} className="grid lg:grid-cols-12 gap-6 auto-rows-[260px]">
-          {/* Large */}
-          <BenefitCard
-            {...benefits[0]}
-            className="lg:col-span-7"
-          />
+        {/* Carousel requires `relative z-5` because another page-level stacking context currently interferes with horizontal touch scrolling. */}
+        <motion.div variants={itemVariants} className="relative z-5 md:z-0">
+          <div className="mobile-scroll flex gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-4 -mx-6 px-6  md:grid md:grid-cols-12 md:auto-rows-[260px] md:overflow-visible md:px-0 md:mx-0">
+            {/* {Large} */}
+            <BenefitCard
+              {...benefits[0]}
+              className="w-[82vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink md:col-span-7"
+            />
 
-          <BenefitCard
-            {...benefits[1]}
-            className="lg:col-span-5"
-          />
+            <BenefitCard
+              {...benefits[1]}
+              className="w-[82vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink md:col-span-5"
+            />
 
-          <BenefitCard
-            {...benefits[2]}
-            className="lg:col-span-4"
-          />
-            
-          <BenefitCard
-            {...benefits[3]}
-            className="lg:col-span-8"
-          />
+            <BenefitCard
+              {...benefits[2]}
+              className="w-[82vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink md:col-span-4"
+            />
 
-          <BenefitCard
-            {...benefits[4]}
-            className="lg:col-span-5"
-          />
+            <BenefitCard
+              {...benefits[3]}
+              className="w-[82vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink md:col-span-8"
+            />
 
-          <BenefitCard
-            {...benefits[5]}
-            className="lg:col-span-7"
-          />
-          <motion.div style={{y:yParallax}} className="absolute bottom-[25%] -right-[15%] h-[40%] w-[40%] z-10 transform -scale-x-100 rotate-0 will-change-transform "><img src={groupCommunity} alt="rocketLaunch.svg" /></motion.div>
+            <BenefitCard
+              {...benefits[4]}
+              className="w-[82vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink md:col-span-5"
+            />
+
+            <BenefitCard
+              {...benefits[5]}
+              className="w-[82vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink md:col-span-7"
+            />
+            <motion.div style={{ y: yParallax }} className="hidden lg:block absolute bottom-[22%] -right-[8%] h-[40%] w-[40%] z-10 transform -scale-x-100 rotate-0 will-change-transform ">
+              <img src={groupCommunity} alt="rocketLaunch.svg" />
+            </motion.div>
+          </div>
+          {/* <div className="flex overflow-x-auto gap-4 border-4 border-red-500" style={{
+            touchAction: "pan-x",
+            pointerEvents: "auto",
+            zIndex: 9999,
+            position: "relative",
+          }}>
+            <div className="w-[400px] h-40 bg-red-500 shrink-0"></div>
+            <div className="w-[400px] h-40 bg-green-500 shrink-0"></div>
+            <div className="w-[400px] h-40 bg-blue-500 shrink-0"></div>
+          </div> */}
         </motion.div>
       </motion.div>
     </section>
@@ -176,36 +199,33 @@ function BenefitCard({
 }) {
   return (
     <div
-      className={`group relative overflow-hidden rounded-[32px] border border-white/10 bg-zinc-950/80 backdrop-blur-xl p-8 transition-all duration-500 hover:-translate-y-2 hover:border-white/30
+      className={`group relative overflow-hidden rounded-2xl sm:rounded-[32px] border border-white/10 bg-zinc-950/80 backdrop-blur-xl p-5 sm:p-8 transition-all duration-500 hover:-translate-y-2 hover:border-white/30
         ${className}
       `}
     >
-      {/* Gradient Glow */}
+
       <div
         className={`absolute inset-0 bg-gradient-to-br ${glow}`}
       />
 
-      {/* Orb */}
-      {/* <div className="absolute -right-12 -top-12 w-40 h-40 rounded-full  bg-white/[0.05] blur-md animate-pulse" /> */}
-
       <div className="relative z-10 flex flex-col h-full">
         <div
-          className={`w-16 h-16 rounded-2xl ${iconBg} border border-white/10 flex items-center justify-center
+          className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl ${iconBg} border border-white/10 flex items-center justify-center
           `}
         >
-          <Icon className={`w-8 h-8 ${iconColor}`} />
+          <Icon className={`w-6 h-6 sm:w-8 sm:h-8 ${iconColor}`} />
         </div>
 
-        <div className="mt-8">
-          <h3 className="text-white text-2xl font-semibold leading-0.85">
+        <div className="mt-2 sm:mt-8">
+          <h3 className="text-white text-xl sm:text-2xl font-semibold leading-[0.85]">
             {title}
           </h3>
 
-          <p className="mt-4 text-zinc-300/90 leading-relaxed text-base max-w-md">
+          <p className="mt-2 sm:mt-4 text-zinc-300/90 leading-relaxed text-[13px] sm:text-base max-w-md">
             {description}
           </p>
         </div>
       </div>
     </div>
   );
-}
+} 

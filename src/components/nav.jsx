@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { motion } from "motion/react";
-import logo from '../assets/logowithoutbg.png'
+import logo from '/assets/logowithoutbg.webp'
 import { User } from "lucide-react";
 // import toast from "react-hot-toast";
 
@@ -85,7 +85,7 @@ export const NavBar = ({ handleMenu }) => {
           </motion.button>
         </a>
 
-        <Link to={destination}>
+        {/* <Link to={destination}>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -97,7 +97,7 @@ export const NavBar = ({ handleMenu }) => {
               {token ? `${user.first_name}` : "Login"}
             </span>
           </motion.div>
-        </Link>
+        </Link> */}
 
         {/* for websites */}
         <button

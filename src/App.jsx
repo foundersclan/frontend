@@ -20,6 +20,7 @@ import { Toaster } from "react-hot-toast"
 import { Events } from "./pages/event/events"
 import { LazyMotion, domAnimation } from "framer-motion";
 import CampusAmbassador from "./pages/CampusAmbassador/CampusAmbassador"
+import ProtectedRoute from "./auth/ProtectedRoute"
 
 const router = createBrowserRouter([
   {
@@ -35,39 +36,50 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
       { path: "/team", element: <Team /> },
-      { path: "/profile/user", element: <UserDashboard /> },
-      { path: "/admin-dashboard", element: <AdminDashboard /> },
+      {
+        path: "/profile/user", element: (
+          <ProtectedRoute>
+            <UserDashboard />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "/admin-dashboard", element: (
+          <ProtectedRoute requiredRole="admin">
+            <AdminDashboard />
+          </ProtectedRoute>)
+      },
       { path: "/request-invitation", element: <Requests /> },
       { path: "/services", element: <ComingSoon /> },
       { path: "/blog", element: <ComingSoon /> },
-      { path: "/CampusAmbassador/*", element: <CampusAmbassador />}
-    ] 
+      { path: "/CampusAmbassador/*", element: <CampusAmbassador /> }
+    ]
   }
 ])
 
 const App = () => {
   return (
     <LazyMotion features={domAnimation}>
-    <MyState>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          duration: 3000,
-          style: {
-            background: '#18181b',
-            color: '#fff',
-            border: '1px solid #3f3f46',
-          },
-          success: {
-            iconTheme: {
-              primary: '#f59e0b',
-              secondary: '#000',
+      <MyState>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              background: '#18181b',
+              color: '#fff',
+              border: '1px solid #3f3f46',
             },
-          },
-        }}
-      />
-      <RouterProvider router={router} />
-    </MyState>
+            success: {
+              iconTheme: {
+                primary: '#f59e0b',
+                secondary: '#000',
+              },
+            },
+          }}
+        />
+        <RouterProvider router={router} />
+      </MyState>
     </LazyMotion>
   )
 }

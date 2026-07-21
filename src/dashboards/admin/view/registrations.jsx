@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Mail, ShieldCheck, X, Eye, Linkedin, 
+import {
+  Mail, ShieldCheck, X, Eye, Linkedin,
   Clock, ArrowUpRight, Building2, User,
   CheckCircle, XCircle, Download
 } from 'lucide-react';
@@ -12,19 +12,19 @@ import { usePdf } from '../viewmodels/usePdf';
 const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
   const [selectedFounder, setSelectedFounder] = useState(null);
   const [isActioning, setIsActioning] = useState(false);
-  const {downloadPDF} = usePdf()
- const handleApprove = async () => {
-  if (!selectedFounder) return;
-  setIsActioning(true);
-  const result = await updateStatus(selectedFounder.id, 'approved');
-  if (result.success) {
-    toast.success("Registration approved successfully!");
-    setSelectedFounder(null);
-  } else {
-    toast.error(`Error: ${result.error}`);
-  }
-  setIsActioning(false);
-};
+  const { downloadPDF } = usePdf()
+  const handleApprove = async () => {
+    if (!selectedFounder) return;
+    setIsActioning(true);
+    const result = await updateStatus(selectedFounder.id, 'approved');
+    if (result.success) {
+      toast.success("Registration approved successfully!");
+      setSelectedFounder(null);
+    } else {
+      toast.error(`Error: ${result.error}`);
+    }
+    setIsActioning(false);
+  };
 
   const handleReject = async () => {
     if (!selectedFounder) return;
@@ -40,12 +40,12 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
     setIsActioning(false);
   };
 
-  
+
   const foundersList = registrations?.data || [];
   const pendingCount = foundersList.filter(f => f.status === 'pending').length;
 
   const getStatusColor = (status) => {
-    switch(status) {
+    switch (status) {
       case 'approved': return 'text-green-500 border-green-500/20 bg-green-500/5';
       case 'rejected': return 'text-red-500 border-red-500/20 bg-red-500/5';
       case 'under_review': return 'text-blue-500 border-blue-500/20 bg-blue-500/5';
@@ -55,7 +55,7 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
 
   return (
     <div className="bg-[#050505] min-h-screen text-slate-300">
-      
+
       {/* Header */}
       <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
@@ -67,7 +67,7 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
           </p>
         </div>
         <span className="bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-xl text-[10px] md:text-xs flex items-center gap-2">
-          <Clock size={14} className="text-amber-500" /> 
+          <Clock size={14} className="text-amber-500" />
           {pendingCount} Pending Review
         </span>
       </div>
@@ -110,22 +110,20 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
                     </span>
                   </td>
                   <td className="px-8 py-6">
-                    <span className={`flex items-center gap-2 text-[10px] font-mono uppercase ${
-                      founder.status === 'approved' ? 'text-green-500' :
-                      founder.status === 'rejected' ? 'text-red-500' :
-                      'text-amber-500'
-                    }`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${
-                        founder.status === 'approved' ? 'bg-green-500' :
-                        founder.status === 'rejected' ? 'bg-red-500' :
-                        'bg-amber-500 animate-pulse'
-                      }`} />
+                    <span className={`flex items-center gap-2 text-[10px] font-mono uppercase ${founder.status === 'approved' ? 'text-green-500' :
+                        founder.status === 'rejected' ? 'text-red-500' :
+                          'text-amber-500'
+                      }`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${founder.status === 'approved' ? 'bg-green-500' :
+                          founder.status === 'rejected' ? 'bg-red-500' :
+                            'bg-amber-500 animate-pulse'
+                        }`} />
                       {founder.status}
                     </span>
                   </td>
                   <td className="px-8 py-6 text-right">
-                    <button 
-                      onClick={() => setSelectedFounder(founder)} 
+                    <button
+                      onClick={() => setSelectedFounder(founder)}
                       className="p-3 bg-zinc-800 hover:bg-amber-500 hover:text-black rounded-xl transition-all"
                     >
                       <Eye size={18} />
@@ -154,13 +152,13 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
               </div>
               <div className="flex items-center justify-between pt-2">
                 <span className="text-[10px] text-zinc-400 flex items-center gap-1">
-                  <Building2 size={12}/> {founder.industry_type || 'N/A'}
+                  <Building2 size={12} /> {founder.industry_type || 'N/A'}
                 </span>
-                <button 
+                <button
                   onClick={() => setSelectedFounder(founder)}
                   className="flex items-center gap-2 bg-amber-500 text-black px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest"
                 >
-                  <Eye size={14}/> Review
+                  <Eye size={14} /> Review
                 </button>
               </div>
             </div>
@@ -172,15 +170,15 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
       <AnimatePresence>
         {selectedFounder && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-6">
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedFounder(null)}
               className="absolute inset-0 bg-black/90 backdrop-blur-xl"
             />
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -200,8 +198,8 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
                       {selectedFounder.role || 'Founder'} at {selectedFounder.company_name}
                     </p>
                   </div>
-                  <button 
-                    onClick={() => setSelectedFounder(null)} 
+                  <button
+                    onClick={() => setSelectedFounder(null)}
                     className="p-2 hover:bg-zinc-800 rounded-full transition-colors"
                   >
                     <X size={20} className="md:w-6 md:h-6" />
@@ -223,8 +221,9 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
                         Social Proof
                       </label>
                       {selectedFounder.linkedin_url ? (
-                        <a 
-                          href={selectedFounder.linkedin_url} 
+                        <a
+                          href={selectedFounder.linkedin_url}
+                          aria-label="LinkedIn Profile"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 text-xs md:text-sm text-blue-400 hover:underline"
@@ -287,8 +286,8 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-6 md:pt-8 border-t border-zinc-800">
-                  <motion.button 
-                    whileHover={{ scale: 1.01 }} 
+                  <motion.button
+                    whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
                     onClick={handleApprove}
                     disabled={isActioning || selectedFounder.status === 'approved'}
@@ -296,8 +295,8 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
                   >
                     {isActioning ? "Processing..." : <><CheckCircle size={16} /> Approve</>}
                   </motion.button>
-                  
-                  <button 
+
+                  <button
                     onClick={handleReject}
                     disabled={isActioning || selectedFounder.status === 'rejected'}
                     className="flex-1 bg-zinc-950 border border-zinc-800 text-white font-black uppercase tracking-widest py-4 rounded-xl md:rounded-2xl text-[10px] hover:text-red-500 hover:border-red-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
@@ -313,10 +312,10 @@ const RegistrationPortal = ({ registrations, updateStatus, refreshData }) => {
                     <Download size={16} /> Download PDF
                   </button>
                 </div>
-                
+
                 {/* Footer */}
                 <div className="mt-6 text-zinc-600 text-[8px] md:text-[9px] uppercase tracking-tighter text-center">
-                  <ShieldCheck size={12} className="inline mr-1 mb-0.5" /> 
+                  <ShieldCheck size={12} className="inline mr-1 mb-0.5" />
                   Status: {selectedFounder.status}
                   {selectedFounder.reviewed_at && (
                     <> • Reviewed {new Date(selectedFounder.reviewed_at).toLocaleDateString()}</>

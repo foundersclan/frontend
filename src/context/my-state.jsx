@@ -2,10 +2,11 @@ import { useState } from "react"
 import { MyContext } from "./my-context";
 
 
-export const MyState = ({children}) =>{
-   const [loading , setLoading] = useState(false)
-    const [isLoggedIn , setisLoggedIn] = useState(false);
-    const [loggedUser ,setUser] = useState(null);
+export const MyState = ({ children }) => {
+    const [loading, setLoading] = useState(false);
+    const storedUser = localStorage.getItem("Founders_user");
+    const [isLoggedIn, setisLoggedIn] = useState(!!localStorage.getItem('Founders_token'));
+    const [loggedUser, setUser] = useState(storedUser ? JSON.parse(storedUser) : null);
     return <MyContext.Provider value={{
         loading,
         setLoading,
@@ -14,5 +15,5 @@ export const MyState = ({children}) =>{
         loggedUser,
         setUser
     }
-}>{children}</MyContext.Provider>
+    }>{children}</MyContext.Provider>
 }

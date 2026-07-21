@@ -12,7 +12,7 @@ import { Loader } from "./components/loading"
 export const Applayout = () => {
     const location = useLocation();
     const { loading } = useContext(MyContext);
-    const [intro , setintro] = useState(true);
+    const [intro, setintro] = useState(true);
 
     const hideRoutes = [
         '/events',
@@ -31,37 +31,26 @@ export const Applayout = () => {
     const shouldHideHeaderAndFooter = authHideRoutes.includes(location.pathname);
     if (loading) {
         return (
-            <Loader/>
+            <Loader />
         )
     }
     return (
         <>
-        {
-            intro ? <Intro onFinish={()=> setintro(false)}/> : 
-        <div className=" w-full overflow-hidden">
-           
-            {/* {
-                !shouldHideUi &&
-                <div className="w-full z-100 max-h-screen absolute">
-                    <motion.img src="/assets/manwithnobackground.png" className="w-full h-screen object-contain" alt=""
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1.5, ease: "easeOut" }}
-                        whileHover={{ scale: 1.05, rotateY: 5 }} />
-                </div>
-            } */}
-           {
-            !shouldHideHeaderAndFooter &&  <Header />
-           }
-            <div className="">
-                <Outlet />
-            </div>
-             {
-            !shouldHideHeaderAndFooter &&   <Footer />
-           }
-           
-        </div>
-        }
+            {
+                intro ? <Intro onFinish={() => setintro(false)} /> :
+                    <div className=" w-full overflow-hidden">
+                        {
+                            !shouldHideHeaderAndFooter && <Header />
+                        }
+                        <div className="">
+                            <Outlet />
+                        </div>
+                        {
+                            !shouldHideHeaderAndFooter && <Footer />
+                        }
+
+                    </div>
+            }
         </>
     )
 }

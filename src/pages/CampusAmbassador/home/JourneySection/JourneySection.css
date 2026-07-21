@@ -11,3 +11,11 @@
 .animate-pull {
   animation: pull 3s linear infinite;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
