@@ -211,7 +211,7 @@ export default function HeroSection() {
           <div className="relative col-span-1 md:col-span-6 flex flex-col items-center text-center order-1 md:order-2 py-1 sm:py-2 w-full mx-auto">
             <div className="inline-flex items-center gap-2 backdrop-blur-md mb-3 sm:mb-6 shadow-lg">
               <span className="text-[11px] sm:text-base font-black tracking-widest text-zinc-400 uppercase">
-                Founders IGNITERS CLUB
+                Founders NEXUS CLUB
               </span>
             </div>
 

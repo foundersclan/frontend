@@ -13,6 +13,7 @@ import {
   Linkedin,
   MessageSquare,
   Target,
+  PhoneCall,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -50,11 +51,10 @@ const StatusBadge = ({ status }) => {
   const isPending = status === "Pending";
   return (
     <span
-      className={`text-[9px] font-mono px-2 py-0.5 rounded border ${
-        isPending
-          ? "text-amber-500 border-amber-500/20 bg-amber-500/5 animate-pulse"
-          : "text-emerald-400 border-emerald-500/20 bg-emerald-500/5"
-      }`}
+      className={`text-[9px] font-mono px-2 py-0.5 rounded border ${isPending
+        ? "text-amber-500 border-amber-500/20 bg-amber-500/5 animate-pulse"
+        : "text-emerald-400 border-emerald-500/20 bg-emerald-500/5"
+        }`}
     >
       {status}
     </span>
@@ -155,17 +155,17 @@ const CampusAmbassadorApplicationManager = () => {
 
       {/* ── Desktop Table ────────────────────────────────────────────────── */}
       {applications.length > 0 && (
-        <div className="hidden md:block bg-zinc-900/30 border border-zinc-800 rounded-[2rem] overflow-hidden mb-6">
+        <div className="hidden md:block bg-zinc-900/30 border border-zinc-800 rounded-[2rem] overflow-x-auto no-scrollbar mb-6">
           <table className="w-full text-left">
             <thead className="bg-zinc-950/50 border-b border-zinc-800 text-[10px] uppercase font-mono tracking-widest text-zinc-500">
               <tr>
                 <th className="px-6 py-5">Status</th>
                 <th className="px-6 py-5">Full Name</th>
                 <th className="px-6 py-5">Email</th>
+                <th className="px-6 py-5">Phone No.</th>
                 <th className="px-6 py-5">College</th>
-                <th className="px-6 py-5">Role / Stage</th>
-                <th className="px-6 py-5">Submitted</th>
-                <th className="px-6 py-5 text-right">View</th>
+                <th className="px-6 py-5">Role+Stage</th>
+                <th className="px-6 py-5 text-right">Submitted</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-800/50">
@@ -187,6 +187,11 @@ const CampusAmbassadorApplicationManager = () => {
                   {/* Email */}
                   <td className="px-6 py-6 text-xs text-zinc-400 font-mono">
                     {app.email}
+                  </td>
+
+                  {/* Phone Number */}
+                  <td className="px-6 py-6 text-xs text-zinc-400 font-mono">
+                    {app.phoneNumber}
                   </td>
 
                   {/* College */}
@@ -311,11 +316,10 @@ const CampusAmbassadorApplicationManager = () => {
               <div className="flex items-center gap-3 mb-6">
                 <StatusBadge status={selectedApplication.status} />
                 <span
-                  className={`text-[9px] font-mono px-2 py-0.5 rounded border ${
-                    selectedApplication.contact_status === "Contacted"
-                      ? "text-emerald-400 border-emerald-500/20 bg-emerald-500/5"
-                      : "text-zinc-400 border-zinc-700 bg-zinc-800/30"
-                  }`}
+                  className={`text-[9px] font-mono px-2 py-0.5 rounded border ${selectedApplication.contact_status === "Contacted"
+                    ? "text-emerald-400 border-emerald-500/20 bg-emerald-500/5"
+                    : "text-zinc-400 border-zinc-700 bg-zinc-800/30"
+                    }`}
                 >
                   {selectedApplication.contact_status}
                 </span>
@@ -329,9 +333,19 @@ const CampusAmbassadorApplicationManager = () => {
                   value={selectedApplication.email}
                 />
                 <DetailRow
+                  icon={PhoneCall}
+                  label="Phone Number"
+                  value={selectedApplication.phoneNumber}
+                />
+                <DetailRow
                   icon={GraduationCap}
                   label="College / Institution"
                   value={selectedApplication.college}
+                />
+                <DetailRow
+                  icon={Briefcase}
+                  label="Course"
+                  value={selectedApplication.course}
                 />
                 <DetailRow
                   icon={Briefcase}

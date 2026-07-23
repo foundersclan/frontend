@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useSignup } from "./viewmodels/useSignup";
 import { Loader } from "../../components/components/loading";
 import { motion } from "motion/react";
-import { UserPlus, Mail, Lock, Phone, User, ShieldCheck } from "lucide-react";
+import { UserPlus, Mail, Lock, Phone, User, ShieldCheck, ArrowLeft } from "lucide-react";
 
 const Signup = () => {
   const { userdata, errors, setUserData, handleSignup, loading } = useSignup();
@@ -115,8 +115,7 @@ const Signup = () => {
               whileHover={{ y: -2, boxShadow: "0 20px 40px rgba(234, 179, 8, 0.15)" }}
               whileTap={{ scale: 0.98 }}
               onClick={handleSignup}
-              className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-black uppercase text-[10px] sm:text-[11px]
-tracking-[0.2em] sm:tracking-[0.25em] py-4 sm:py-5 rounded-xl transition-all flex items-center justify-center gap-3 mt-8 shadow-xl"
+              className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-black uppercase text-[10px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.25em] py-4 sm:py-5 rounded-xl transition-all flex items-center justify-center gap-3 mt-8 shadow-xl"
             >
               <UserPlus size={16} /> Complete Registration
             </motion.button>
@@ -130,6 +129,15 @@ tracking-[0.2em] sm:tracking-[0.25em] py-4 sm:py-5 rounded-xl transition-all fle
                 Return to Login
               </NavLink>
             </p>
+          </div>
+          <div className="mt-5 text-center">
+            <div className="inline-flex items-center gap-2 text-zinc-500 text-sm tracking-tight">
+              <ArrowLeft className="w-4 h-3 text-yellow flex-shrink-0" strokeWidth={5.5} />
+              <span>Return{" "}</span>
+              <NavLink to="/" className="text-yellow-500 font-bold hover:text-yellow-400 transition-colors decoration-yellow-500/30">
+                Home
+              </NavLink>
+            </div>
           </div>
         </div>
 

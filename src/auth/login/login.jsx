@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useLogin } from "./viewmodels/uselogin";
 import { Loader } from "../../components/components/loading";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Mail, Phone, ChevronRight, ShieldCheck, Fingerprint } from "lucide-react";
+import { Lock, Mail, Phone, ChevronRight, ShieldCheck, Fingerprint, ArrowLeft } from "lucide-react";
 
 export const Login = () => {
   const {
@@ -137,6 +137,15 @@ export const Login = () => {
                   Request Access
                 </NavLink>
               </p>
+            </div>
+            <div className="mt-5 text-center">
+              <div className="inline-flex items-center gap-2 text-zinc-500 text-sm tracking-tight">
+                <ArrowLeft className="w-4 h-3 text-yellow flex-shrink-0" strokeWidth={5.5} />
+                <span>Return{" "}</span>
+                <NavLink to="/" className="text-yellow-500 font-bold hover:text-yellow-400 transition-colors decoration-yellow-500/30">
+                  Home
+                </NavLink>
+              </div>
             </div>
           </div>
         </div>

@@ -1,7 +1,10 @@
 import {
   Users, Calendar, Rocket, Target, Globe, Trophy, ArrowRight, CheckCircle2, Megaphone, Briefcase, AlertTriangle, ChevronRight,
+  Handshake,
+  UserRoundSearch,
 } from "lucide-react";
 import { Button } from "../components/shared/Button";
+import deal from "/assets/deal.png";
 
 export default function ClubProgram() {
   return (
@@ -22,13 +25,13 @@ export default function ClubProgram() {
               Program 2026-27 Now Live
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tighter leading-none mb-3 sm:mb-4">
-              FOUNDERS IGNITERS{" "}
+              FOUNDERS{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-600">
-                CLUB.
+                NEXUS CLUB.
               </span>
             </h1>
             <p className="text-zinc-400 text-xs sm:text-sm md:text-base leading-relaxed">
-              Think of the Igniters Club as your mini-startup with Founder
+              Think of the Nexus Club as your mini-startup with Founder
               backing. Here, you engage with your peers, host events, spark
               campaigns, and become the voice of Founders at your campus.
             </p>
@@ -95,18 +98,18 @@ export default function ClubProgram() {
         <div className="bg-zinc-950/70 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-[32px] p-5 sm:p-8 md:p-10 space-y-8 sm:space-y-10 group relative">
           <div>
             <h2 className="text-base sm:text-lg md:text-2xl font-black uppercase tracking-tight mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400 leading-snug">
-              All that you need to know about Founders Campus Ambassador - Igniters Club Program
+              All that you need to know about Founders Nexus Club Program
               2026-27
             </h2>
             <div className="space-y-3 sm:space-y-4 text-zinc-400 border-l-2 border-yellow-500/30 pl-3 sm:pl-4">
               <p className="font-bold text-white text-sm sm:text-base">
-                What is the Founders Igniters Club?
+                What is the Founders Nexus Club?
               </p>
               <p className="italic text-yellow-500 font-medium text-xs sm:text-sm">
                 A club where YOU run the show.
               </p>
               <p className="text-xs sm:text-sm md:text-lg leading-relaxed text-zinc-400">
-                Think of the Igniters Club as your mini startup…with the Founders
+                Think of the Nexus Club as your mini startup…with the Founders
                 backing. Here, you engage with your peers, host events, spark
                 campaigns, and ultimately, become the voice of Founders at your
                 campus.
@@ -116,10 +119,10 @@ export default function ClubProgram() {
 
           <div className="pt-6 sm:pt-8 border-t border-white/5">
             <p className="font-black text-xs sm:text-sm uppercase tracking-widest text-zinc-500 mb-2">
-              What will you do as an Igniter Club?
+              What will you do as a Nexus Club?
             </p>
             <p className="text-xs sm:text-sm md:text-base text-zinc-300 mb-4 sm:mb-6 font-medium">
-              As an Founders Igniters Club, you won’t just promote opportunities,
+              As a Founders Nexus Club, you won’t just promote opportunities,
               you’ll build, market, and grow a real campus brand.
             </p>
 
@@ -127,37 +130,38 @@ export default function ClubProgram() {
             <div className="space-y-3 sm:space-y-4">
               {[
                 {
-                  icon: <Globe size={16} className="sm:w-[18px] sm:h-[18px]" />,
+                  // icon: <Handshake size={16} className="sm:w-[18px] sm:h-[18px]" />,
+                  icon: <img src="/assets/deal.png" alt="Deal" className="w-4 h-4 sm:w-[18px] sm:h-[18px] object-contain invert" />,
                   title: "Collaborate & Scale Impact",
                   desc: "Act as the bridge between Founders and your college’s clubs, departments, and societies to launch large-scale, high-impact campus events.",
                 },
                 {
-                  icon: <Target size={16} className="sm:w-[18px] sm:h-[18px]" />,
+                  icon: <img src="/assets/college.png" alt="college.png" className="w-4 h-4 sm:w-[18px] sm:h-[18px] object-contain invert" />,
                   title: "Build Your College’s Digital Presence",
                   desc: "Manage & Grow the club’s social media to showcase your college’s talent, events, and achievements to build a strong digital identity for your college.",
                 },
                 {
-                  icon: <Megaphone size={16} className="sm:w-[18px] sm:h-[18px]" />,
+                  icon: <img src="/assets/advertising.png" alt="advertising.png" className="w-5 h-5 sm:w-[18px] sm:h-[18px] object-contain invert" />,
                   title: "Run Marketing Campaigns",
                   desc: "Strategize and execute campaigns for hackathons, competitions, and hiring opportunities to drive higher participation and unlock PPI/PPO opportunities for students.",
                 },
                 {
-                  icon: <Briefcase size={16} className="sm:w-[18px] sm:h-[18px]" />,
+                  icon: <img src="/assets/campus-events.png" alt="campus-events.png" className="w-4 h-4 sm:w-[18px] sm:h-[18px] object-contain invert" />,
                   title: "Own Campus Events",
                   desc: "Conceptualize with the Founders team and execute online/offline events, workshops, competitions, and masterclasses across exciting domains like Marketing, GenAI, Technology, Sustainability, Resume building, Career guidance, and more. The Founders Team will help you with the speakers for the sessions.",
                 },
                 {
-                  icon: <Users size={16} className="sm:w-[18px] sm:h-[18px]" />,
+                  icon: <img src="/assets/community.png" alt="community.png" className="w-4 h-4 sm:w-[18px] sm:h-[18px] object-contain invert" />,
                   title: "Create a Thriving Community",
                   desc: "To create a vibrant ecosystem in your campus where students actively discover and participate in competitions, hackathons, and career opportunities.",
                 },
                 {
-                  icon: <ChevronRight size={16} className="sm:w-[18px] sm:h-[18px]" />,
+                  icon: <img src="/assets/success.png" alt="success.png" className="w-4 h-4 sm:w-[18px] sm:h-[18px] object-contain invert" />,
                   title: "Guide Students to Career Opportunities",
                   desc: "Help peers discover mentors, competitions, internships, and help in skill-building through Founders.",
                 },
                 {
-                  icon: <Rocket size={16} className="sm:w-[18px] sm:h-[18px]" />,
+                  icon: <img src="/assets/brand-asset-management.png" alt="brand-asset-management.png" className="w-4 h-4 sm:w-[18px] sm:h-[18px] object-contain invert" />,
                   title: "Represent & Strengthen the Brand",
                   desc: "Act as the official Founders voice on campus, shaping how opportunities reach and impact students.",
                 },
@@ -166,7 +170,7 @@ export default function ClubProgram() {
                   key={idx}
                   className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-zinc-900/30 border border-white/5 flex gap-3 sm:gap-4 items-start hover:bg-zinc-900/50 hover:border-white/10 transition-all hover:translate-x-1"
                 >
-                  <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-yellow-500/10 text-yellow-500 shrink-0 mt-0.5 animate-pulse">
+                  <div className="p-1 sm:p-2 rounded-lg sm:rounded-xl bg-yellow-500/10 text-yellow-500 shrink-0 mt-0.5">
                     {item.icon}
                   </div>
                   <div>
@@ -206,17 +210,17 @@ export default function ClubProgram() {
               {
                 step: "Step 2",
                 title: "Complete an Interview",
-                desc: "After registration, every member will receive an interview link by email within 72 hours. Interviews must be completed within the given period.",
+                desc: "After registration, member will receive an interview link by email. Interviews must be completed within the given period.",
               },
               {
                 step: "Step 3",
-                title: "Selection of Igniters",
-                desc: "The Founders Team will select, to become 'Founders Igniters' based on their interviews. Selected will receive a confirmation email with onboarding details.",
+                title: "Selection of Nexus Member",
+                desc: "The Founders Team will select, to become 'Founders Nexus' based on their interviews. Selected will receive a confirmation email with onboarding details.",
               },
               {
                 step: "Step 4",
                 title: "Finalize Club Formation",
-                desc: "The final step involves completing the formalities to officially form the club. Detailed instructions will be shared with all selected Igniters via email.",
+                desc: "The final step involves completing the formalities to officially form the club. Detailed instructions will be shared with all selected Nexus via email.",
               },
             ].map((phase, idx) => (
               <div key={idx} className="relative group/step">
@@ -253,13 +257,13 @@ export default function ClubProgram() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             {[
               "Exclusive Founders Merch Kit and milestone-based rewards",
-              "PPI / Live Project Opportunities for top-performing Igniters",
+              "PPI / Live Project Opportunities for top-performing Nexus",
               "Certificates & Recognition from Founders",
-              "Founders Pro Access to Top-performing Founders Igniters",
+              "Founders Pro Access to Top-performing Founders Nexus",
               "Feature Spotlight on Founders’s social media platforms",
-              // "Founders Awards for top Igniters Clubs at flagship event – Founders Talent Meet 2027",
-              "Founders Awards for top Igniters Clubs at flagship event",
-              "Access to a powerful network of Igniters Clubs across India",
+              // "Founders Awards for top Nexus Clubs at flagship event – Founders Talent Meet 2027",
+              "Founders Awards for top Nexus Club members",
+              "Access to a powerful network of Nexus Clubs across India",
               "Learning & mentorship opportunities through masterclasses, webinars, and guest sessions",
             ].map((reward, idx) => (
               <div
@@ -288,8 +292,8 @@ export default function ClubProgram() {
               Important Note
             </h4>
             <p className="text-xs sm:text-sm md:text-base text-zinc-400 leading-relaxed mb-2">
-              If any Igniter (member and/or entire club) does not live up to the
-              performance standards set by Founders, Team Founders has the right to
+              If any Nexus (member and/or entire club) does not live up to the
+              performance standards set by Founders Clan, Team Founders Clan has the right to
               discontinue their association with the program.
             </p>
             <p className="text-xs sm:text-sm font-semibold text-zinc-300">
@@ -302,7 +306,7 @@ export default function ClubProgram() {
         <div className="text-center pt-4">
           <p className="text-zinc-600 text-[10px] sm:text-sm uppercase tracking-[0.15em] sm:tracking-[0.2em] font-bold">
             Performance based program • Terms and Conditions Apply • Powered by
-            Founders
+            Founders Clan
           </p>
         </div>
       </div>

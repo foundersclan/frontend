@@ -82,7 +82,7 @@ export const Footer = () => {
                     </button>
 
                     <div className="flex gap-8">
-                        <span className="text-zinc-700 text-[14px] font-mono uppercase tracking-widest">Made by founders</span>
+                        <span className="text-zinc-700 text-[14px] font-mono uppercase tracking-widest">Made by founders Clan</span>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  Send, Check, Building, ArrowUpRight, ShieldCheck, User, Mail, Linkedin, Activity, Globe, Trophy, Users,
+  Send, Check, Building, ArrowUpRight, ShieldCheck, User, Mail, Linkedin, Activity, Globe, Trophy, Users, PhoneCall
 } from "lucide-react";
 import { Button } from "../components/shared/Button";
 import toast from "react-hot-toast";
@@ -51,7 +51,9 @@ export function ApplicationForm() {
     fullName: "",
     email: "",
     college: "",
+    course: "",
     role: "",
+    phoneNumber: "",
     stage: "",
     linkedin: "",
     reason: "",
@@ -87,7 +89,9 @@ export function ApplicationForm() {
           full_name: formData.fullName,
           email: formData.email,
           college: formData.college,
+          course: formData.course,
           role: formData.role,
+          phoneNumber: formData.phoneNumber,
           stage: formData.stage,
           linkedin: formData.linkedin,
           reason: formData.reason,
@@ -122,7 +126,9 @@ export function ApplicationForm() {
       fullName: "",
       email: "",
       college: "",
+      course: "",
       role: "",
+      phoneNumber: "",
       stage: "",
       linkedin: "",
       reason: "",
@@ -143,7 +149,7 @@ export function ApplicationForm() {
             Application Received.
           </h3>
           <p className="text-zinc-400 max-w-lg mx-auto text-xs sm:text-sm leading-relaxed mb-6 sm:mb-8">
-            Your Campus Ambassador application has been successfully submitted. Our team will review your application and get back to you within 48 hours. Keep an active eye on your communication channels.
+            Your Campus Ambassador application has been successfully submitted. Our team will review your application and get back to you. Keep an active eye on your communication channels.
           </p>
 
           <div className="flex flex-col items-center gap-4">
@@ -185,7 +191,7 @@ export function ApplicationForm() {
           required
           value={formData.fullName}
           onChange={handleChange}
-          placeholder="e.g. Satoshi Nakamoto"
+          placeholder="e.g. Founder Clan"
           icon={User}
         />
         <FormField
@@ -196,8 +202,32 @@ export function ApplicationForm() {
           required
           value={formData.email}
           onChange={handleChange}
-          placeholder="satoshi@bitcoin.org"
+          placeholder="support@foundersclan.com"
           icon={Mail}
+        />
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
+        <FormField
+          label="Your Core Role"
+          id="role"
+          name="role"
+          required
+          value={formData.role}
+          onChange={handleChange}
+          placeholder="e.g. Lead Core Developer"
+          icon={Activity}
+        />
+        <FormField
+          label="Phone Number"
+          id="phoneNumber"
+          name="phoneNumber"
+          type="phoneNumber"
+          required
+          value={formData.phoneNumber}
+          onChange={handleChange}
+          placeholder="+91 98765 4321"
+          icon={PhoneCall}
         />
       </div>
 
@@ -213,13 +243,12 @@ export function ApplicationForm() {
           icon={Building}
         />
         <FormField
-          label="Your Core Role"
-          id="role"
-          name="role"
-          required
-          value={formData.role}
+          label="Course"
+          id="course"
+          name="course"
+          value={formData.course}
           onChange={handleChange}
-          placeholder="e.g. Lead Core Developer"
+          placeholder="e.g. B.Tech Computer Science"
           icon={Activity}
         />
       </div>
@@ -232,13 +261,12 @@ export function ApplicationForm() {
             className="flex items-center gap-1.5 text-[10px] sm:text-[12px] font-bold tracking-widest text-zinc-400 uppercase mb-1.5 sm:mb-2.5 transition-colors group-focus-within:text-amber-400"
           >
             <Building className="w-3.5 h-3.5 text-zinc-500 group-focus-within:text-amber-400/80" />
-            Company Stage <span className="text-amber-400/80">*</span>
+            Company Stage
           </label>
           <div className="relative">
             <select
               id="stage"
               name="stage"
-              required
               value={formData.stage}
               onChange={handleChange}
               className="w-full bg-zinc-950/80 border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300 appearance-none cursor-pointer"
@@ -273,6 +301,7 @@ export function ApplicationForm() {
           id="linkedin"
           name="linkedin"
           value={formData.linkedin}
+          required
           onChange={handleChange}
           placeholder="/founders-clan"
           icon={Linkedin}
@@ -345,7 +374,7 @@ export function ApplyPage() {
           <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-[0.95] mb-4 md:mb-6">
             ENTER THE <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 drop-shadow-[0_2px_15px_rgba(245,158,11,0.25)]">
-              FOUNDERS CAMPUS AMBASSADOR PROGRAM
+              FOUNDERS CAMPUS AMBASSADOR|NEXUS CLUB
             </span>
           </h1>
 

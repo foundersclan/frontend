@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { EventTimeline } from "./EventTimeline";
+import { EventTimeline } from "./eventTimeline";
 import { LegacyEvents, upcomingEvents } from "./eventData";
+import UpcomingEventsPlaceholder from "./UpcomingEventsPlaceholder";
 
 export const Events = () => {
   const [activeTab, setActiveTab] = useState("upcoming");
   const sectionRef = useRef(null);
   useEffect(() => {
-   sectionRef.current?.scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-  });
-}, [activeTab]);
+    sectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [activeTab]);
   return (
     // bg-zinc-950
     <section ref={sectionRef} className="bg-[#050505] py-24">
@@ -40,13 +41,15 @@ export const Events = () => {
       </div>
       {/* Tabs */}
 
-      {activeTab === "upcoming" && (
-        <EventTimeline
-          events={upcomingEvents}
-          title="Upcoming Events"
-          showCTA={false}
-        />
-      )}
+      {activeTab === "upcoming" &&
+        (upcomingEvents.length > 0 ? (
+          <EventTimeline
+            events={upcomingEvents}
+            title="Upcoming Events"
+            showCTA={false}
+          />) : (
+          <UpcomingEventsPlaceholder onExplorePast={() => setActiveTab("past")} />
+        ))}
 
       {activeTab === "past" && (
         <EventTimeline

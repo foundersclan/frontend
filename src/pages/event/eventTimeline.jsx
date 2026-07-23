@@ -9,7 +9,7 @@ export function EventTimeline({ events, showCTA, onCTAClick }) {
   // Track the scroll progress of this specific container section
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"], // Animation starts when container hits center screen, ends near bottom
+    offset: ["start center", "end center"],
   });
 
   // Scale the height of the yellow line container from 0% to 100%
@@ -33,7 +33,7 @@ export function EventTimeline({ events, showCTA, onCTAClick }) {
                 INSIDE <span className="text-[#FDB913]">THE CLAN</span>
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                An Open  Look At Our Pursuit Of Radical Community Growth
+                An Open Look At Our Pursuit Of Radical Community Growth
               </p>
             </motion.div>
           </div>
@@ -48,7 +48,7 @@ export function EventTimeline({ events, showCTA, onCTAClick }) {
                 CHAPTERS <span className="text-[#FDB913]">OF GROWTH</span>
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-               Where Raw Skill Transforms Into Business Authority
+                Where Raw Skill Transforms Into Business Authority
               </p>
             </motion.div>
           </div>
@@ -76,9 +76,8 @@ export function EventTimeline({ events, showCTA, onCTAClick }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className={`relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center ${
-                    isEven ? "" : "md:flex-row-reverse"
-                  }`}
+                  className={`relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center ${isEven ? "" : "md:flex-row-reverse"
+                    }`}
                 >
                   {/* Year indicator */}
                   <div className="hidden md:block absolute left-0 md:left-1/2 transform md:-translate-x-1/2 -translate-y-10 z-10">
@@ -88,9 +87,8 @@ export function EventTimeline({ events, showCTA, onCTAClick }) {
 
                       {/* Year badge */}
                       <div
-                        className={`absolute  top-1/2 -translate-y-1/2 bg-[#FDB913] text-black px-4 py-1 rounded-full tracking-wider whitespace-nowrap left-5 md:left-auto ${
-                          isEven ? "right-5" : "translate-x-5"
-                        }`}
+                        className={`absolute  top-1/2 -translate-y-1/2 bg-[#FDB913] text-black px-4 py-1 rounded-full tracking-wider whitespace-nowrap left-5 md:left-auto ${isEven ? "right-5" : "translate-x-5"
+                          }`}
                       >
                         {event.year}
                       </div>
@@ -99,11 +97,10 @@ export function EventTimeline({ events, showCTA, onCTAClick }) {
 
                   {/* Content - Left side on desktop */}
                   <div
-                    className={`${
-                      isEven
-                        ? "md:text-right md:pr-16"
-                        : "md:col-start-2 md:pl-16"
-                    } pl-8 md:pl-0`}
+                    className={`${isEven
+                      ? "md:text-right md:pr-16"
+                      : "md:col-start-2 md:pl-16"
+                      } pl-8 md:pl-0`}
                   >
                     <div className="space-y-4">
                       {/* mobile Dot  */}
@@ -145,11 +142,10 @@ export function EventTimeline({ events, showCTA, onCTAClick }) {
 
                   {/* Image - Right side on desktop */}
                   <div
-                    className={`${
-                      isEven
-                        ? "md:col-start-2 md:pl-16"
-                        : "md:col-start-1 md:pr-16 md:row-start-1"
-                    } pl-8 md:pl-0`}
+                    className={`${isEven
+                      ? "md:col-start-2 md:pl-16"
+                      : "md:col-start-1 md:pr-16 md:row-start-1"
+                      } pl-8 md:pl-0`}
                   >
                     <motion.div
                       whileHover={{ scale: 1.02 }}

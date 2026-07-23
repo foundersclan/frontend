@@ -47,7 +47,7 @@ export const useLogin = () => {
         const toastId = toast.loading('Logging in...')
         try {
             const data = await loginUser({
-                email:    userCred.email,
+                email: userCred.email,
                 password: userCred.password,
             })
 
@@ -59,9 +59,9 @@ export const useLogin = () => {
             if (data.user.role === 'admin') {
                 navigate('/admin-dashboard')
             } else {
-                navigate('/')
+                navigate('/profile/user')
             }
-            
+
         } catch (error) {
             setisLoggedIn(false)
             setErrors({ general: error.message || 'Login failed' })
@@ -76,9 +76,9 @@ export const useLogin = () => {
         const toastId = toast.loading('Signing in with Google...')
         try {
             const data = await googleLogin({
-                email:     googleUserData.email,
+                email: googleUserData.email,
                 firstName: googleUserData.given_name,
-                lastName:  googleUserData.family_name,
+                lastName: googleUserData.family_name,
             })
 
             setUser(data.user)
@@ -88,7 +88,7 @@ export const useLogin = () => {
             if (data.user.role === 'admin') {
                 navigate('/admin-dashboard')
             } else {
-                navigate('/')
+                navigate('/profile/user')
             }
 
         } catch (error) {

@@ -79,7 +79,7 @@ export default function CommunitySection() {
               <br />
               JOIN
               <br />
-              <span className="text-yellow-400 font-bold">FOUNDERS ?</span>
+              <span className="text-yellow-400 font-bold">FOUNDERS CLAN?</span>
             </h2>
 
             <p className="mt-4 sm:mt-8 max-w-xl text-sm sm:text-lg text-zinc-400 leading-relaxed">

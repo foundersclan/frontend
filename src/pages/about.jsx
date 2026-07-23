@@ -11,9 +11,9 @@ export const AboutUs = () => {
   const [isMuted, setIsMuted] = useState(true);
 
   const avatars = [
-    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80",
+    "/assets/Raja.jpg",
+    "/assets/manav1.jpg",
+    "/assets/tarun.jpg",
   ];
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export const AboutUs = () => {
               <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] font-bold tracking-tighter text-white uppercase">
                 Built by{" "}
                 <span className="italic text-transparent bg-clip-text bg-gradient-to-b from-yellow-200 to-yellow-600">
-                  Founders,
+                  Founders Clan,
                 </span>{" "}
                 <br />
                 For Founders
@@ -339,11 +339,11 @@ export const AboutUs = () => {
 
               {/* Overlapping Avatar Stack */}
               <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
-                <div className="flex -space-x-2.5 overflow-hidden">
+                <div className="flex -space-x-1 overflow-hidden">
                   {avatars.map((src, index) => (
                     <img
                       key={index}
-                      className="inline-block h-7 w-7 rounded-full ring-2 ring-zinc-950 object-cover"
+                      className="inline-block h-8 w-8 rounded-full border-[1.5px] border-black object-cover"
                       src={src}
                       alt={`Founder Member ${index + 1}`}
                     />
