@@ -86,11 +86,12 @@ export const Testimonial = () => {
 
                 <div className="mt-8 sm:mt-10 md:mt-12 flex items-center gap-6">
                   <div className="w-10 sm:w-12 md:w-16 h-[1px] bg-yellow-500/50" />
-                  <div>
-                    <h4 className="text-lg sm:text-xl font-bold text-white tracking-wide">
+                  <div className="flex flex-row gap-4 md:gap-8">
+                    <img src={reviews[index].image} alt={reviews[index].name} className="h-18 w-16 rounded-full border" />
+                    <h4 className="text-lg sm:text-xl font-bold text-white tracking-wide mt-6">
                       {reviews[index].name}
                     </h4>
-                    <p className="text-yellow-500/60 font-mono text-[10px] sm:text-xs uppercase tracking-widest mt-1">
+                    <p className="text-yellow-500/60 font-mono text-[10px] sm:text-xs uppercase tracking-widest mt-6 md:mt-8">
                       {reviews[index].designation}
                     </p>
                   </div>

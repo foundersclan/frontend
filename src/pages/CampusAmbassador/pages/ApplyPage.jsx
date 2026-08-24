@@ -7,6 +7,66 @@ import toast from "react-hot-toast";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
+// ─── Field Validators ──────────────────────────────────────────────────────────
+
+const validateFullName = (name) => {
+  if (!name || !name.trim()) return "Full name is required.";
+  if (name.trim().length < 2) return "Full name must be at least 2 characters.";
+  if (/[^a-zA-Z\s.'-]/.test(name.trim()))
+    return "Full name can only contain letters, spaces, dots, and hyphens.";
+  return "";
+};
+
+const validateEmail = (email) => {
+  if (!email || !email.trim()) return "Email address is required.";
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(email.trim())) return "Please enter a valid email address.";
+  return "";
+};
+
+const validatePhone = (phone) => {
+  if (!phone || !phone.trim()) return "Phone number is required.";
+  const digitsOnly = phone.replace(/\D/g, "");
+  const phoneRegex = /^\+?[0-9\s\-()]{7,20}$/;
+  if (!phoneRegex.test(phone.trim()) || digitsOnly.length < 10 || digitsOnly.length > 15)
+    return "Enter a valid phone number";
+  return "";
+};
+
+const validateLinkedin = (linkedin) => {
+  if (!linkedin || !linkedin.trim()) return "LinkedIn profile is required.";
+  const trimmed = linkedin.trim();
+  const linkedinRegex = /^(https?:\/\/)?(www\.)?linkedin\.com\/(in\/)?[a-zA-Z0-9_-]+\/?$/i;
+  const handleRegex = /^(\/)?(in\/)?[a-zA-Z0-9_-]+\/?$/i;
+  if (!linkedinRegex.test(trimmed) && !handleRegex.test(trimmed))
+    return "Enter a valid LinkedIn profile (e.g. linkedin.com/in/profile or /profile).";
+  return "";
+};
+
+const validateRole = (role) => {
+  if (!role || !role.trim()) return "Core role is required.";
+  if (role.trim().length < 2) return "Role must be at least 2 characters.";
+  return "";
+};
+
+const validateCollege = (college) => {
+  if (!college || !college.trim()) return "College/Organisation is required.";
+  if (college.trim().length < 2) return "College/Organisation must be at least 2 characters.";
+  return "";
+};
+
+const validateReason = (reason) => {
+  if (!reason || !reason.trim()) return "Please state why you want to join.";
+  if (reason.trim().length < 10) return "Reason must be at least 10 characters long.";
+  return "";
+};
+
+const validateGoals = (goals) => {
+  if (!goals || !goals.trim()) return "Please state your main goals.";
+  if (goals.trim().length < 10) return "Goals must be at least 10 characters long.";
+  return "";
+};
+
 /* eslint-disable react/prop-types */
 function FormField({
   label,
@@ -16,8 +76,10 @@ function FormField({
   required = false,
   value,
   onChange,
+  onBlur,
   placeholder,
   icon: Icon,
+  error,
 }) {
   return (
     <div className="group relative">
@@ -35,13 +97,21 @@ function FormField({
           type={type}
           id={id}
           name={name}
-          required={required}
           value={value}
           onChange={onChange}
-          className="w-full bg-zinc-950/80 border border-white/10 rounded-lg sm:rounded-xl pl-3 sm:pl-4 pr-10 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300"
+          onBlur={onBlur}
+          className={`w-full bg-zinc-950/80 border rounded-lg sm:rounded-xl pl-3 sm:pl-4 pr-10 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white placeholder-zinc-600 focus:outline-none transition-all duration-300 ${error
+            ? "border-red-500/70 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
+            : "border-white/10 focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5"
+            }`}
           placeholder={placeholder}
         />
       </div>
+      {error && (
+        <p className="mt-1.5 text-[11px] font-medium text-red-400 flex items-center gap-1">
+          <span>{error}</span>
+        </p>
+      )}
     </div>
   );
 }
@@ -60,20 +130,96 @@ export function ApplicationForm() {
     goals: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
   const [formStage, setFormStage] = useState("editing"); // editing | success
   const [loading, setLoading] = useState(false);
 
-  // Live calculation of completion progress for interactive user feedback
+  const validateField = (name, value) => {
+    let err = "";
+    switch (name) {
+      case "fullName":
+        err = validateFullName(value);
+        break;
+      case "email":
+        err = validateEmail(value);
+        break;
+      case "phoneNumber":
+        err = validatePhone(value);
+        break;
+      case "linkedin":
+        err = validateLinkedin(value);
+        break;
+      case "role":
+        err = validateRole(value);
+        break;
+      case "college":
+        err = validateCollege(value);
+        break;
+      case "reason":
+        err = validateReason(value);
+        break;
+      case "goals":
+        err = validateGoals(value);
+        break;
+      default:
+        break;
+    }
+    return err;
+  };
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (touched[name]) {
+      const err = validateField(name, value);
+      setErrors((prev) => ({ ...prev, [name]: err }));
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    const err = validateField(name, value);
+    setErrors((prev) => ({ ...prev, [name]: err }));
+  };
+
+  const validateAll = () => {
+    const newErrors = {
+      fullName: validateFullName(formData.fullName),
+      email: validateEmail(formData.email),
+      role: validateRole(formData.role),
+      phoneNumber: validatePhone(formData.phoneNumber),
+      college: validateCollege(formData.college),
+      linkedin: validateLinkedin(formData.linkedin),
+      reason: validateReason(formData.reason),
+      goals: validateGoals(formData.goals),
+    };
+
+    setErrors(newErrors);
+
+    const allTouched = {};
+    Object.keys(formData).forEach((key) => {
+      allTouched[key] = true;
     });
+    setTouched(allTouched);
+
+    return Object.values(newErrors).some((err) => Boolean(err));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
+
+    const hasErrors = validateAll();
+    if (hasErrors) {
+      toast.error("Please fix the validation errors before submitting.");
+      return;
+    }
 
     setLoading(true);
     const toastId = toast.loading("Submitting application...");
@@ -134,6 +280,8 @@ export function ApplicationForm() {
       reason: "",
       goals: "",
     });
+    setErrors({});
+    setTouched({});
   };
 
   if (formStage === "success") {
@@ -173,6 +321,7 @@ export function ApplicationForm() {
   return (
     <form
       onSubmit={handleSubmit}
+      noValidate
       className="relative overflow-hidden bg-zinc-950/65 border border-white/10 rounded-2xl sm:rounded-[32px] p-4 sm:p-6 md:p-10 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] group hover:border-white/20 transition-all duration-500 z-10"
     >
       {/* Laser Gradient Accent Line on top */}
@@ -191,6 +340,8 @@ export function ApplicationForm() {
           required
           value={formData.fullName}
           onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.fullName ? errors.fullName : ""}
           placeholder="e.g. Founder Clan"
           icon={User}
         />
@@ -202,6 +353,8 @@ export function ApplicationForm() {
           required
           value={formData.email}
           onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.email ? errors.email : ""}
           placeholder="support@foundersclan.com"
           icon={Mail}
         />
@@ -215,6 +368,8 @@ export function ApplicationForm() {
           required
           value={formData.role}
           onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.role ? errors.role : ""}
           placeholder="e.g. Lead Core Developer"
           icon={Activity}
         />
@@ -222,11 +377,13 @@ export function ApplicationForm() {
           label="Phone Number"
           id="phoneNumber"
           name="phoneNumber"
-          type="phoneNumber"
+          type="tel"
           required
           value={formData.phoneNumber}
           onChange={handleChange}
-          placeholder="+91 98765 4321"
+          onBlur={handleBlur}
+          error={touched.phoneNumber ? errors.phoneNumber : ""}
+          placeholder="+91 98765 43210"
           icon={PhoneCall}
         />
       </div>
@@ -239,6 +396,8 @@ export function ApplicationForm() {
           required
           value={formData.college}
           onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.college ? errors.college : ""}
           placeholder="e.g. ABC University"
           icon={Building}
         />
@@ -303,7 +462,9 @@ export function ApplicationForm() {
           value={formData.linkedin}
           required
           onChange={handleChange}
-          placeholder="/founders-clan"
+          onBlur={handleBlur}
+          error={touched.linkedin ? errors.linkedin : ""}
+          placeholder="https://linkedin.com/in/profile or /profile"
           icon={Linkedin}
         />
       </div>
@@ -319,13 +480,21 @@ export function ApplicationForm() {
         <textarea
           id="reason"
           name="reason"
-          required
           value={formData.reason}
           onChange={handleChange}
+          onBlur={handleBlur}
           rows={3}
-          className="w-full bg-zinc-950/80 border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300 resize-none leading-relaxed"
+          className={`w-full bg-zinc-950/80 border rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white placeholder-zinc-600 focus:outline-none transition-all duration-300 resize-none leading-relaxed ${touched.reason && errors.reason
+            ? "border-red-500/70 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
+            : "border-white/10 focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5"
+            }`}
           placeholder="Detail your execution speed and why the clan is your next strategic home..."
         />
+        {touched.reason && errors.reason && (
+          <p className="mt-1.5 text-[11px] font-medium text-red-400">
+            {errors.reason}
+          </p>
+        )}
       </div>
 
       <div className="mb-6 sm:mb-10">
@@ -339,13 +508,21 @@ export function ApplicationForm() {
         <textarea
           id="goals"
           name="goals"
-          required
           value={formData.goals}
           onChange={handleChange}
+          onBlur={handleBlur}
           rows={3}
-          className="w-full bg-zinc-950/80 border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5 transition-all duration-300 resize-none leading-relaxed"
+          className={`w-full bg-zinc-950/80 border rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3.5 text-xs sm:text-sm text-white placeholder-zinc-600 focus:outline-none transition-all duration-300 resize-none leading-relaxed ${touched.goals && errors.goals
+            ? "border-red-500/70 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
+            : "border-white/10 focus:border-amber-400/40 focus:ring-4 focus:ring-amber-400/5"
+            }`}
           placeholder="Tell us about the big product milestones you're planning to execute..."
         />
+        {touched.goals && errors.goals && (
+          <p className="mt-1.5 text-[11px] font-medium text-red-400">
+            {errors.goals}
+          </p>
+        )}
       </div>
 
       <Button

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Mail, ArrowRight, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Mail, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { FiInstagram, FiLinkedin, FiYoutube } from "react-icons/fi";
+import { FaDiscord } from "react-icons/fa6";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -18,7 +20,7 @@ const validateFullName = (name) => {
 
 const validateEmail = (email) => {
   if (!email.trim()) return "Email is required.";
-  const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z.\-]+\.[a-zA-Z]{2,}$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(email)) return "Enter a valid email address.";
   return null;
 };
@@ -26,7 +28,7 @@ const validateEmail = (email) => {
 const validatePhone = (phone) => {
   if (!phone.trim()) return "Direct line is required.";
   // Strip spaces/dashes for length check
-  const cleaned = phone.replace(/[\s\-]/g, "");
+  const cleaned = phone.replace(/[\s-]/g, "");
   // Indian: +91 followed by exactly 10 digits (starts with 6-9)
   const indianRegex = /^\+91[6-9]\d{9}$/;
   if (!indianRegex.test(cleaned))
@@ -171,17 +173,21 @@ export const ContactForm = () => {
               <div className="flex justify-center lg:justify-start gap-5 pt-6">
                 {[
                   {
-                    Icon: Instagram,
+                    Icon: FiInstagram,
                     path: "https://www.instagram.com/foundersclan/",
                   },
                   {
-                    Icon: Linkedin,
+                    Icon: FiLinkedin,
                     path: "https://www.linkedin.com/in/founders-clan-157208350/",
                   },
                   {
-                    Icon: Youtube,
+                    Icon: FiYoutube,
                     path: "https://www.youtube.com/channel/UCUggs5dM1_dVGRx5TaAkvmg/posts?pvf=CAI%253D",
                   },
+                  {
+                    Icon: FaDiscord,
+                    path: import.meta.env.VITE_DISCORD_URL
+                  }
                 ].map((social, i) => (
                   <a
                     key={i}

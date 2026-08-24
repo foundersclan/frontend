@@ -1,6 +1,6 @@
 import "./index.css"
 import { AboutUs } from "./pages/about"
-import { Faqs } from "./pages/faqs"
+import { Faqs } from "./pages/Faqs"
 import { ContactPage } from "./pages/contact"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Applayout } from "./components/Applayout"
@@ -21,6 +21,8 @@ import { Events } from "./pages/event/events"
 import { LazyMotion, domAnimation } from "framer-motion";
 import CampusAmbassador from "./pages/CampusAmbassador/CampusAmbassador"
 import ProtectedRoute from "./auth/ProtectedRoute"
+import Discord from "./pages/Discord"
+
 
 const router = createBrowserRouter([
   {
@@ -49,10 +51,11 @@ const router = createBrowserRouter([
             <AdminDashboard />
           </ProtectedRoute>)
       },
-      { path: "/request-invitation", element: <Requests /> },
+      // { path: "/request-invitation", element: <Requests /> },
       { path: "/services", element: <ComingSoon /> },
       { path: "/blog", element: <ComingSoon /> },
-      { path: "/CampusAmbassador/*", element: <CampusAmbassador /> }
+      { path: "/CampusAmbassador/*", element: <CampusAmbassador /> },
+      { path: "/Discord", element: <Discord /> }
     ]
   }
 ])

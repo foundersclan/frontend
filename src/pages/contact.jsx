@@ -2,8 +2,8 @@ import { useContext, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { MyContext } from "../context/my-context";
 import { ContactForm } from "../components/contact-form";
-import { Faqs } from "./faqs";
 import { Loader } from "../components/components/loading";
+import { Faqs } from "./Faqs";
 export const ContactPage = () => {
 
   const { loading } = useContext(MyContext);

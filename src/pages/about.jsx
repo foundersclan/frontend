@@ -1,6 +1,7 @@
 import { Sparkle, Target, ShieldCheck, Quote, Compass, Users, VolumeX, Volume2, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const CLOUDINARY_VIDEO_URL = import.meta.env.VITE_FOUNDERS_CLAN_INTRO_VIDEO;
 
@@ -44,6 +45,72 @@ export const AboutUs = () => {
       setIsMuted(videoRef.current.muted);
     }
   };
+
+
+  const tickerItems = [
+    {
+      label: "IDEA LAB",
+      value: "COMING SOON",
+      type: "event",
+    },
+    {
+      label: "COMMUNITY",
+      value: "JOIN NOW",
+      type: "growth",
+    },
+    {
+      label: "FOUNDERS CAMPUS AMBASSADOR",
+      value: "REGISTRATIONS OPEN",
+      type: "event",
+    },
+    {
+      label: "PITCH NIGHT",
+      value: "MINI SHARK TANK FORMAT",
+      type: "event",
+    },
+  ];
+
+  const TickerItems = ({ duplicate = false }) => (
+    <div
+      className="flex shrink-0"
+      aria-hidden={duplicate ? "true" : undefined}
+    >
+      {tickerItems.map((item, index) => (
+        <span
+          key={`${duplicate ? "duplicate-" : ""}${index}`}
+          className="
+          px-8
+          flex items-center gap-2
+          font-mono
+          text-[10px] md:text-xs
+          tracking-wider
+          font-semibold
+        "
+        >
+          {/* Status dot */}
+          <span
+            className="w-1.5 h-1.5 rounded-full shrink-0 bg-black"
+          />
+
+          {/* Label */}
+          <span className="font-bold">
+            {item.label}
+          </span>
+
+          {/* Separator */}
+          <span className="">
+            —
+          </span>
+
+          {/* Value */}
+          <span className="">
+            {item.value}
+          </span>
+        </span>
+      ))}
+    </div>
+  );
+
 
   return (
     <section
@@ -98,7 +165,7 @@ export const AboutUs = () => {
           </div>
         </div>
 
-        {/* 3. THE FOUNDER & PHILOSOPHY GRID */}
+        {/* 3. THE FOUNDER, PHILOSOPHY & OTHER GRID */}
         <div className="grid grid-cols-12 gap-5 md:gap-8">
           {/* Meet Nishant Card */}
           <motion.div
@@ -109,7 +176,7 @@ export const AboutUs = () => {
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-yellow-500/20">
                   <img
-                    src="/team/nishant2.jpeg"
+                    src="/team/Nishant.webp"
                     alt="Nishant CEO"
                     className="w-full h-full object-cover  group-hover:transition-all duration-500"
                   />
@@ -176,7 +243,6 @@ export const AboutUs = () => {
           </motion.div>
 
           {/* video section */}
-
           {/* Parent wrapper needs 'relative' and padding so the peeking boxes don't get clipped,Wrapped the block in a col-span-12 div to obey your parent 12-column grid layout */}
           <div ref={containerRef} className="col-span-12 w-full my-6 flex justify-center px-0 sm:px-4">
             <div className="relative w-full max-w-6xl">
@@ -199,11 +265,12 @@ export const AboutUs = () => {
                     onContextMenu={(e) => e.preventDefault()}
                   />
                   <div className="hidden md:block absolute top-4 left-4 z-20 bg-black/60 backdrop-blur-md text-white font-mono md:text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-white/10 pointer-events-none select-none">
-                    Clan Member Exclusive // Do Not Distribute
+                    FOUNDERS CLAN EXCLUSIVE
                   </div>
                   <video
                     ref={videoRef}
                     src={CLOUDINARY_VIDEO_URL}
+                    poster="/assets/Cover_image_BG_videoSection.webp"
                     className="w-full h-full object-cover"
                     loop
                     playsInline
@@ -286,76 +353,170 @@ export const AboutUs = () => {
             </div>
           </div>
 
-          {/* CTA Banner */}
+          {/* CTA BANNER SECTION  */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="col-span-12  w-full bg-gradient-to-r from-yellow-200/2 to-yellow-600/40 rounded-3xl p-8 md:p-10 lg:p-12 flex flex-col xl:flex-row items-center justify-between gap-8 mt-15 relative overflow-hidden shadow-[0_0_50px_rgba(234,179,8,0.02)]"
+            className="col-span-12 w-full mt-15"
           >
-            <div className="absolute bg-[radial-gradient(circle_at_70%_50%,rgba(234, 178, 8, 0.14)_0%,transparent_10%)] pointer-events-none" />
-            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 w-full lg:w-auto">
+            {/* CTA / HERO */}
+            <section className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-yellow-200/4 to-yellow-600/20 shadow-[0px_0px_8px_rgba(234,179,6,0.5)]">
 
-              {/* Radar Icon Circle Graphic */}
-              <div className="relative flex items-center justify-center shrink-0">
-                {/* Outer dotted decorative spots */}
-                <span className="absolute top-2.5 right-3 w-1.5 h-1.5 bg-yellow-500 rounded-full opacity-80" />
-                <span className="absolute bottom-4.5 left-2 w-1 h-1 bg-yellow-500 rounded-full opacity-60" />
+              {/* Subtle background glow — KEEPING YOUR EXISTING THEME */}
+              {/* <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-yellow-500/[0.035] blur-[100px] rounded-full" />
+              </div> */}
 
-                {/* Concentric rings */}
-                <div className="w-24 h-24 rounded-full border border-yellow-500/20 flex items-center justify-center p-3">
-                  <div className="w-full h-full rounded-full border border-yellow-500/40 bg-yellow-500/[0.02] flex items-center justify-center">
-                    <Users className="w-8 h-8 text-yellow-500" strokeWidth={1.5} />
+              {/* MAIN CONTENT */}
+              <div className="relative px-6 py-6 md:px-10 md:py-10 lg:px-16 lg:py-12 text-center">
+
+                {/* Radar Icon Circle Graphic */}
+                <div className="relative flex items-center justify-center shrink-0 mb-4">
+                  {/* outer rings */}
+                  <div className="relative w-24 h-24 rounded-full border border-yellow-500/20 flex items-center justify-center p-3">
+                    {/* Outer dotted decorative spots */}
+                    <span className="absolute top-2.5 right-3 w-1.5 h-1.5 bg-yellow-600 rounded-full opacity-90" />
+                    <span className="absolute bottom-4.5 left-1.5 w-1 h-1 bg-yellow-600 rounded-full opacity-90" />
+
+                    {/* Inner rings */}
+                    <div className="w-full h-full rounded-full border border-yellow-500/40 bg-yellow-500/[0.02] flex items-center justify-center">
+                      <Users className="w-8 h-8 text-yellow-500" strokeWidth={1.5} />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="text-center md:text-left space-y-2 max-w-xl">
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-zinc-100">
-                  Stop Building <span className="text-yellow-500">in the Dark.</span>
-                </h3>
-                <p className="text-zinc-400 text-sm md:text-base font-normal leading-relaxed">
-                  Join a community that values your growth as much as you do.
+                {/* Main Heading */}
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[0.95] text-zinc-100 max-w-4xl mx-auto">
+                  Stop Building{" "}
+                  <span className="text-yellow-500">
+                    in the Dark.
+                  </span>
+                </h2>
+
+                {/* Description */}
+                <p className="mt-6 text-sm md:text-base lg:text-lg text-zinc-400 leading-relaxed max-w-xl mx-auto">
+                  Join a community that gives you the room, the people,
+                  and the pressure-testing to actually build — not just
+                  talk about building.
                 </p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center lg:items-end gap-5 w-full lg:w-auto shrink-0">
 
-              <a
-                href={import.meta.env.VITE_DISCORD_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full md:w-auto"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full sm:w-auto px-10 py-4.5 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xs uppercase tracking-wider rounded-xl flex items-center justify-center gap-3 shadow-[0_4px_25px_rgba(234,179,8,0.15)] transition-colors duration-200"
-                >
-                  Join The Founders Clan
-                  <ArrowRight className="w-4 h-4 text-black" strokeWidth={2.5} />
-                </motion.button>
-              </a>
+                {/* CTA ROW */}
+                <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
 
-              {/* Overlapping Avatar Stack */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
-                <div className="flex -space-x-1 overflow-hidden">
-                  {avatars.map((src, index) => (
-                    <img
-                      key={index}
-                      className="inline-block h-8 w-8 rounded-full border-[1.5px] border-black object-cover"
-                      src={src}
-                      alt={`Founder Member ${index + 1}`}
-                    />
-                  ))}
+                  {/* Primary CTA */}
+                  <Link
+                    to="/Discord"
+                    className="w-full sm:w-auto"
+                  >
+                    <motion.button
+                      whileHover={{ scale: 1.03, y: -1 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="
+                        w-full sm:w-auto
+                        px-7 py-4
+                        bg-yellow-500
+                        hover:bg-yellow-400
+                        text-black
+                        font-bold
+                        text-xs
+                        uppercase
+                        tracking-wider
+                        rounded-xl
+                        flex items-center justify-center gap-3
+                        shadow-[0_4px_25px_rgba(234,179,8,0.15)]
+                        transition-colors duration-200
+                      "
+                    >
+                      Join The Founders Clan
+
+                      <ArrowRight
+                        className="w-4 h-4"
+                        strokeWidth={2.5}
+                      />
+                    </motion.button>
+                  </Link>
+
+                  {/* Secondary CTA */}
+                  <Link
+                    to="/CampusAmbassador/"
+                    className="
+                      w-full sm:w-auto
+                      px-7 py-4
+                      border border-zinc-700
+                      hover:border-yellow-500/60
+                      hover:bg-yellow-500/[0.04]
+                      text-zinc-300
+                      hover:text-zinc-100
+                      font-bold
+                      text-xs
+                      uppercase
+                      tracking-wider
+                      rounded-xl
+                      transition-all duration-200
+                    "
+                  >
+                    Become a Campus Ambassador
+                  </Link>
+
                 </div>
-                <p className="text-sm text-zinc-400 font-medium tracking-wide">
-                  <span className="text-yellow-500 font-bold"></span> Founders already joined
-                </p>
+
+                {/* MEMBER PROOF */}
+                <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+
+                  {/* Avatar Stack */}
+                  <div className="flex -space-x-2">
+                    {avatars.map((src, index) => (
+                      <img
+                        key={index}
+                        className="
+                          h-10 w-10
+                          rounded-full
+                          border-2 border-black
+                          object-cover
+                        "
+                        src={src}
+                        alt={`Founder member ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <p className="text-sm text-zinc-400 tracking-wide">
+                    <span className="text-yellow-500 font-bold">
+                      Founders
+                    </span>{" "}
+                    already joined
+                  </p>
+
+                </div>
               </div>
 
-            </div>
+
+              {/* TICKER */}
+
+              <div
+                className="
+                  relative
+                  overflow-hidden
+                  border-t border-yellow-500/10
+                  bg-yellow-500
+                  text-black
+                  py-3
+                  whitespace-nowrap
+                "
+                aria-hidden="true"
+              >
+                <div className="flex w-max animate-[scroll_30s_linear_infinite]">
+                  <TickerItems />
+                  <TickerItems duplicate />
+                </div>
+              </div>
+
+            </section>
           </motion.div>
+
+
+
         </div>
       </div>
 

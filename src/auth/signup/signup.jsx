@@ -91,7 +91,7 @@ const Signup = () => {
               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-zinc-500 group-focus-within:text-yellow-500 transition-colors" />
               <input
                 type="password"
-                placeholder="Cipher (Password)"
+                placeholder="Enter Password"
                 value={userdata.password}
                 onChange={(e) => setUserData({ ...userdata, password: e.target.value })}
                 className="w-full bg-black/40 border border-white/5 rounded-xl py-3.5 pl-12 pr-4 text-white text-sm placeholder:text-zinc-600 focus:border-yellow-500/50 outline-none transition-all"
@@ -103,7 +103,7 @@ const Signup = () => {
               <Phone className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-zinc-500 group-focus-within:text-yellow-500 transition-colors" />
               <input
                 type="tel"
-                placeholder="Communication Line (Phone)"
+                placeholder="Phone No"
                 value={userdata.phone}
                 onChange={(e) => setUserData({ ...userdata, phone: e.target.value })}
                 className="w-full bg-black/40 border border-white/5 rounded-xl py-3.5 pl-12 pr-4 text-white text-sm placeholder:text-zinc-600 focus:border-yellow-500/50 outline-none transition-all"

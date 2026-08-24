@@ -1,8 +1,8 @@
 import { motion } from "motion/react";
-import team from "../assets/team-insights.webp"
-import lead from "../assets/think-insight.jpeg"
-import grow from "../assets/grow-insight.jpeg"
-import strong from "../assets/strong-insight.jpeg"
+import team from "/pastEvents/team-insights.webp"
+import lead from "/pastEvents/think-insight.jpeg"
+import grow from "/pastEvents/grow-insight.jpeg"
+import strong from "/pastEvents/strong-insight.jpeg"
 import { ArrowRight } from "lucide-react";
 export const Insights = () => {
   const insights = [

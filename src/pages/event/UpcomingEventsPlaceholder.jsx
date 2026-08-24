@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Instagram, History, Linkedin } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { FaDiscord } from "react-icons/fa6";
+import { Link, NavLink } from "react-router-dom";
 
 export default function UpcomingEventsPlaceholder({ onExplorePast }) {
     return (
@@ -91,6 +92,32 @@ export default function UpcomingEventsPlaceholder({ onExplorePast }) {
                     {/* Cards */}
 
                     <div className="mt-12 flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory -mx-2 px-2 no-scrollbar md:grid md:grid-cols-3 md:gap-5 md:pb-0 md:mx-0 md:px-0 md:overflow-visible">
+
+                        {/* Discord */}
+                        <Link
+                            to="/Discord"
+                            className="shrink-0 w-[270px] md:w-auto snap-center group relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-800/70 p-4 transition-all duration-300 hover:-translate-y-2 hover:border-amber-500/40 hover:shadow-[0_15px_40px_rgba(245,158,11,.08)] text-left"
+                        >
+
+                            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 transition group-hover:opacity-100" />
+
+                            <div className="relative">
+
+                                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10">
+                                    <FaDiscord alt="discord" className="w-5 h-5 sm:w-6 sm:h-6 text-amber-300" />
+                                </div>
+
+                                <h3 className="font-semibold text-white">
+                                    Discord
+                                </h3>
+
+                                <p className="mt-2 text-[12px] text-zinc-500">
+                                    Where we post first — events, openings, and daily build talk.
+                                </p>
+
+                            </div>
+
+                        </Link>
 
                         {/* Instagram */}
 

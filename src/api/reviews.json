@@ -2,10 +2,9 @@
   {
     "id": 1,
     "name": "Aman",
-    "department": "Mechanical Engineering",
-    "year": "First Year",
-    "designation" : "Software Engineer",
+    "designation": "Software Engineer",
     "joined_on": "2024-02-20",
+    "image": "/team/aman2.jpeg",
     "sessions_attended": [
       {
         "title": "The Emotional Cycle of Change",
@@ -17,54 +16,48 @@
   {
     "id": 2,
     "name": "Tarun",
+    "image": "/assets/tarun.jpg",
     "experience": "The experience was amazing. I’ve learned a lot. This community helps with personal and career growth, freelancing, and mindset. Grateful to Mr. Nishant and everyone in the community."
   },
   {
     "id": 3,
     "name": "Khushi",
-    "department": "Mechanical",
-    "designation" : "Viral Engineer",
-    "sessions_attended": [
-      {
-        "title": "Rich Mindset and Psychology of Money",
-        "summary": "Explored wealth mindset, risk tolerance, and financial discipline."
-      },
-      {
-        "title": "The Art of Introduction: Formal vs Informal",
-        "summary": "Discussed communication styles with real-life examples."
-      },
-      {
-        "title": "Describing Elements of Story",
-        "summary": "Group activity on storytelling and creative thinking."
-      }
-    ],
+    "designation": "HR and sponsorship coordinator",
+    "image": "/team/Khushi_Chauhan1.webp",
     "experience": "Appreciated the quotes and group activities. Gained confidence and highly recommends the community."
   },
   {
     "id": 4,
     "name": "Jaya",
-    "designation" : "Marketing Head",
+    "designation": "Marketing Head",
+    "image": "/team/jaya2.jpeg",
     "experience": "My experience was awesome. I learned a lot and appreciate the efforts of Mr. Nishant and the community for creating a growth-focused space."
   },
   {
     "id": 5,
     "name": "Jayant",
-    "designation" : "Social Media Director",
+    "image": "/team/jayant.jpeg",
+    "designation": "Social Media Director",
     "experience": "Founders Community boosted my confidence and gave me clarity. Mentors care and sessions are practical. I feel lucky to have joined during college."
   },
   {
     "id": 6,
     "name": "Aaryan",
-    "designation" : "Video Editor",
+    "image": "/team/aaryan.jpeg",
+    "designation": "Video Editor",
     "experience": "Grateful to have found this in college. Helped gain clarity and confidence in life and career. Practical sessions with real value."
   },
   {
     "id": 7,
     "name": "Sujal Pruthi",
-    "designation" : "Mechnical Engineer",
+    "designation": "Mechnical Engineer",
+    "image": "/team/Sujal_Pruthi.jpg",
     "sessions_attended": [
       {
-        "topics": ["Finances", "Communication"],
+        "topics": [
+          "Finances",
+          "Communication"
+        ],
         "summary": "Sessions were practical, open, and helpful with direct insights."
       }
     ],

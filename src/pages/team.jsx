@@ -4,17 +4,19 @@ import { Quote } from "lucide-react";
 
 export const TeamIntro = () => {
   const team = [
-    { name: "Nishant Saini", role: "Chief Visionary", src: "/team/nishant3.jpeg" },
-    { name: "Rakesh Jha", role: "Technical Product Manager", src: "/team/rakesh1.jpeg" },
-    { name: "Aman Monga", role: "G.O.A.T of Tech", src: "/team/aman2.jpeg" },
-    // { name: "Riya", role: "Operations Lead", image: "/team/riya.jpeg" },
-    { name: "Shourya Sharma", role: "Impact Catalyst", src: "/team/shourya.jpeg" },
-    { name: "Jayant", role: "Media Team Manager", src: "/team/jayant.jpeg" },
-    { name: "Muskan Jindal", role: "Offline Market Head", src: "/team/muskan1.jpeg" },
-    { name: "Jaya Saini", role: "Engagement Lead", src: "/team/jaya2.jpeg" },
-    { name: "Aaryan", role: "Video Editor", src: "/team/aryan.jpeg" },
-    { name: "Khushi Chauhan", role: "Viral Engineer", src: "/team/khushi1.jpeg" },
-    { name: "Ambhuj", role: "Content Creator", src: "/team/ambuj.jpeg" }
+    { name: "Nishant Saini", role: "Chief Visionary", image: "/team/Nishant.webp" },
+    { name: "Rakesh Jha", role: "Technical Product Manager", image: "/team/Rakesh.webp" },
+    { name: "Shourya Sharma", role: "Impact Catalyst", image: "/team/Shourya.webp" },
+    { name: "Deepika", role: "Joint coordinator", image: "/team/Deepika.webp" },
+    { name: "Nayan", role: "Joint coordinator", image: "/team/Nayan.webp" },
+    { name: "Khushi Chauhan", role: "HR and sponsorship coordinator", image: "/team/khushi_Chauhan.webp" },
+    { name: "Diya", role: "Event organizing coordinator", image: "/team/Diya.webp" },
+    { name: "Vinay", role: "Content Creation Head ", image: "/team/Vinay.webp" },
+    { name: "Khushi Gupta", role: "Infographics coordinator", image: "/team/Khushi_Gupta.webp" },
+    // { name: "Manpreet", role: "Media coordinator", image: "/team/Manpreet.webp" },
+    { name: "Prachi ", role: "Documentation head", image: "/team/Prachi.webp" },
+    { name: "Ridhima", role: "Video Editor", image: "/team/Ridhima.webp" },
+    // { name: "Khushi", role: "Web Developer", image: "/team/Khushi.webp" },
   ];
 
   const scrollSectionRef = useRef(null);
@@ -83,22 +85,22 @@ export const TeamIntro = () => {
         <motion.div style={{ x: xTranslate }} className="will-change-transform">
           <motion.div
             className="flex gap-6 w-max"
-            animate={{ x: ["0%", "-33%"] }}
+            animate={{ x: ["0%", "-53%"] }}
             transition={{
-              duration: 20,
+              duration: 50,
               ease: "linear",
               repeat: Infinity,
             }}
             style={{ width: "max-content" }}
           >
             {/* Render twice for seamless loop */}
-            {[...team, ...team].map((member, index) => (
+            {[...team, ...team, ...team].map((member, index) => (
               <div
                 key={index}
                 className="group relative rounded-2xl md:rounded-3xl overflow-hidden flex-shrink-0 bg-zinc-900 border border-white/5 w-[220px] h-[300px] sm:w-[250px] sm:h-[330px] md:w-[270px] md:h-[350px] lg:w-[280px] lg:h-[360px]"
               >
                 <img
-                  src={member.src}
+                  src={member.image}
                   alt={member.name}
                   className="w-full h-full object-cover object-top  group-hover:scale-115 transition-all duration-700 ease-in-out"
                 />

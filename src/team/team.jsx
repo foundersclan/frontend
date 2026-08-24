@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ShieldCheck } from 'lucide-react';
-import team from '../assets/think-insight.jpeg'
+import team from '/pastEvents/think-insight.jpeg'
+import { Link } from 'react-router-dom';
 const Team = () => {
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -8,16 +9,19 @@ const Team = () => {
   };
 
   const allMembers = [
-    { name: "Nishant Saini", role: "Chief Visionary", image: "/team/nishant3.jpeg" },
-    { name: "Aman Monga", role: "G.O.A.T of Tech", image: "/team/aman.jpeg" },
-    // { name: "Riya", role: "Operations Lead", image: "/team/riya.jpeg" },
-    { name: "Shourya Sharma", role: "Impact Catalyst", image: "/team/shourya.jpeg" },
-    { name: "Jayant", role: "Media Team Manager", image: "/team/jayant.jpeg" },
-    { name: "Muskan Jindal", role: "Offline Market Head", image: "/team/muskan1.jpeg" },
-    { name: "Jaya Saini", role: "Engagement Lead", image: "/team/jaya2.jpeg" },
-    { name: "Aaryan", role: "Video Editor", image: "/team/aryan.jpeg" },
-    { name: "Khushi Chauhan", role: "Viral Engineer", image: "/team/khushi1.jpeg" },
-    { name: "Ambhuj", role: "Content Creator", image: "/team/ambuj.jpeg" }
+    { name: "Nishant Saini", role: "Chief Visionary", image: "/team/Nishant.webp" },
+    { name: "Rakesh Jha", role: "Technical Product Manager", image: "/team/Rakesh.webp" },
+    { name: "Shourya Sharma", role: "Impact Catalyst", image: "/team/Shourya.webp" },
+    { name: "Deepika", role: "Joint coordinator", image: "/team/Deepika.webp" },
+    { name: "Nayan", role: "Joint coordinator", image: "/team/Nayan.webp" },
+    { name: "Khushi Chauhan", role: "HR and sponsorship coordinator", image: "/team/khushi_Chauhan.webp" },
+    { name: "Diya", role: "Event organizing coordinator", image: "/team/Diya.webp" },
+    { name: "Vinay", role: "Content Creation Head", image: "/team/Vinay.webp" },
+    { name: "Khushi Gupta", role: "Infographics coordinator", image: "/team/Khushi_Gupta.webp" },
+    // { name: "Manpreet", role: "Media coordinator", image: "/team/Manpreet.webp" },
+    { name: "Prachi ", role: "Documentation head", image: "/team/Prachi.webp" },
+    { name: "Ridhima", role: "Video Editor", image: "/team/Ridhima.webp" },
+    // { name: "Khushi", role: "Web Developer", image: "/team/Khushi.webp" },
   ];
 
   return (
@@ -33,7 +37,7 @@ const Team = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
 
         <motion.div variants={fadeInUp} className="relative z-10">
-          <span className="text-amber-500 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.5em] mb-6 block">
+          <span className="text-amber-500 text-[10px] sm:text-[14px] font-mono font-bold uppercase tracking-[0.5em] mb-6 block">
             Collective Intelligence
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-black mb-6 tracking-tighter">
@@ -148,10 +152,8 @@ const Team = () => {
             <span className="italic font-serif text-amber-500">{allMembers.length} Architects.</span>
           </h2>
 
-          <a
-            href={import.meta.env.VITE_DISCORD_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/Discord"
             className="flex justify-center px-5"
           >
             <motion.button
@@ -161,7 +163,7 @@ const Team = () => {
             >
               Collaborate With Us
             </motion.button>
-          </a>
+          </Link>
         </motion.div>
       </section>
     </div>

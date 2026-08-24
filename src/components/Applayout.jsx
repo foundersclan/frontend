@@ -34,6 +34,9 @@ export const Applayout = () => {
             <Loader />
         )
     }
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [location]);
     return (
         <>
             {

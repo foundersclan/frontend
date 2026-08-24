@@ -1,6 +1,8 @@
 import { Instagram, Linkedin, Youtube, ArrowUpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { FiInstagram, FiLinkedin, FiYoutube } from "react-icons/fi";
+import { FaDiscord } from "react-icons/fa6";
 
 const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -9,9 +11,10 @@ export const Footer = () => {
 
     // Social data array - Fixed syntax
     const socialLinks = [
-        { Icon: Instagram, path: "https://www.instagram.com/foundersclan/" },
-        { Icon: Linkedin, path: "https://www.linkedin.com/in/founders-clan-157208350/" },
-        { Icon: Youtube, path: "https://www.youtube.com/channel/UCUggs5dM1_dVGRx5TaAkvmg/posts?pvf=CAI%253D" }
+        { Icon: FiInstagram, path: "https://www.instagram.com/foundersclan/" },
+        { Icon: FiLinkedin, path: "https://www.linkedin.com/in/founders-clan-157208350/" },
+        { Icon: FiYoutube, path: "https://www.youtube.com/channel/UCUggs5dM1_dVGRx5TaAkvmg/posts?pvf=CAI%253D" },
+        { Icon: FaDiscord, path: import.meta.env.VITE_DISCORD_URL },
     ];
 
     return (
@@ -44,7 +47,7 @@ export const Footer = () => {
                                     whileHover={{ y: -3, color: "#EAB308" }}
                                     className="text-zinc-400 transition-colors"
                                 >
-                                    <Icon size={22} strokeWidth={1.5} />
+                                    <Icon size={24} strokeWidth={1.5} />
                                 </motion.a>
                             ))}
                         </div>

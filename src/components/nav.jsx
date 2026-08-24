@@ -55,21 +55,11 @@ export const NavBar = ({ handleMenu }) => {
         </NavLink>
       </div>
 
-      {/* 2. CENTER STATUS (Hidden on Mobile/Tablet) */}
-      {/* <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 hidden xl:flex items-center gap-3">
-        <span className="w-1 h-1 rounded-full bg-yellow-500/50 animate-ping" />
-        <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-[0.5em] leading-none">
-          Live Session // Active
-        </span>
-        <span className="w-1 h-1 rounded-full bg-yellow-500/50 animate-ping" />
-      </div> */}
 
       {/* 3. ACTIONS SECTION */}
       <div className="flex items-center gap-2 md:gap-6 pointer-events-auto">
-        <a
-          href={import.meta.env.VITE_DISCORD_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/Discord"
         >
           <motion.button
             whileHover={{ y: -2 }}
@@ -83,7 +73,7 @@ export const NavBar = ({ handleMenu }) => {
           >
             <span className="xs:hidden">Join Clan</span>
           </motion.button>
-        </a>
+        </Link>
 
         {/* <Link to={destination}>
           <motion.div
@@ -99,7 +89,7 @@ export const NavBar = ({ handleMenu }) => {
           </motion.div>
         </Link> */}
 
-        {/* for websites */}
+        {/* Hamburger menu */}
         <button
           onClick={handleMenu}
           className="group md:flex hidden flex-col justify-center items-end gap-1.5 w-10 h-10 md:w-12 md:h-12 bg-zinc-900/40 backdrop-blur-xl border border-white/5 rounded-full px-3 md:px-3.5 hover:border-yellow-500/50 transition-all duration-500"
