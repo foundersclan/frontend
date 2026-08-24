@@ -51,7 +51,7 @@ const router = createBrowserRouter([
             <AdminDashboard />
           </ProtectedRoute>)
       },
-      // { path: "/request-invitation", element: <Requests /> },
+      // { path: "/request-invitation", element: <Requests /> }, 
       { path: "/services", element: <ComingSoon /> },
       { path: "/blog", element: <ComingSoon /> },
       { path: "/CampusAmbassador/*", element: <CampusAmbassador /> },
